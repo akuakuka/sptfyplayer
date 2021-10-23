@@ -7,25 +7,21 @@ import { AuthContext } from "./hooks/useAuth";
 const BASEURL = "http://localhost:3000/api"
 const SPOTIFYBASEURL = "https://api.spotify.com/v1"
 
-const API = axios.create({
-  timeout: 1000,
-  withCredentials: true,
-});
+const API = axios.create({});
+
+const usr = localStorage.getItem("user");
+console.log(usr)
+//TODO: Headeri Bearer instanceen api
 
 export const play = (token: string, deviceID: string, ids: string[]) => {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  }
-  API.defaults.withCredentials = false;
-  API.put(`${SPOTIFYBASEURL}/me/player/play?device_id=${deviceID}`,JSON.stringify({ uris: ids }), {headers})
+  API.put(`${SPOTIFYBASEURL}/me/player/play?device_id=${deviceID}`,JSON.stringify({ uris: ids }))
 };
 
 export const getArtists = async (): Promise<spotifyArtist[]> => {
-  const resp = await API.get(`${BASEURL}/artists`);
-  console.log(resp.data.artists)
+  const response = await API.get<spotifyArtist[]>(`${BASEURL}/artists`);
+  console.log(response)
   //@ts-ignore
-  return resp.data.artists.items
+  return response
 }
 
 export const getArtist = async (id: string): Promise<spotifyArtist> => {
@@ -53,9 +49,9 @@ export const search = async (term: string): Promise<SpotifySearchResult> => {
 }
 
 export const checkAuth = async (): Promise<spotifyUser> => {
-  const resp = await API.get(`${BASEURL}/check/`)
+  const resp = await API.get(`${BASEURL}/check/`,)
   //@ts-ignore
-  return resp.data
+  return resp
 }
 
 export const refreshToken = async (): Promise<spotifyUser> => {
@@ -65,34 +61,45 @@ export const refreshToken = async (): Promise<spotifyUser> => {
 }
 
 
-API.interceptors.request.use(config => {
+/* API.interceptors.request.use(config => {
   if (config.url?.startsWith("https://api.spotify.com")) {
     config.withCredentials = false;
   }
   return config;
-});
+}); */
 
 API.interceptors.request.use(config => {
-  /*   //console.log("STATUS : " , error.response.status)
-    console.log("intercece")
-  //  if (error.config && error.response && error.response.status === 401) {
-      console.log("ERROR ->  REFRESHING")
-      return refreshToken().then((token) => {
-        console.log("refreshToken interceptor")
-        console.log(token)
-        console.log(config.headers)
-     //    error.config.headers.xxxx <= set the token
-        return axios.request(error.config);
-      });
-  //  }
-    return Promise.reject(error); */
-    console.log("REQUEST")
-    console.log(config)
-    console.log(config.withCredentials)
-    console.log(JSON.stringify(config))
+    const token = localStorage.getItem("user");
+    if (token) {
+      console.log("TOKEN löyty")
+      //@ts-ignore
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
-  });
-  
+  },
+  error => Promise.reject(error)
+);
+
+API.interceptors.response.use(config => {
+  console.log(config.config.url)
+  console.log("3333333333333333")
+  console.log(config.status)
+  console.log(config.statusText)
+},
+error => Promise.reject(error)
+);
+
+
+
+
+/* 
+{
+    "error": {
+        "status": 401,
+        "message": "The access token expired"
+    }
+} */
+
 
 API.interceptors.response.use(config => {
 /*   //console.log("STATUS : " , error.response.status)
@@ -108,8 +115,7 @@ API.interceptors.response.use(config => {
     });
 //  }
   return Promise.reject(error); */
-  console.log("response")
-  console.log(config)
+
   return config;
 });
 

@@ -9,6 +9,7 @@ import {
 import { search } from "../API";
 import Album from "./Album";
 import Artist from "./Artist";
+import Item from "./Item";
 
 const SearchResultPage: React.FC = () => {
   const [artists, setArtists] = useState<SearchResultArtist[]>(Object);
@@ -43,25 +44,26 @@ const SearchResultPage: React.FC = () => {
         <Spinner />
       ) : (
         <Flex>
-          <Flex direction="column">
+          <Flex direction="column" width="40vw" gridGap="5">
             <Heading> Artistit</Heading>
             {artists.length && (
-              <>
+               <Flex direction="row" width="40vw"gridGap="5" minWidth="42vw" wrap="wrap">
                 {artists.map((a, i) => (
-                  <Artist key={i} {...a} />
+                   <Item {...a} key={i}/>
                 ))}
-              </>
+            </Flex>
             )}
           </Flex>
           <Spacer />
-          <Flex direction="column">
+          <Flex direction="column" width="40vw" gridGap="5">
             <Heading> Albumit</Heading>
-            {artists.length && (
-              <>
+            {albums.length && (
+               <Flex direction="row" width="40vw" gridGap="5" minWidth="42vw" wrap="wrap">
                 {albums.map((a, i) => (
-                  <Box key={i}>{a.name}</Box>
+                /*   <Box key={i}>{a.name}</Box> */
+                <Item {...a} key={i}/>
                 ))}
-              </>
+              </Flex>
             )}
           </Flex>
         </Flex>

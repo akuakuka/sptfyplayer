@@ -1,11 +1,11 @@
 
-import { Box, Flex, Container } from '@chakra-ui/layout'
-import axios from 'axios'
+import {  Flex, Container } from '@chakra-ui/layout'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
 import { spotifyArtist, spotifyAlbum } from "../../../server/types/SpotifyTypes"
 import { getArtist, getArtistAlbums } from '../API'
-import Album from './Album'
+import Item from './Item'
+
 
 /* interface ArtistPageProps {
     id:string
@@ -33,7 +33,7 @@ const ArtistPage: React.FC = () => {
     return (
         <Container height="calc( 100vh - 100px )" maxWidth="calc( 100vw - 100px )" paddingTop="100px" >
             <Flex direction="row" gridGap="10px" wrap="wrap">
-                {albums.length ? <>{albums.map((a, i) => <Album key={i} {...a} />)} </> : <> ei albumeita</>}
+                {albums.length ? <>{albums.map((a, i) => <Item key={i} {...a} />)} </> : <> ei albumeita</>}
             </Flex>
         </Container>
     )

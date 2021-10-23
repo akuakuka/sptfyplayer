@@ -24,6 +24,7 @@ import { play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
 import { AuthContext } from "../hooks/useAuth";
 
+
 interface FooterProps {
   handleVolume: (val: number) => void;
   volume: number;
@@ -37,11 +38,11 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const device = usePlayerDevice();
   const [que, setQue] = useContext(QueContext);
   const errorState = useErrorState();
-  const { getAccesStoken } = useContext(AuthContext);
+  const user = localStorage.getItem("user")
 
   const handlePlay = async () => {
     if (device === null) return;
-    play(getAccesStoken(), device?.device_id, que);
+    play(user, device?.device_id, que);
     player?.togglePlay();
   };
   const handleNext = () => {

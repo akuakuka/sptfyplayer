@@ -1,50 +1,57 @@
-import { useContext, useEffect, useState } from 'react'
-import { Redirect, Route, RouteProps, useHistory } from 'react-router'
-import { checkAuth } from './API';
-import { AuthContext } from './hooks/useAuth';
+import { Spinner } from "@chakra-ui/spinner";
+import { useContext, useEffect, useState } from "react";
+import { Redirect, Route, RouteProps, useHistory } from "react-router";
+import { checkAuth } from "./API";
+
 /* import { useAuth } from "./hooks/useAuth"; */
 
 export type ProtectedRouteProps = {
-    authenticationPath: string
-} & RouteProps
+} & RouteProps;
 
-export default function ProtectedRoute({
-    authenticationPath,
-    ...routeProps
-}: ProtectedRouteProps) {
-   //  useState<spotifyArtist[]>([])
-   
- 
-    const [authenticated, setauthenticated] = useState<boolean>(false)
-    const { setAccessToken,getAccesStoken } = useContext(AuthContext);
-    const history = useHistory()
-        useEffect(() => {
-            (async () => {
-                try {
-              
-                    const resp = await checkAuth()
-                    console.log(resp)
-                    setauthenticated(true)
-                   
-                } catch(e) {
-                    console.log(e)
-                    setauthenticated(false)
-                    setAccessToken("")
-                    history.push("/login")
-                }
-               
-            })();
-        },[])
+export const ProtectedRoute = ({
+  ...routeProps
+}: ProtectedRouteProps) => {
+    const authenticationPath = "/login";
+  const [authenticated, setauthenticated] = useState<boolean>(false);
+  const [ready, setReady] = useState<boolean>(false);
+  const user = localStorage.getItem("user")
+
+  const history = useHistory();
 
   useEffect(() => {
-    console.log({authenticated})
-  },[authenticated])
+    (async () => {
+        console.log("Protected route useEffect", routeProps.path)
+        console.log({authenticated})
+        setReady(false)
+        if(user) {
+            console.log("USER LÖYTYY")
+            try {
+                const resp = await checkAuth();
+                console.log(resp)
+                setauthenticated(true);
+                setReady(true)
+              } catch (e) {
+                  console.log(e)
+                console.log("ERROR");
+                setauthenticated(false);
+              //  setUser("");
+                history.push("/login");
+              }
+        } else {
+            console.log("USER EI LÖYDY")
+            console.log("protectedroute else")
+            history.push("/login");
+        }
+     
+    })();
+  }, []);
 
-
+if(ready) {
     if (authenticated) {
-        return <Route {...routeProps} />
-    } else {
-        return <Redirect to={{ pathname: authenticationPath }} />
-    }
- 
+        return <Route {...routeProps} />;
+      } else {
+        return <Redirect to={{ pathname: authenticationPath }} />;
+      }
+} else return <Spinner/>
+
 }

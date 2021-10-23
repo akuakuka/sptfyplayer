@@ -6,21 +6,31 @@ import { Link } from 'react-router-dom'
 import { spotifyArtist } from "../../../server/types/SpotifyTypes"
 import { getArtists } from '../API'
 import Artist from './Artist'
+import Item from './Item'
 
 const ArtistView = () => {
     const [artists, setArtists] = useState<spotifyArtist[]>([])
 
     useEffect(() => {
+     
         (async () => {
-            const resp = await getArtists()
-            setArtists(resp)
+            try {
+                console.log("ARTISRTVIEW")
+                const resp = await getArtists()
+                console.log(resp)
+                setArtists(resp)
+
+            } catch(e) {
+                console.log(e)
+            }
+           
         })();
     }, []);
 
     return (
         <Container height="calc( 100vh - 100px )" maxWidth="calc( 100vw - 100px )" paddingTop="80px" >
             <Flex direction="row" gridGap="10px" wrap="wrap" height="calc( 100vh - 100px )" position="absolute">
-                {artists.length ? <>{artists.map((a, i) => (<Artist {...a} key={i} />))} </> : <> ei artisteja</>}
+                {artists.length ? <>{artists.map((a, i) => (<Item {...a} key={i} />))} </> : <> ei artisteja</>}
 
             </Flex>
         </Container>
