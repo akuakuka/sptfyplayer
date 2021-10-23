@@ -1,47 +1,63 @@
 import {Router} from "express"
-import {getFollowedArtists,getArtist, getArtistalbums, getAlbum,searchSpotify} from "../services/spotifyService"
+import {getFollowedArtists,getArtist, getArtistalbums, getAlbum,searchSpotify, checkAuth} from "../services/spotifyService"
 export const spotifyRouter =  Router()
 
 spotifyRouter.get("/artists", async (req,res) => {
+    const {authorization} = req.headers;
+    console.log(req.headers.authorization)
     console.log("spotifyRouter")
     //@ts-ignore
-    const resp = await getFollowedArtists(req.user.accessToken);
+    const resp = await getFollowedArtists(authorization,[],null);
     res.json(resp)
 })
 
 spotifyRouter.get("/artist/:id", async (req,res) => {
-    console.log("spotifyRouter")
+    const {authorization} = req.headers;
+    console.log({authorization})
      //@ts-ignore
-    const resp = await getArtist(req.params.id,req.user.accessToken);
+    const resp = await getArtist(req.params.id,authorization);
     res.json(resp)
 })
 
 
 spotifyRouter.get("/artist/:id/albums", async (req,res) => {
-    console.log("spotifyRouter")
+    const {authorization} = req.headers;
+    console.log({authorization})
      //@ts-ignore
-    const resp = await getArtistalbums(req.params.id,req.user.accessToken);
+    const resp = await getArtistalbums(req.params.id,authorization);
     res.json(resp)
 })
 
 spotifyRouter.get("/album/:id", async (req,res) => {
-    console.log("spotifyRouter")
+    const {authorization} = req.headers;
+    console.log({authorization})
      //@ts-ignore
-    const resp = await getAlbum(req.params.id,req.user.accessToken);
+    const resp = await getAlbum(req.params.id,authorization);
     res.json(resp)
 })
 
-spotifyRouter.get('/check', (req, res) => {
-    //@ts-ignore
-  
-    res.json(req.user);
+spotifyRouter.get('/check', async (req, res) => {
+    
+        console.log("/cghecjk")
+        const {authorization} = req.headers;
+        const resp = await checkAuth(authorization)
+        console.log("RESP")
+        //@ts-ignore
+        console.log("sadasd")
+   /*      console.log(resp) */
+        //@ts-ignore
+ /*        console.log(resp) */
+        res.json(resp);
+
   });
 
 
 
   spotifyRouter.get('/search/:term', async (req, res) => {
-          //@ts-ignore
-    const resp = await searchSpotify(req.params.term, req.user.accessToken);
-
+    const {authorization} = req.headers;
+    console.log({authorization})
+    const resp = await searchSpotify(req.params.term, authorization);
     res.json(resp);
   });
+
+  

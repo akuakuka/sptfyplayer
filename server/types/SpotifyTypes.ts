@@ -20,6 +20,16 @@ export interface userArtistsResponse {
   };
 }
 
+
+export interface spotifyItem {
+  id: string;
+  name: string;
+  type:string;
+  images: spotifyImage[];
+  href:string;
+}
+
+
 export interface spotifyArtist {
   external_urls: externalUrl;
   followers: followers;
@@ -38,6 +48,7 @@ export interface spotifyImage {
   url: string;
   width: number;
 }
+
 //TODO: detailed type vs search tyhpe?
 export interface spotifyAlbum {
   album_group: string;
@@ -162,8 +173,9 @@ export interface SearchResultAlbum {
   uri: string;
 }
 
-export interface SpotifyRefreshTokenResponse {
+export interface SpotifyTokenResponse {
   access_token: string;
+  refresh_token: string;
 token_type: string;
 expires_in:number;
 scope: string
@@ -174,4 +186,34 @@ scope: string
     "token_type": "Bearer",
     "expires_in": 3600,
     "scope": "playlist-read-private playlist-read-collaborative ugc-image-upload user-follow-read playlist-modify-private user-read-email user-read-private app-remote-control streaming user-follow-modify user-modify-playback-state user-library-read user-library-modify playlist-modify-public user-read-playback-state user-read-currently-playing user-read-recently-played user-read-playback-position user-top-read"
+} */
+
+
+
+
+
+
+/* {
+  artists: {
+    items: [
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object], [Object], [Object],
+      [Object], [Object]
+    ],
+    next: 'https://api.spotify.com/v1/me/following?type=artist&after=19WQljDiwhjoGNc8CMbQgn&limit=50',
+    total: 296,
+    cursors: { after: '19WQljDiwhjoGNc8CMbQgn' },
+    limit: 50,
+    href: 'https://api.spotify.com/v1/me/following?type=artist&limit=50'
+  }
 } */
