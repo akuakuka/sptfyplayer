@@ -26,6 +26,7 @@ const ArtistPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log("artistpage");
     console.log(albums);
   }, [artist]);
 
@@ -40,7 +41,7 @@ const ArtistPage: React.FC = () => {
           <>
             {albums.map((a, i) => (
               <Item key={i} {...a} />
-            ))}{" "}
+            ))}
           </>
         ) : (
           <> ei albumeita</>

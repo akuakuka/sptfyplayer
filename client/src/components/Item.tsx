@@ -37,7 +37,7 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   };
 
   return (
-    <Link to={`/${type}/${id}`} key={id}>
+    <Link to={`app/${type}/${id}`} key={id}>
       <Flex
         direction="column"
         backgroundColor="gray.900"

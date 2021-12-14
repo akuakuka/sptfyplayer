@@ -1,4 +1,9 @@
-import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import ArtistView from "./components/ArtistView";
 import { Box } from "@chakra-ui/layout";
 import "./index.css";
@@ -55,13 +60,17 @@ const App: React.FC = () => {
             exact
             component={MainView}
           /> */}
-        <ProtectedRoute exact path="/app" component={MainView} />
+        <Switch>
+          <ProtectedRoute exact path="/app" component={MainView} />
+          <Route path={`/artist/:id`} exact component={ArtistPage} />
+        </Switch>
         {/*           <ProtectedRoute path="/artist/:id" exact component={ArtistPage} />
           <ProtectedRoute path="/album/:id" exact component={AlbumPage} /> */}
       </WebPlaybackSDK>
 
       <Route path="/login" exact component={Login} />
-      <Redirect to="/app" />
+
+      {/*   <Redirect to="/app" /> */}
     </Router>
   );
 };

@@ -33,8 +33,9 @@ const ArtistView: React.FC = () => {
         direction="row"
         gridGap="10px"
         wrap="wrap"
-        height="calc( 100vh - 100px )"
-        position="absolute"
+        overflow="auto"
+        height="100vh"
+        width="100vw"
       >
         {artists && artists.length ? (
           <>

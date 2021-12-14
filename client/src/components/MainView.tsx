@@ -2,7 +2,6 @@ import { Box } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import { usePlaybackState } from "react-spotify-web-playback-sdk";
-import ProtectedRoute from "../protectedRoute";
 import AlbumPage from "./AlbumPage";
 import ArtistPage from "./ArtistPage";
 import ArtistView from "./ArtistView";
@@ -11,7 +10,12 @@ import Header from "./Header";
 import SearchResultPage from "./SearchResultPage";
 
 /* import { useAuth } from "./hooks/useAuth"; */
-
+export const debug: React.FC = () => {
+  useEffect(() => {
+    console.log("DEBUG");
+  }, []);
+  return <div>debug</div>;
+};
 export const MainView: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
   const handleVolume = (val: number) => console.log(val);
@@ -32,13 +36,8 @@ export const MainView: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("maiunview");
-    console.log("######################################");
-    console.log(playbackState);
-  }, [playbackState]);
-
-  useEffect(() => {
-    console.log(albumArtBg);
+    console.log("#########################");
+    console.log(path);
   }, [albumArtBg]);
 
   const handleAlbumArtToggle = () => {
@@ -55,18 +54,22 @@ export const MainView: React.FC = () => {
       backgroundSize={"cover"}
       backgroundAttachment={"fixed"}
       backgroundPosition={"center"}
+      height={"100vh"}
+      width={"100vw"}
+      overflow={"hidden"}
     >
       {/*       <Link to="/app/artist"> Linkki </Link>
       <Link to="/app/artist"> Linkki </Link>
       <Link to={`${url}/artist`}>Rendering with React</Link> */}
       <Header handleAlbumArtToggle={handleAlbumArtToggle} albumArtBg />
-      <ArtistView />
       <Switch>
-        <Route path="/artist/:id" exact component={ArtistPage} />
+        <Route exact path={path}>
+          <ArtistView />
+        </Route>
 
-        <Route path="/album/:id" exact component={AlbumPage} />
+        <Route path={`${path}/artist/:id`} exact component={ArtistPage} />
+        <Route path={`${path}/album/:id`} exact component={AlbumPage} />
       </Switch>
-
       {/*   <Switch>
       <Route exact path="/artist" >
       <ArtistView/>
