@@ -44,11 +44,14 @@ export const getFollowedArtists = async (
         data.artists.next
       );
     }
-
+    console.log(
+      "Artisteja pituus : ",
+      [...items, ...data.artists.items].length
+    );
     return [...items, ...data.artists.items];
   } catch (e) {
-      console.log(e)
-      console.log("error")
+    console.log(e);
+    console.log("error");
   }
 };
 
@@ -115,25 +118,22 @@ export const getAlbum = async (
 };
 //TODO: Tyyppeihin myös error
 export const checkAuth = async (accesstoken: string): Promise<spotifyUser> => {
-    try {
-        const headers = {
-            Authorization: `${accesstoken}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          };
-          const { data } = await API.get<spotifyUser>(`/me/`, { headers });
-          return data;
-       
-    } catch(e) {
-        console.log("ERROR")
-        console.log(e.response.data.error)
-        console.log(e.response.status)
-        console.log(e.response.statusText)
-        return e
-/*         console.log(e) */
-    }
-
-
+  try {
+    const headers = {
+      Authorization: `${accesstoken}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    const { data } = await API.get<spotifyUser>(`/me/`, { headers });
+    return data;
+  } catch (e) {
+    console.log("ERROR");
+    console.log(e.response.data.error);
+    console.log(e.response.status);
+    console.log(e.response.statusText);
+    return e;
+    /*         console.log(e) */
+  }
 };
 
 export const searchSpotify = async (
@@ -182,11 +182,7 @@ export const refreshToken = async (
     { headers }
   );
   return data;
-
 };
-
-
-
 
 /* 
 {
