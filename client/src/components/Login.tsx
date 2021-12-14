@@ -3,26 +3,26 @@ import { Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 const Login: React.FC = () => {
-  const user = localStorage.getItem("user")
+  const user = localStorage.getItem("user");
   let query = useQuery();
   const history = useHistory();
 
   useEffect(() => {
     const accessToken = query.get("accessToken");
     if (accessToken) {
-     localStorage.setItem("user",accessToken);
+      localStorage.setItem("user", accessToken);
       history.push("/app");
     }
   }, []);
 
   const handleLogin = () => {
-    window.location.href = "http://localhost:3000/auth/spotify";
+    // TODO: Loginurl to .env
+    window.location.href = "http://localhost:3000/api/auth/login";
   };
 
   return (

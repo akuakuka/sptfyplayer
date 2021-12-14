@@ -69,7 +69,7 @@ export const checkAuth = async (): Promise<spotifyUser> => {
 };
 
 export const refreshToken = async (): Promise<spotifyUser> => {
-  const resp = await API.post(`http://localhost:3000/api/auth/refresh/`);
+  const resp = await API.post(`${BASEURL}/auth/refresh/`);
   //@ts-ignore
   return resp.data;
 };

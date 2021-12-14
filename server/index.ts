@@ -2,18 +2,12 @@ import express from "express";
 import cors from "cors";
 import { spotifyRouter } from "./routes/spotifyRouter";
 import { authRouter } from "./routes/authRouter";
-import { SpotifyTokenResponse } from "./types/SpotifyTypes";
-import { refreshToken } from "./services/spotifyService";
-import { SPOTIFY_CALLBACK, SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "./config";
-import axios from "axios";
-import qs from "qs";
+import { FRONTEND_URL } from "./config";
 
 const app = express();
 const port = 3000;
-const authCallbackPath = "/callback";
-const FRONTEND_URL = "http://localhost:3001";
 
-app.use(cors({ credentials: true, origin: "http://localhost:3001" }));
+app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 
 app.use("/api", spotifyRouter);
 app.use("/api/auth/", authRouter);

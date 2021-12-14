@@ -1,40 +1,53 @@
+import { Box, Container, Flex } from "@chakra-ui/layout";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { spotifyArtist } from "../../../server/types/SpotifyTypes";
+import { getArtists } from "../API";
+import Artist from "./Artist";
+import Item from "./Item";
 
-import { Box, Container, Flex } from '@chakra-ui/layout'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { spotifyArtist } from "../../../server/types/SpotifyTypes"
-import { getArtists } from '../API'
-import Artist from './Artist'
-import Item from './Item'
+const ArtistView: React.FC = () => {
+  const [artists, setArtists] = useState<spotifyArtist[]>([]);
 
-const ArtistView = () => {
-    const [artists, setArtists] = useState<spotifyArtist[]>([])
+  useEffect(() => {
+    (async () => {
+      try {
+        console.log("ARTISRTVIEW");
+        const resp = await getArtists();
+        console.log(resp);
+        setArtists(resp.data);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
 
-    useEffect(() => {
-     
-        (async () => {
-            try {
-                console.log("ARTISRTVIEW")
-                const resp = await getArtists()
-                console.log(resp)
-                setArtists(resp)
+  return (
+    <Container
+      height="calc( 100vh - 100px )"
+      maxWidth="calc( 100vw - 100px )"
+      paddingTop="80px"
+    >
+      <Flex
+        direction="row"
+        gridGap="10px"
+        wrap="wrap"
+        height="calc( 100vh - 100px )"
+        position="absolute"
+      >
+        {artists && artists.length ? (
+          <>
+            {artists.map((a, i) => (
+              <Item {...a} key={i} />
+            ))}{" "}
+          </>
+        ) : (
+          <> ei artisteja</>
+        )}
+      </Flex>
+    </Container>
+  );
+};
 
-            } catch(e) {
-                console.log(e)
-            }
-           
-        })();
-    }, []);
-
-    return (
-        <Container height="calc( 100vh - 100px )" maxWidth="calc( 100vw - 100px )" paddingTop="80px" >
-            <Flex direction="row" gridGap="10px" wrap="wrap" height="calc( 100vh - 100px )" position="absolute">
-                {artists.length ? <>{artists.map((a, i) => (<Item {...a} key={i} />))} </> : <> ei artisteja</>}
-
-            </Flex>
-        </Container>
-    )
-}
-
-export default ArtistView
+export default ArtistView;
