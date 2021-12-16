@@ -1,9 +1,4 @@
-import {
-  Route,
-  BrowserRouter as Router,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ArtistView from "./components/ArtistView";
 import { Box } from "@chakra-ui/layout";
 import "./index.css";
@@ -11,18 +6,27 @@ import ArtistPage from "./components/ArtistPage";
 import AlbumPage from "./components/AlbumPage";
 import Footer from "./components/Footer";
 import { WebPlaybackSDK } from "react-spotify-web-playback-sdk";
-import { useCallback, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Login from "./components/Login";
 import { ProtectedRoute } from "./protectedRoute";
 import Header from "./components/Header";
 import SearchResultPage from "./components/SearchResultPage";
 import { MainView } from "./components/MainView";
+import Layout from "./components/Layout";
+import { AnimatePresence } from "framer-motion";
 
 const App: React.FC = () => {
   const [volume, setVolume] = useState(0.5);
   const user = localStorage.getItem("user");
 
   const getAccesStoken = () => {
+    // TODO : REFreshTokenFlow
     console.log("getAccesStoken");
     return user;
   };
@@ -44,34 +48,36 @@ const App: React.FC = () => {
     console.log(val);
     setVolume(val);
   };
-  // TODO: Protected route authenticationPAth proppi pois
+
   // TODO: React Router new version
+  // TODO: Volume contextiin?
+  const UserContext = createContext({
+    userName: "",
+    setUserName: () => {},
+  });
+
   return (
-    <Router>
-      <WebPlaybackSDK
-        deviceName="AlbumApp"
-        getOAuthToken={getOAuthToken}
-        connectOnInitialized={true}
-        volume={volume}
-      >
-        {/*           <ProtectedRoute
-            path="/app"
-            authenticationPath="/login"
-            exact
-            component={MainView}
-          /> */}
-        <Switch>
-          <ProtectedRoute exact path="/app" component={MainView} />
-          <Route path={`/artist/:id`} exact component={ArtistPage} />
-        </Switch>
-        {/*           <ProtectedRoute path="/artist/:id" exact component={ArtistPage} />
-          <ProtectedRoute path="/album/:id" exact component={AlbumPage} /> */}
-      </WebPlaybackSDK>
-
-      <Route path="/login" exact component={Login} />
-
-      {/*   <Redirect to="/app" /> */}
-    </Router>
+    <WebPlaybackSDK
+      deviceName="sptfyplayer"
+      getOAuthToken={getOAuthToken}
+      connectOnInitialized={true}
+      volume={volume}
+    >
+      <AnimatePresence exitBeforeEnter>
+        <Routes>
+          <Route
+            element={<Layout handleVolume={handleVolume} volume={volume} />}
+          >
+            <Route path="/app" element={<ArtistView />} />
+            <Route path={`/app/artist/:id`} element={<ArtistPage />} />
+            <Route path={`/app/album/:id`} element={<AlbumPage />} />
+            <Route path={`/app/search/:term`} element={<SearchResultPage />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<ArtistView />} />
+        </Routes>
+      </AnimatePresence>
+    </WebPlaybackSDK>
   );
 };
 

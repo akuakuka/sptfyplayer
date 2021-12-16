@@ -1,7 +1,10 @@
-import { Text, Flex } from "@chakra-ui/layout";
-import { Image, Button, Container, Avatar } from "@chakra-ui/react";
+import { HamburgerIcon, PhoneIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { Text, Box, Flex } from "@chakra-ui/layout";
+import { Image, Button, Container, Avatar, IconButton } from "@chakra-ui/react";
+
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 import {
   usePlayerDevice,
@@ -24,6 +27,8 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const device = usePlayerDevice();
   const user = localStorage.getItem("user");
   const [que, setQue] = useContext(QueContext);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handlePlayAlbum = async () => {
     const detailedAlbum = await getAlbum(id);
@@ -35,34 +40,83 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
       getTrackUrisFromAlbum(detailedAlbum.tracks.items)
     );
   };
-
+  // TODO: Better hover icons
   return (
-    <Link to={`app/${type}/${id}`} key={id}>
-      <Flex
-        direction="column"
-        backgroundColor="gray.900"
-        alignItems="center"
-        borderRadius="30"
-        width="180px"
-        height="200px"
-        p="3"
-        boxShadow="dark-lg"
-      >
-        {type === "album" ? (
-          <>
-            {" "}
-            {images[0] && (
+    <Flex
+      direction="column"
+      backgroundColor="gray.900"
+      alignItems="center"
+      borderRadius="30"
+      width="180px"
+      height="200px"
+      p="3"
+      boxShadow="dark-lg"
+    >
+      {/*       			<div class="overlayer">
+				<i class="far fa-play-circle"></i>
+			</div> 
+      
+      
+      .card:hover .overlayer {
+	visibility: visible;
+}
+
+
+*/}
+      {type === "album" ? (
+        <>
+          {images[0] && (
+            <Box
+              role="group"
+              boxSize="150px"
+              position="relative"
+              height="150px"
+              width="150px"
+            >
+              <Box
+                _groupHover={{ visibility: "visible" }}
+                visibility="hidden"
+                top="0"
+                right="0"
+                width="100%"
+                height="100%"
+                position="absolute"
+                backgroundColor="blackAlpha.600"
+                textAlign="center"
+              >
+                <Flex
+                  direction="row"
+                  alignContent="center"
+                  alignSelf="center"
+                  width="100%"
+                  height="100%"
+                  justifyContent="space-around"
+                  alignItems="center"
+                >
+                  <IconButton
+                    aria-label="playalbum"
+                    icon={<TriangleUpIcon />}
+                    onClick={() => handlePlayAlbum()}
+                  />
+                  <Link to={`/app/album/${id}`} key={id}>
+                    <IconButton
+                      aria-label="albumdetails"
+                      icon={<HamburgerIcon />}
+                    />
+                  </Link>
+                </Flex>
+              </Box>
               <Image
                 src={images ? images[0].url : "https://via.placeholder.com/150"}
-                boxSize="150px"
-                onClick={() => handlePlayAlbum()}
                 cursor="pointer"
+                boxSize="150px"
               />
-            )}
-          </>
-        ) : (
-          <>
-            {" "}
+            </Box>
+          )}
+        </>
+      ) : (
+        <>
+          <Link to={`/app/${type}/${id}`} key={id}>
             {images[0] && (
               <Avatar
                 src={images ? images[0].url : "https://via.placeholder.com/150"}
@@ -70,11 +124,11 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                 boxShadow="dark-lg"
               />
             )}
-          </>
-        )}
-        <Text>{name}</Text>
-      </Flex>
-    </Link>
+          </Link>
+        </>
+      )}
+      <Text>{name}</Text>
+    </Flex>
   );
 };
 

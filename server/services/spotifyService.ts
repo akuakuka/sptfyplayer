@@ -87,7 +87,7 @@ export const getArtistalbums = async (
       "Content-Type": "application/json",
     };
     const { data } = await API.get<spotifyAlbum[]>(
-      `/artists/${id}/albums?market=${market}&include_groups=album&limit=50`,
+      `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`,
       { headers }
     );
     return data;
@@ -108,7 +108,10 @@ export const getAlbum = async (
       "Content-Type": "application/json",
     };
 
-    const { data } = await API.get<spotifyAlbum>(`/albums/${id}`, { headers });
+    const { data } = await API.get<spotifyAlbum>(
+      `/albums/${id}?market=${market}`,
+      { headers }
+    );
 
     return data;
   } catch (e) {

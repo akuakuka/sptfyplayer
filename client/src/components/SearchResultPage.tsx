@@ -7,8 +7,7 @@ import {
   SearchResultArtist,
 } from "../../../server/types/SpotifyTypes";
 import { search } from "../API";
-import Album from "./Album";
-import Artist from "./Artist";
+
 import Item from "./Item";
 
 const SearchResultPage: React.FC = () => {
@@ -26,10 +25,17 @@ const SearchResultPage: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
+        const nonordics = term
+          .replaceAll("ö", "o")
+          .replaceAll("ä", "a")
+          .replaceAll("å", "a");
+        console.log(nonordics);
         setLoading(true);
-        const resp = await search(term);
-        setArtists(resp.artists.items);
-        setAlbums(resp.albums.items);
+        const resp = await search(nonordics);
+        console.log(resp);
+        if (resp.artists) setArtists(resp.artists.items);
+        if (resp.albums) setAlbums(resp.albums.items);
+
         setLoading(false);
       } catch (e) {
         console.log(e);

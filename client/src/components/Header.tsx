@@ -1,20 +1,17 @@
 import { Box, Flex, Container } from "@chakra-ui/layout";
 import { Button, Input, Switch, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { refreshToken, search } from "../API";
 
 interface HeaderProps {
   handleAlbumArtToggle: Function;
-  albumArtBg: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  handleAlbumArtToggle,
-  albumArtBg,
-}) => {
+const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
+
   useEffect(() => {}, []);
   const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value;
@@ -23,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const doSEarch = async () => {
-    if (term.length > 2) history.push(`/search/${term}`);
+    if (term.length > 2) navigate(`/app/search/${term}`);
   };
 
   return (

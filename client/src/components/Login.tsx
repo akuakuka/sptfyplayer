@@ -1,22 +1,23 @@
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const user = localStorage.getItem("user");
   let query = useQuery();
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     const accessToken = query.get("accessToken");
     if (accessToken) {
       localStorage.setItem("user", accessToken);
-      history.push("/app");
+      navigate("/app");
     }
   }, []);
 

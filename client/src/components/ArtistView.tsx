@@ -10,6 +10,7 @@ import Item from "./Item";
 const ArtistView: React.FC = () => {
   const [artists, setArtists] = useState<spotifyArtist[]>([]);
 
+  // TODO : Artistien cache - react memo?
   useEffect(() => {
     (async () => {
       try {

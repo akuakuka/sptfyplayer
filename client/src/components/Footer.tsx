@@ -8,11 +8,8 @@ import {
   SliderTrack,
   Image,
 } from "@chakra-ui/react";
-
 import { ArrowBackIcon, ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-
 import { useContext } from "react";
-
 import {
   useErrorState,
   usePlaybackState,
@@ -22,7 +19,8 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
-import { AuthContext } from "../hooks/useAuth";
+
+/* import { useVolume } from "../hooks/useVolume"; */
 
 interface FooterProps {
   handleVolume: (val: number) => void;
@@ -37,20 +35,23 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const device = usePlayerDevice();
   const [que, setQue] = useContext(QueContext);
   const errorState = useErrorState();
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("user") || "";
 
   const handlePlay = async () => {
     if (device === null) return;
     play(user, device?.device_id, que);
     player?.togglePlay();
   };
+
   const handleNext = () => {
     console.log("handlenext");
     player?.nextTrack();
   };
+
   const handlePrev = async () => {
     player?.previousTrack();
   };
+
   return (
     <Flex
       justify="space-between"

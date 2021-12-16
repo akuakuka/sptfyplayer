@@ -1,23 +1,17 @@
-import { Spinner } from "@chakra-ui/spinner";
-import { useContext, useEffect, useState } from "react";
-import { Redirect, Route, RouteProps, useHistory } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
 import { checkAuth } from "./API";
 
-/* import { useAuth } from "./hooks/useAuth"; */
-
-export type ProtectedRouteProps = {} & RouteProps;
-
-export const ProtectedRoute = ({ ...routeProps }: ProtectedRouteProps) => {
-  const authenticationPath = "/login";
+export const ProtectedRoute: React.FC = () => {
+  // let auth = useAuth();
+  let location = useLocation();
+  const user = localStorage.getItem("user");
   const [authenticated, setauthenticated] = useState<boolean>(false);
   const [ready, setReady] = useState<boolean>(false);
-  const user = localStorage.getItem("user");
-
-  const history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      console.log("Protected route useEffect", routeProps.path);
       console.log({ authenticated });
       setReady(false);
       if (user) {
@@ -32,21 +26,39 @@ export const ProtectedRoute = ({ ...routeProps }: ProtectedRouteProps) => {
           console.log("ERROR");
           setauthenticated(false);
           //  setUser("");
-          history.push("/login");
+          navigate("/login");
         }
       } else {
         console.log("USER EI LÖYDY");
         console.log("protectedroute else");
-        history.push("/login");
+        navigate("/login");
       }
     })();
   }, []);
 
+  useEffect(() => {
+    console.log("READY :: ", ready);
+    console.log("authenticated :: ", authenticated);
+  }, [ready, authenticated]);
   if (ready) {
-    if (authenticated) {
-      return <Route {...routeProps} />;
+    if (!authenticated) {
+      // Redirect them to the /login page, but save the current location they were
+      // trying to go to when they were redirected. This allows us to send them
+      // along to that page after they login, which is a nicer user experience
+      // than dropping them off on the home page.
+      console.log("##################################");
+      console.log("NOT AUTHENTICATED");
+      return <Navigate to="/login" state={{ from: location }} />;
     } else {
-      return <Redirect to={{ pathname: authenticationPath }} />;
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+      console.log("ELSEEEEEEEEEEEE");
     }
-  } else return null; //<Spinner />;
+    console.log(
+      "<Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet />"
+    );
+    return <Outlet />;
+  } else {
+    console.log("NULLLLLLLLLLLLLLLLLLLLLLLLLL");
+    return null;
+  }
 };

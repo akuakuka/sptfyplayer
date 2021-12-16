@@ -1,5 +1,5 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { Button, Container } from "@chakra-ui/react";
+import { Button, Container, Image } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -14,6 +14,8 @@ import { QueContext } from "../hooks/usePlayQue";
 /* interface ArtistPageProps {
     id:string
 } */
+
+//TODO: albu.tracks tyypit rikki. Response tyyppi vs albumtyyppi?
 
 const AlbumPage: React.FC = () => {
   //const device = usePlayerDevice();
@@ -32,6 +34,10 @@ const AlbumPage: React.FC = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    console.log(album);
+  }, [album]);
+
   const handlePlaySong = async (uri: string) => {
     console.log(uri);
     play(user.accessToken, device?.device_id, [uri]);
@@ -40,17 +46,22 @@ const AlbumPage: React.FC = () => {
     <Container height="calc( 100vh - 100px )" width="1600px">
       <Flex direction="column" gridGap="10px" wrap="wrap" paddingTop="100px">
         <Heading> {album.name} </Heading>
-        <Flex direction="column" gridGap="10px" wrap="wrap">
-          {album.tracks && (
-            <>
-              {album.tracks.items.map((t) => (
-                <Box key={t.id}>
-                  {t.name}{" "}
-                  <Button onClick={() => handlePlaySong(t.uri)}>play</Button>{" "}
-                </Box>
-              ))}
-            </>
-          )}
+        <Flex direction="row">
+          <Flex direction="column" gridGap="10px" wrap="wrap">
+            {album.tracks && (
+              <>
+                {album.tracks.items.map((t) => (
+                  <Box key={t.id}>
+                    {t.name}{" "}
+                    <Button onClick={() => handlePlaySong(t.uri)}>play</Button>{" "}
+                  </Box>
+                ))}
+              </>
+            )}
+          </Flex>
+          <Box width="40vw">
+            {album.images && <Image src={album.images[0].url} />}
+          </Box>
         </Flex>
       </Flex>
     </Container>

@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
-import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
+import { Link, Route, Routes, useRouteMatch } from "react-router-dom";
 import { usePlaybackState } from "react-spotify-web-playback-sdk";
 import AlbumPage from "./AlbumPage";
 import ArtistPage from "./ArtistPage";
@@ -61,15 +61,15 @@ export const MainView: React.FC = () => {
       {/*       <Link to="/app/artist"> Linkki </Link>
       <Link to="/app/artist"> Linkki </Link>
       <Link to={`${url}/artist`}>Rendering with React</Link> */}
-      <Header handleAlbumArtToggle={handleAlbumArtToggle} albumArtBg />
-      <Switch>
+      <Header handleAlbumArtToggle={handleAlbumArtToggle} />
+      <Routes>
         <Route exact path={path}>
           <ArtistView />
         </Route>
 
         <Route path={`${path}/artist/:id`} exact component={ArtistPage} />
         <Route path={`${path}/album/:id`} exact component={AlbumPage} />
-      </Switch>
+      </Routes>
       {/*   <Switch>
       <Route exact path="/artist" >
       <ArtistView/>
