@@ -1,8 +1,18 @@
 import { HamburgerIcon, PhoneIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { Text, Box, Flex } from "@chakra-ui/layout";
-import { Image, Button, Container, Avatar, IconButton } from "@chakra-ui/react";
+import {
+  Image,
+  Button,
+  Container,
+  Avatar,
+  IconButton,
+  BoxProps,
+  chakra,
+  HTMLChakraProps,
+} from "@chakra-ui/react";
 
 import axios from "axios";
+import { HTMLMotionProps, motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
@@ -29,6 +39,8 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const [que, setQue] = useContext(QueContext);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const MotionBox = motion<BoxProps>(Box);
 
   const handlePlayAlbum = async () => {
     const detailedAlbum = await getAlbum(id);
@@ -118,11 +130,15 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
         <>
           <Link to={`/app/${type}/${id}`} key={id}>
             {images[0] && (
-              <Avatar
-                src={images ? images[0].url : "https://via.placeholder.com/150"}
-                boxSize="150px"
-                boxShadow="dark-lg"
-              />
+              <MotionBox whileHover={{ scale: 1.1 }}>
+                <Avatar
+                  src={
+                    images ? images[0].url : "https://via.placeholder.com/150"
+                  }
+                  boxSize="150px"
+                  boxShadow="dark-lg"
+                />
+              </MotionBox>
             )}
           </Link>
         </>

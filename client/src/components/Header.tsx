@@ -1,5 +1,24 @@
+import {
+  AddIcon,
+  EditIcon,
+  ExternalLinkIcon,
+  HamburgerIcon,
+  RepeatIcon,
+} from "@chakra-ui/icons";
 import { Box, Flex, Container } from "@chakra-ui/layout";
-import { Button, Input, Switch, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  AvatarBadge,
+  Button,
+  IconButton,
+  Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Switch,
+  Text,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { refreshToken, search } from "../API";
@@ -23,6 +42,12 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
     if (term.length > 2) navigate(`/app/search/${term}`);
   };
 
+  const handleLogout = () => {
+    console.log("handleLogout");
+    localStorage.removeItem("user");
+    navigate(`/login`);
+  };
+
   return (
     <Flex
       position="fixed"
@@ -36,6 +61,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       alignItems="center"
       justifyContent="center"
       zIndex="100"
+      gridGap="10"
     >
       <Input
         placeholder="Hae"
@@ -45,8 +71,25 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       />
       <Button onClick={() => doSEarch()}>Hae </Button>
       <Button onClick={() => refreshToken()}>refreshj </Button>
-      <Text>Albumart </Text>
-      <Switch size="md" onChange={() => handleAlbumArtToggle()} />
+      <Box marginLeft="auto" paddingRight="5">
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<HamburgerIcon />}
+            variant="outline"
+          />
+          <MenuList>
+            <MenuItem closeOnSelect={false}>
+              <Flex direction="row" gridGap="3">
+                <Text>Albumart </Text>
+                <Switch size="md" onChange={() => handleAlbumArtToggle()} />
+              </Flex>
+            </MenuItem>
+            <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
     </Flex>
   );
 };

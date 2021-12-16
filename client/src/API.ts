@@ -127,7 +127,8 @@ API.interceptors.response.use((config) => {
     });
 //  }
   return Promise.reject(error); */
-
+  console.log("####################################################");
+  console.log(config);
   return config;
 });
 

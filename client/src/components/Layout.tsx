@@ -14,7 +14,6 @@ interface LayoutProps {
   handleVolume: (val: number) => void;
   volume: number;
 }
-
 const Layout: React.FC<LayoutProps> = ({ handleVolume, volume }) => {
   return (
     <>
@@ -32,7 +31,6 @@ const Layout: React.FC<LayoutProps> = ({ handleVolume, volume }) => {
         backgroundSize={"cover"}
         backgroundAttachment={"fixed"}
         backgroundPosition={"center"}
-        height={"90vh"}
         width={"100vw"}
         overflow={"hidden"}
       >

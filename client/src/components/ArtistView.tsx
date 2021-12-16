@@ -27,7 +27,7 @@ const ArtistView: React.FC = () => {
   return (
     <Container
       height="calc( 100vh - 100px )"
-      maxWidth="calc( 100vw - 100px )"
+      maxWidth="calc( 100vw )"
       paddingTop="80px"
     >
       <Flex
@@ -37,6 +37,7 @@ const ArtistView: React.FC = () => {
         overflow="auto"
         height="100vh"
         width="100vw"
+        justifyContent="center"
       >
         {artists && artists.length ? (
           <>

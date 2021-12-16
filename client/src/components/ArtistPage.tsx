@@ -50,9 +50,10 @@ const ArtistPage: React.FC = () => {
 
   return (
     <Container
-      height="calc( 100vh - 100px )"
+      height="calc( 100vh )"
       maxWidth="calc( 100vw - 100px )"
       paddingTop="100px"
+      overflow="scroll"
     >
       <Flex gridGap="10">
         <Heading>Albumit </Heading>

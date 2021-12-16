@@ -21,38 +21,28 @@ export const getFollowedArtists = async (
   items: spotifyArtist[],
   next: string
 ): Promise<spotifyArtist[]> => {
-  console.log("getFollowedArtists");
-  console.log("next : ", next);
   let url = "/me/following?type=artist&limit=50";
   if (next) url = next;
 
-  try {
-    const headers = {
-      Authorization: `${accesstoken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
 
-    const { data } = await API.get<userArtistsResponse>(url, {
-      headers,
-    });
+  const { data } = await API.get<userArtistsResponse>(url, {
+    headers,
+  });
 
-    if (data.artists.next) {
-      return await getFollowedArtists(
-        accesstoken,
-        [...items, ...data.artists.items],
-        data.artists.next
-      );
-    }
-    console.log(
-      "Artisteja pituus : ",
-      [...items, ...data.artists.items].length
+  if (data.artists.next) {
+    return await getFollowedArtists(
+      accesstoken,
+      [...items, ...data.artists.items],
+      data.artists.next
     );
-    return [...items, ...data.artists.items];
-  } catch (e) {
-    console.log(e);
-    console.log("error");
   }
+  /*   console.log("Artisteja pituus : ", [...items, ...data.artists.items].length); */
+  return [...items, ...data.artists.items];
 };
 
 export const getArtist = async (
