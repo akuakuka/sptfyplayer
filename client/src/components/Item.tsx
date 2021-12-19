@@ -5,7 +5,6 @@ import {
   Button,
   Container,
   Avatar,
-  IconButton,
   BoxProps,
   chakra,
   HTMLChakraProps,
@@ -28,6 +27,7 @@ import {
 } from "../../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
+import { IconButton } from "./IconButton";
 
 const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
   return tracks.map((t) => t.uri);
@@ -105,16 +105,17 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                   justifyContent="space-around"
                   alignItems="center"
                 >
-                  <IconButton
+                  {/*                   <IconButton
                     aria-label="playalbum"
                     icon={<TriangleUpIcon />}
                     onClick={() => handlePlayAlbum()}
+                  /> */}
+                  <IconButton
+                    variant={"play"}
+                    onClick={() => handlePlayAlbum()}
                   />
                   <Link to={`/app/album/${id}`} key={id}>
-                    <IconButton
-                      aria-label="albumdetails"
-                      icon={<HamburgerIcon />}
-                    />
+                    <IconButton variant={"details"} />
                   </Link>
                 </Flex>
               </Box>

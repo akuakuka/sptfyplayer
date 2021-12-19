@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/layout";
 import {
   Box,
-  IconButton,
   Slider,
   SliderFilledTrack,
   SliderThumb,
@@ -19,7 +18,7 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
-
+import { IconButton, Iconbutton } from "./IconButton";
 /* import { useVolume } from "../hooks/useVolume"; */
 
 interface FooterProps {
@@ -99,23 +98,23 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                 </>
               )}
             </Box>
-            <Box px="10">
+            <Flex px="10">
               <IconButton
                 aria-label="next track"
-                icon={<ArrowLeftIcon />}
+                variant={"prev"}
                 onClick={() => handlePrev()}
               />
               <IconButton
                 aria-label="play-pause"
-                icon={<ArrowBackIcon />}
+                variant={"play"}
                 onClick={() => handlePlay()}
               />
               <IconButton
                 aria-label="next track"
-                icon={<ArrowRightIcon />}
+                variant={"next"}
                 onClick={() => handleNext()}
               />
-            </Box>
+            </Flex>
           </Flex>
 
           <Slider

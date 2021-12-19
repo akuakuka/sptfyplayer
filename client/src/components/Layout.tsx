@@ -18,7 +18,6 @@ import Header from "./Header";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 
 interface wrapperProps {
-  children: React.FC;
   albumArtBg: boolean;
 }
 const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {

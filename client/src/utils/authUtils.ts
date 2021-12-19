@@ -12,7 +12,7 @@ export const refreshAccessToken = async (): Promise<void> => {
           new Date().setHours(new Date().getHours() + 1)
         ).valueOf();
         localStorage.setItem("expiryDate", expiryDate.toString());
-        //@ts-ignore
+
         localStorage.setItem("user", response.access_token);
       } else {
         console.log("RESPONSE ERROR NO ACCESS TOKEN");

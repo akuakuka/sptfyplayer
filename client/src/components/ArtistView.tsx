@@ -1,24 +1,23 @@
-import { Box, Container, Flex } from "@chakra-ui/layout";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { spotifyArtist } from "../../../server/types/SpotifyTypes";
 import { getArtists } from "../API";
-import Artist from "./Artist";
 import Item from "./Item";
+import { SpinnerPage } from "./SpinnerPage";
 
 const ArtistView: React.FC = () => {
   const [artists, setArtists] = useState<spotifyArtist[]>([]);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   // TODO : Artistien cache - react memo?
   useEffect(() => {
     (async () => {
       try {
-        console.log("ARTISRTVIEW");
+        setIsLoading(true);
         const resp = await getArtists();
-        console.log(resp);
+        // @ts-ignore
         setArtists(resp.data);
+        setIsLoading(false);
       } catch (e) {
+        setIsLoading(false);
         console.log(e);
       }
     })();
@@ -26,14 +25,20 @@ const ArtistView: React.FC = () => {
 
   return (
     <>
-      {artists && artists.length ? (
-        <>
-          {artists.map((a, i) => (
-            <Item {...a} key={i} />
-          ))}{" "}
-        </>
+      {isLoading ? (
+        <SpinnerPage />
       ) : (
-        <> ei artisteja</>
+        <>
+          {artists && artists.length ? (
+            <>
+              {artists.map((a, i) => (
+                <Item {...a} key={i} />
+              ))}{" "}
+            </>
+          ) : (
+            <> ei artisteja</>
+          )}
+        </>
       )}
     </>
   );

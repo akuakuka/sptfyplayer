@@ -18,6 +18,7 @@ import {
   MenuList,
   Switch,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -30,6 +31,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState<string>("");
+  const { colorMode, toggleColorMode } = useColorMode();
+
   useDebounce(() => doSearch(term), 1500, [term]);
 
   const navigate = useNavigate();
@@ -90,6 +93,13 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
               <Flex direction="row" gridGap="3">
                 <Text>Albumart Background</Text>
                 <Switch size="md" onChange={() => handleAlbumArtToggle()} />
+              </Flex>
+            </MenuItem>
+
+            <MenuItem closeOnSelect={false}>
+              <Flex direction="row" gridGap="3">
+                <Text>ColorMode</Text>
+                <Switch size="md" onChange={() => toggleColorMode()} />
               </Flex>
             </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
