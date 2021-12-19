@@ -14,7 +14,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
-    "start": "cd server && tsc && node dist/index.js"
+    "start": "cd ./server && tsc && node dist/index.js"
   },
   "dependencies": {
     "@types/react-icons": "^3.0.0"
