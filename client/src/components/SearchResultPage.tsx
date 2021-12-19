@@ -41,7 +41,7 @@ const SearchResultPage: React.FC = () => {
         console.log(e);
       }
     })();
-  }, []);
+  }, [term]);
 
   return (
     <Container
