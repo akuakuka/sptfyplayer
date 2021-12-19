@@ -11,8 +11,10 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1"
   },
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\""
+    "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "start": "cd server && tsc && node dist/index.js"
   },
   "dependencies": {
     "@types/react-icons": "^3.0.0"
