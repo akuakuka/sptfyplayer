@@ -15,28 +15,25 @@ const SearchResultPage: React.FC = () => {
   const [albums, setAlbums] = useState<SearchResultAlbum[]>(Object);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  //@ts-ignore
-  let { term } = useParams();
-
-  useEffect(() => {
-    console.log(albums);
-  }, []);
+  const { term } = useParams();
 
   useEffect(() => {
     (async () => {
       try {
-        const nonordics = term
-          .replaceAll("ö", "o")
-          .replaceAll("ä", "a")
-          .replaceAll("å", "a");
-        console.log(nonordics);
-        setLoading(true);
-        const resp = await search(nonordics);
-        console.log(resp);
-        if (resp.artists) setArtists(resp.artists.items);
-        if (resp.albums) setAlbums(resp.albums.items);
+        if (term) {
+          const nonordics = term
+            .replaceAll("ö", "o")
+            .replaceAll("ä", "a")
+            .replaceAll("å", "a");
+          console.log(nonordics);
+          setLoading(true);
+          const resp = await search(nonordics);
+          console.log(resp);
+          if (resp.artists) setArtists(resp.artists.items);
+          if (resp.albums) setAlbums(resp.albums.items);
 
-        setLoading(false);
+          setLoading(false);
+        }
       } catch (e) {
         console.log(e);
       }

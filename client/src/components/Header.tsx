@@ -22,10 +22,10 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { refreshToken, search } from "../API";
-import useDebounce from "../hooks/useDebounce";
+import { useDebounce } from "../hooks/useDebounce";
 
 interface HeaderProps {
-  handleAlbumArtToggle: Function;
+  handleAlbumArtToggle: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
@@ -36,7 +36,6 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
 
   const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value;
-    console.log(searchValue);
     setTerm(searchValue);
   };
 
@@ -49,7 +48,6 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   };
 
   const handleLogout = () => {
-    console.log("handleLogout");
     localStorage.removeItem("user");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("expiryDate");

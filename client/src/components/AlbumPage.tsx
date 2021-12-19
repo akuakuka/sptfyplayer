@@ -22,15 +22,17 @@ const AlbumPage: React.FC = () => {
   const [album, setAlbum] = useState<spotifyAlbum>(Object);
   const user = localStorage.getItem("user");
   const device = usePlayerDevice();
-  //@ts-ignore
-  let { id } = useParams();
+
+  const { id } = useParams();
 
   // const [que, setQue] = useContext(QueContext);
 
   useEffect(() => {
     (async () => {
-      const resp = await getAlbum(id);
-      setAlbum(resp);
+      if (id) {
+        const resp = await getAlbum(id);
+        setAlbum(resp);
+      }
     })();
   }, []);
 

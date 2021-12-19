@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useRef } from "react";
 
-function useTimeout(callback, delay) {
-  const callbackRef = useRef(callback);
-  const timeoutRef = useRef();
+const useTimeout = (callback: () => void, delay: number) => {
+  const callbackRef = useRef<() => void>(callback);
+  const timeoutRef = useRef<number>();
 
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
 
   const set = useCallback(() => {
-    //@ts-ignore
     timeoutRef.current = setTimeout(() => callbackRef.current(), delay);
   }, [delay]);
 
@@ -28,10 +27,14 @@ function useTimeout(callback, delay) {
   }, [clear, set]);
 
   return { reset, clear };
-}
+};
 
-export default function useDebounce(callback, delay, dependencies) {
+export const useDebounce = (
+  callback: () => void,
+  delay: number,
+  dependencies: []
+) => {
   const { reset, clear } = useTimeout(callback, delay);
   useEffect(reset, [...dependencies, reset]);
   useEffect(clear, []);
-}
+};

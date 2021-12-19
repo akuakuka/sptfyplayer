@@ -17,18 +17,19 @@ const ArtistPage: React.FC = () => {
   const [albums, setAlbums] = useState<spotifyAlbum[]>([]);
   const [singles, setSingles] = useState<spotifyAlbum[]>([]);
   const [showSingles, setShowSingles] = useState<boolean>(false);
-  //@ts-ignore
-  let { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     (async () => {
       console.log("useeffect");
-      const resp = await getArtist(id);
-      setArtist(resp);
-      const alabums = await getArtistAlbums(id);
-      setAlbums(alabums.filter((a) => a.album_type === "album"));
-      setSingles(alabums.filter((a) => a.album_type === "single"));
-      console.log(alabums.length);
+      if (id) {
+        const resp = await getArtist(id);
+        setArtist(resp);
+        const alabums = await getArtistAlbums(id);
+        setAlbums(alabums.filter((a) => a.album_type === "album"));
+        setSingles(alabums.filter((a) => a.album_type === "single"));
+        console.log(alabums.length);
+      }
     })();
   }, []);
 

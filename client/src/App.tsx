@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ArtistView from "./components/ArtistView";
 import "./index.css";
 import ArtistPage from "./components/ArtistPage";
@@ -9,7 +9,10 @@ import SearchResultPage from "./components/SearchResultPage";
 import Layout from "./components/Layout";
 import { AnimatePresence } from "framer-motion";
 
-//TODO: 404 route to protected route
+const NotFound: React.FC = () => {
+  return <Navigate to="/app" />;
+};
+
 const App: React.FC = () => {
   return (
     <AnimatePresence exitBeforeEnter>
@@ -24,7 +27,7 @@ const App: React.FC = () => {
         </Route>
 
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<ArtistView />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );

@@ -27,16 +27,11 @@ export const play = (token: string, deviceID: string, ids: string[]) => {
 };
 
 export const getArtists = async (): Promise<spotifyArtist[]> => {
-  try {
-    console.log("TRY");
-    const response = await API.get<spotifyArtist[]>(`${BASEURL}/artists`);
-    console.log(response);
-    //@ts-ignore
-    return response;
-  } catch (e) {
-    console.log("CATCH");
-    console.log(e);
-  }
+  console.log("TRY");
+  const response = await API.get<spotifyArtist[]>(`${BASEURL}/artists`);
+  console.log(response);
+  //@ts-ignore
+  return response;
 };
 
 export const getArtist = async (id: string): Promise<spotifyArtist> => {
@@ -95,6 +90,7 @@ API.interceptors.response.use(
     console.log(config.config.url);
     console.log(config.status);
     console.log(config.statusText);
+    console.log(config.status);
     if (config.status === 400) {
       console.log("xxxxxxxxxxxxxxxx");
       console.log("xxxxxxxxxxxxxxxx");

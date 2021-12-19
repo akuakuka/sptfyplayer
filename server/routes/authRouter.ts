@@ -42,8 +42,6 @@ authRouter.post("/refresh/:refreshtoken", async (req, res) => {
 });
 
 authRouter.get("/logout", (req, res) => {
-  //@ts-ignore
-  req.logout();
   res.redirect("/");
 });
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
 import { checkAuth } from "./API";
+import { refreshAccessToken } from "./utils/authUtils";
 
 export const ProtectedRoute: React.FC = () => {
   // let auth = useAuth();
@@ -17,15 +18,21 @@ export const ProtectedRoute: React.FC = () => {
       if (user) {
         console.log("USER LÖYTYY");
         try {
-          const resp = await checkAuth();
+          await checkAuth();
 
-          console.log(resp);
           setauthenticated(true);
           setReady(true);
         } catch (e) {
-          setauthenticated(false);
-          //  setUser("");
-          navigate("/login");
+          try {
+            await refreshAccessToken();
+            await checkAuth();
+            setauthenticated(true);
+            setReady(true);
+          } catch (e) {
+            setauthenticated(false);
+            //  setUser("");
+            navigate("/login");
+          }
         }
       } else {
         console.log("USER EI LÖYDY");

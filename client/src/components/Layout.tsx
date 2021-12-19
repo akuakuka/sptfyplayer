@@ -40,8 +40,9 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
   return (
     <Box
       backgroundImage={
-        //@ts-ignore
-        albumArtBg ? getAlbumArtFromPLaybackState(playbackState) : ""
+        albumArtBg && playbackState
+          ? getAlbumArtFromPLaybackState(playbackState)
+          : ""
       }
       backgroundRepeat={"no-repeat"}
       backgroundSize={"cover"}
