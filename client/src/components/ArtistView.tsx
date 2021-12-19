@@ -25,31 +25,17 @@ const ArtistView: React.FC = () => {
   }, []);
 
   return (
-    <Container
-      height="calc( 100vh - 100px )"
-      maxWidth="calc( 100vw )"
-      paddingTop="80px"
-    >
-      <Flex
-        direction="row"
-        gridGap="10px"
-        wrap="wrap"
-        overflow="auto"
-        height="100vh"
-        width="100vw"
-        justifyContent="center"
-      >
-        {artists && artists.length ? (
-          <>
-            {artists.map((a, i) => (
-              <Item {...a} key={i} />
-            ))}{" "}
-          </>
-        ) : (
-          <> ei artisteja</>
-        )}
-      </Flex>
-    </Container>
+    <>
+      {artists && artists.length ? (
+        <>
+          {artists.map((a, i) => (
+            <Item {...a} key={i} />
+          ))}{" "}
+        </>
+      ) : (
+        <> ei artisteja</>
+      )}
+    </>
   );
 };
 

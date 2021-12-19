@@ -111,22 +111,13 @@ export const getAlbum = async (
 };
 //TODO: Tyyppeihin myös error
 export const checkAuth = async (accesstoken: string): Promise<spotifyUser> => {
-  try {
-    const headers = {
-      Authorization: `${accesstoken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-    const { data } = await API.get<spotifyUser>(`/me/`, { headers });
-    return data;
-  } catch (e) {
-    console.log("ERROR");
-    console.log(e.response.data.error);
-    console.log(e.response.status);
-    console.log(e.response.statusText);
-    return e;
-    /*         console.log(e) */
-  }
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  const { data } = await API.get<spotifyUser>(`/me/`, { headers });
+  return data;
 };
 
 export const searchSpotify = async (
@@ -156,6 +147,8 @@ export const searchSpotify = async (
 export const refreshToken = async (
   refreshtoken: string
 ): Promise<SpotifyTokenResponse> => {
+  console.log("SpotifyService refersh token");
+  console.log(refreshtoken);
   const basic = `Basic ${Buffer.from(
     `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`
   ).toString("base64")}`;
@@ -171,7 +164,7 @@ export const refreshToken = async (
 
   const { data } = await axios.post<SpotifyTokenResponse>(
     "https://accounts.spotify.com/api/token",
-    { refreshTokenData },
+    refreshTokenData,
     { headers }
   );
   return data;

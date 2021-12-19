@@ -58,17 +58,11 @@ export const MainView: React.FC = () => {
       width={"100vw"}
       overflow={"hidden"}
     >
-      {/*       <Link to="/app/artist"> Linkki </Link>
-      <Link to="/app/artist"> Linkki </Link>
-      <Link to={`${url}/artist`}>Rendering with React</Link> */}
       <Header handleAlbumArtToggle={handleAlbumArtToggle} />
       <Routes>
-        <Route exact path={path}>
+        <Route path={path}>
           <ArtistView />
         </Route>
-
-        <Route path={`${path}/artist/:id`} exact component={ArtistPage} />
-        <Route path={`${path}/album/:id`} exact component={AlbumPage} />
       </Routes>
       {/*   <Switch>
       <Route exact path="/artist" >

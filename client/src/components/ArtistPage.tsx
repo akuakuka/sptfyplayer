@@ -32,16 +32,6 @@ const ArtistPage: React.FC = () => {
     })();
   }, []);
 
-  /*   useEffect(() => {
-    console.log("artistpage");
-    console.log(albums);
-  }, [artist]); */
-
-  useEffect(() => {
-    console.log(albums);
-    console.log(singles);
-  }, [albums, singles]);
-
   // TODO: Cachetus?
 
   const handleSingleSwitch = async () => {
@@ -49,15 +39,10 @@ const ArtistPage: React.FC = () => {
   };
 
   return (
-    <Container
-      height="calc( 100vh )"
-      maxWidth="calc( 100vw - 100px )"
-      paddingTop="100px"
-      overflow="scroll"
-    >
+    <Flex direction="column">
       <Flex gridGap="10">
         <Heading>Albumit </Heading>
-        <Flex>
+        <Flex gridGap="3">
           <Text>Näytä singlet?</Text>
           <Switch onChange={() => handleSingleSwitch()}></Switch>
         </Flex>
@@ -91,7 +76,7 @@ const ArtistPage: React.FC = () => {
           </Flex>
         )}
       </Flex>
-    </Container>
+    </Flex>
   );
 };
 

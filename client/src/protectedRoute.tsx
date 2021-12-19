@@ -4,11 +4,11 @@ import { checkAuth } from "./API";
 
 export const ProtectedRoute: React.FC = () => {
   // let auth = useAuth();
-  let location = useLocation();
+  const location = useLocation();
   const user = localStorage.getItem("user");
   const [authenticated, setauthenticated] = useState<boolean>(false);
   const [ready, setReady] = useState<boolean>(false);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -18,12 +18,11 @@ export const ProtectedRoute: React.FC = () => {
         console.log("USER LÖYTYY");
         try {
           const resp = await checkAuth();
+
           console.log(resp);
           setauthenticated(true);
           setReady(true);
         } catch (e) {
-          console.log(e);
-          console.log("ERROR");
           setauthenticated(false);
           //  setUser("");
           navigate("/login");
@@ -36,10 +35,6 @@ export const ProtectedRoute: React.FC = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log("READY :: ", ready);
-    console.log("authenticated :: ", authenticated);
-  }, [ready, authenticated]);
   if (ready) {
     if (!authenticated) {
       // Redirect them to the /login page, but save the current location they were
@@ -53,9 +48,6 @@ export const ProtectedRoute: React.FC = () => {
       console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
       console.log("ELSEEEEEEEEEEEE");
     }
-    console.log(
-      "<Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet /><Outlet />"
-    );
     return <Outlet />;
   } else {
     console.log("NULLLLLLLLLLLLLLLLLLLLLLLLLL");

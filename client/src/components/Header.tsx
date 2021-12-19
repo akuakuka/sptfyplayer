@@ -22,29 +22,37 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { refreshToken, search } from "../API";
+import useDebounce from "../hooks/useDebounce";
 
 interface HeaderProps {
   handleAlbumArtToggle: Function;
 }
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
-  const [term, setTerm] = useState("");
+  const [term, setTerm] = useState<string>("");
+  useDebounce(() => doSearch(term), 1500, [term]);
+
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
   const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
     const searchValue = e.currentTarget.value;
     console.log(searchValue);
     setTerm(searchValue);
   };
 
-  const doSEarch = async () => {
-    if (term.length > 2) navigate(`/app/search/${term}`);
+  const doSearch = async (searchterm: string) => {
+    if (searchterm.length > 1) {
+      // TODO: Searchterm not clearing after search
+      setTerm("");
+      navigate(`/app/search/${searchterm}`);
+    }
   };
 
   const handleLogout = () => {
     console.log("handleLogout");
     localStorage.removeItem("user");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("expiryDate");
     navigate(`/login`);
   };
 
@@ -63,15 +71,15 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       zIndex="100"
       gridGap="10"
     >
-      <Input
-        placeholder="Hae"
-        size="md"
-        maxWidth="200px"
-        onChange={(e) => handleSearch(e)}
-      />
-      <Button onClick={() => doSEarch()}>Hae </Button>
-      <Button onClick={() => refreshToken()}>refreshj </Button>
-      <Box marginLeft="auto" paddingRight="5">
+      <Box marginLeft="auto">
+        <Input
+          placeholder="Hae"
+          size="md"
+          maxWidth="200px"
+          onChange={(e) => handleSearch(e)}
+        />
+      </Box>
+      <Box paddingRight="5" marginLeft="auto">
         <Menu>
           <MenuButton
             as={IconButton}
@@ -82,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
           <MenuList>
             <MenuItem closeOnSelect={false}>
               <Flex direction="row" gridGap="3">
-                <Text>Albumart </Text>
+                <Text>Albumart Background</Text>
                 <Switch size="md" onChange={() => handleAlbumArtToggle()} />
               </Flex>
             </MenuItem>
