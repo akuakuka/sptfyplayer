@@ -21,13 +21,21 @@ authRouter.get("/login", (req, res) => {
   res.redirect(url);
 });
 
-authRouter.post("/refresh", async (req, res) => {
+authRouter.post("/refresh/:refreshtoken", async (req, res) => {
   //@ts-ignore
-  if (req.user.refreshToken) {
-    //@ts-ignore
-    const resp = await refreshToken(req.user.refreshToken);
-    console.log(resp);
-    res.json(resp);
+  console.log(req.params.refreshtoken);
+  //@ts-ignore
+  if (req.params.refreshtoken) {
+    try {
+      //@ts-ignore
+      const resp = await refreshToken(req.params.refreshtoken);
+      console.log(resp);
+      res.json(resp);
+    } catch (e) {
+      console.log(e);
+      console.log("authRouter refreshtoken error");
+      res.send(503);
+    }
   } else {
     res.send(403);
   }

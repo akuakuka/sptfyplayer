@@ -7,6 +7,7 @@ import {
   spotifyUser,
 } from "../../server/types/SpotifyTypes";
 import { AuthContext } from "./hooks/useAuth";
+import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
 // TODO: nää proxyyn?
 
 const BASEURL = "http://localhost:3000/api";
@@ -68,18 +69,13 @@ export const checkAuth = async (): Promise<spotifyUser> => {
   return resp;
 };
 
-export const refreshToken = async (): Promise<spotifyUser> => {
-  const resp = await API.post(`${BASEURL}/auth/refresh/`);
+export const refreshToken = async (token: string): Promise<spotifyUser> => {
+  console.log("API.tsx");
+  console.log({ token });
+  const resp = await API.post(`${BASEURL}/auth/refresh/${token}`);
   //@ts-ignore
   return resp.data;
 };
-
-/* API.interceptors.request.use(config => {
-  if (config.url?.startsWith("https://api.spotify.com")) {
-    config.withCredentials = false;
-  }
-  return config;
-}); */
 
 API.interceptors.request.use(
   (config) => {
@@ -95,69 +91,32 @@ API.interceptors.request.use(
 );
 
 API.interceptors.response.use(
-  (config) => {
+  async (config) => {
     console.log(config.config.url);
-    console.log("3333333333333333");
     console.log(config.status);
     console.log(config.statusText);
+    if (config.status === 400) {
+      console.log("xxxxxxxxxxxxxxxx");
+      console.log("xxxxxxxxxxxxxxxx");
+      console.log("xxxxxxxxxxxxxxxx");
+      console.log("xxxxxxxxxxxxxxxx");
+      console.log("xxxxxxxxxxxxxxxx");
+      console.log("xxxxxxxxxxxxxxxx");
+      console.log("xxxxxxxxxxxxxxxx");
+      if (!isAccessTokenValid()) {
+        await refreshAccessToken();
+        try {
+          await checkAuth();
+        } catch (e) {
+          localStorage.removeItem("user");
+          // TODO: Change path without react router?
+          //  setUser("");
+          // navigate("/login");
+        }
+      }
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
 );
-
-/* 
-{
-    "error": {
-        "status": 401,
-        "message": "The access token expired"
-    }
-} */
-
-API.interceptors.response.use((config) => {
-  /*   //console.log("STATUS : " , error.response.status)
-  console.log("intercece")
-//  if (error.config && error.response && error.response.status === 401) {
-    console.log("ERROR ->  REFRESHING")
-    return refreshToken().then((token) => {
-      console.log("refreshToken interceptor")
-      console.log(token)
-      console.log(config.headers)
-   //    error.config.headers.xxxx <= set the token
-      return axios.request(error.config);
-    });
-//  }
-  return Promise.reject(error); */
-  console.log("####################################################");
-  console.log(config);
-  return config;
-});
-
-/* 
-axios.interceptors.response.use(null, (error) => {
-  console.log("STATUS : " , error.response.status)
-//  if (error.config && error.response && error.response.status === 401) {
-    console.log("ERROR ->  REFRESHING")
-    return refreshToken().then((token) => {
-      console.log("refreshToken interceptor")
-      console.log(token)
-      console.log(error.config.headers)
-   //    error.config.headers.xxxx <= set the token
-      return axios.request(error.config);
-    });
-//  }
-  return Promise.reject(error);
-});
- */
-
-/* API.interceptors.response.use(null, (error) => {
-  if (error.config && error.response && error.response.status === 401) {
-    console.log("error.config && error.response && error.response.status === 401 ");
-
-    return updateToken().then((token) => {
-      error.config.headers.xxxx <= set the token
-      return axios.request(config);
-    });
-  }
-
-  return Promise.reject(error);
-}); */

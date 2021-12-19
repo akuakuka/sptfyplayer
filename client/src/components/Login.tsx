@@ -9,13 +9,23 @@ const useQuery = () => {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const user = localStorage.getItem("user");
+  /*   const user = localStorage.getItem("user"); */
   let query = useQuery();
   // const history = useHistory();
 
   useEffect(() => {
+    // TODO: date
     const accessToken = query.get("accessToken");
+    const refreshToken = query.get("refreshToken");
+
+    const expiryDate = new Date(
+      new Date().setHours(new Date().getHours() + 1)
+    ).valueOf();
+
+    // TODO: expiryDate from backend and into user object?
     if (accessToken) {
+      if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("expiryDate", expiryDate.toString());
       localStorage.setItem("user", accessToken);
       navigate("/app");
     }
