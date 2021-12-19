@@ -15,7 +15,6 @@ export const authRouter = Router();
 
 authRouter.get("/login", (req, res) => {
   // TODO: oauth state?
-  // var state = generateRandomString(16);
   const scopesString = scopes.join(" ");
   const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENTID}&scope=${scopesString}&redirect_uri=${SPOTIFY_CALLBACK}&show_dialog=true`;
   res.redirect(url);
