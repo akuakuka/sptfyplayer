@@ -6,14 +6,16 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueProvider } from "./hooks/usePlayQue";
 import "@fontsource/aldrich";
 import "@fontsource/lemon";
+import "@fontsource/cabin";
+
 import { BrowserRouter } from "react-router-dom";
 
 const config = {
   initialColorMode: "dark",
   useSystemColorMode: false,
   fonts: {
-    heading: "Lemon",
-    body: "Lemon",
+    heading: "Cabin",
+    body: "Cabin",
   },
 };
 const theme = extendTheme({ config });
@@ -30,3 +32,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+// Advent Pro
+// Cabin
