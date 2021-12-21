@@ -2,8 +2,11 @@ import express from "express";
 import cors from "cors";
 import { spotifyRouter } from "./routes/spotifyRouter";
 import { authRouter } from "./routes/authRouter";
-import { FRONTEND_URL, PORT } from "./config";
+import { FRONTEND_URL } from "./config";
 import path from "path";
+
+const PORT = 3000;
+
 const app = express();
 
 app.use(cors({ credentials: true, origin: FRONTEND_URL }));
@@ -20,9 +23,9 @@ if (process.env.NODE_ENV !== "dev") {
     res.sendFile(path.resolve(__dirname, '../../client/dist', 'index.html'))
   })
 }
-
-app.listen(PORT, () => {
+const port = process.env.PORT || PORT
+app.listen(port, () => {
   console.info(
-    `Server listening on port ${PORT} MODE = ${process.env.NODE_ENV}`
+    `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
   );
 });

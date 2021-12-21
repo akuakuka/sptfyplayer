@@ -26,12 +26,11 @@ const scopes = [
 
 
 const { SPOTIFY_CLIENTID, SPOTIFY_SECRET, SPOTIFY_CALLBACK,FRONTEND_URL } = process.env;
-const PORT = 3000;
+
 export {
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,
   SPOTIFY_CALLBACK,
   scopes,
   FRONTEND_URL,
-  PORT,
 };
