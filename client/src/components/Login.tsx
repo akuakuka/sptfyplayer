@@ -33,7 +33,10 @@ const Login: React.FC = () => {
 
   const handleLogin = () => {
     // TODO: Loginurl to .env
-    window.location.href = "http://localhost:3000/api/auth/login";
+   //  https://sptfyplayer.herokuapp.com
+   //@ts-ignore
+   const loginUrl = `${process.env.FRONTEND_URL}/api/auth/login`
+    window.location.href = loginUrl;
   };
 
   return (
