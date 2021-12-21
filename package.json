@@ -1,7 +1,4 @@
 {
-  "engines": {
-    "node": "17.x"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
@@ -15,6 +12,9 @@
     "typescript": "^4.3.2"
   },
   "main": "dist/index.js",
+  "engines": {
+    "node": "17.x"
+  },
   "scripts": {
     "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
     "debugging": "cd ./client && npm install && npm run build && cd .. && cd ./server && npm install && tsc && node dist/index.js",
