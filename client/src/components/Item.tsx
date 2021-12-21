@@ -1,30 +1,11 @@
-import { HamburgerIcon, PhoneIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { Text, Box, Flex } from "@chakra-ui/layout";
-import {
-  Image,
-  Button,
-  Container,
-  Avatar,
-  BoxProps,
-  chakra,
-  HTMLChakraProps,
-} from "@chakra-ui/react";
-
-import axios from "axios";
-import { HTMLMotionProps, motion } from "framer-motion";
-import { useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router";
-import { Link, useParams } from "react-router-dom";
-import {
-  usePlayerDevice,
-  useSpotifyPlayer,
-} from "react-spotify-web-playback-sdk";
-import {
-  spotifyArtist,
-  spotifyAlbum,
-  spotifyTrack,
-  spotifyItem,
-} from "../../../server/types/SpotifyTypes";
+import { Image, Avatar, BoxProps } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { usePlayerDevice } from "react-spotify-web-playback-sdk";
+import { spotifyTrack, spotifyItem } from "../../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
 import { IconButton } from "./IconButton";
@@ -36,19 +17,23 @@ const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
 const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const device = usePlayerDevice();
   const user = localStorage.getItem("user");
+  //@ts-ignore
   const [que, setQue] = useContext(QueContext);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-  const navigate = useNavigate();
+  /*   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const navigate = useNavigate(); */
 
   const MotionBox = motion<BoxProps>(Box);
-
+  // TODO: typescript types
   const handlePlayAlbum = async () => {
     const detailedAlbum = await getAlbum(id);
     //todo: types
+    //@ts-ignore
     setQue(getTrackUrisFromAlbum(detailedAlbum.tracks.items));
     play(
+      //@ts-ignore
       user,
       device?.device_id,
+      //@ts-ignore
       getTrackUrisFromAlbum(detailedAlbum.tracks.items)
     );
   };
@@ -64,17 +49,6 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
       p="3"
       boxShadow="dark-lg"
     >
-      {/*       			<div class="overlayer">
-				<i class="far fa-play-circle"></i>
-			</div> 
-      
-      
-      .card:hover .overlayer {
-	visibility: visible;
-}
-
-
-*/}
       {type === "album" ? (
         <>
           {images[0] && (

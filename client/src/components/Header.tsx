@@ -1,15 +1,6 @@
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { Box, Flex } from "@chakra-ui/layout";
 import {
-  AddIcon,
-  EditIcon,
-  ExternalLinkIcon,
-  HamburgerIcon,
-  RepeatIcon,
-} from "@chakra-ui/icons";
-import { Box, Flex, Container } from "@chakra-ui/layout";
-import {
-  Avatar,
-  AvatarBadge,
-  Button,
   IconButton,
   Input,
   Menu,
@@ -20,9 +11,8 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { refreshToken, search } from "../API";
 import { useDebounce } from "../hooks/useDebounce";
 
 interface HeaderProps {
@@ -31,6 +21,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState<string>("");
+  //@ts-ignore
   const { colorMode, toggleColorMode } = useColorMode();
 
   useDebounce(() => doSearch(term), 1500, [term]);

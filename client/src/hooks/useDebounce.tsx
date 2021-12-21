@@ -32,7 +32,7 @@ const useTimeout = (callback: () => void, delay: number) => {
 export const useDebounce = (
   callback: () => void,
   delay: number,
-  dependencies: []
+  dependencies: string[]
 ) => {
   const { reset, clear } = useTimeout(callback, delay);
   useEffect(reset, [...dependencies, reset]);

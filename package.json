@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@architect/sandbox": "^4.4.2",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
@@ -9,14 +8,12 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "typescript": "^3.3.3"
   },
   "main": "dist/index.js",
   "scripts": {
     "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
-    "start": "cd ./server && tsc && node dist/index.js"
-  },
-  "dependencies": {
-    "@types/react-icons": "^3.0.0"
+    "start": "cd ./client && npm run build && cd .. &&cd ./server && tsc && node dist/index.js"
   }
 }

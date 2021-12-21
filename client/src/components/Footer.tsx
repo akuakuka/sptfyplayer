@@ -7,7 +7,6 @@ import {
   SliderTrack,
   Image,
 } from "@chakra-ui/react";
-import { ArrowBackIcon, ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { useContext } from "react";
 import {
   useErrorState,
@@ -18,7 +17,7 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
-import { IconButton, Iconbutton } from "./IconButton";
+import { IconButton } from "./IconButton";
 /* import { useVolume } from "../hooks/useVolume"; */
 
 interface FooterProps {
@@ -32,7 +31,9 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
+  //@ts-ignore
   const [que, setQue] = useContext(QueContext);
+  //@ts-ignore
   const errorState = useErrorState();
   const user = localStorage.getItem("user") || "";
 

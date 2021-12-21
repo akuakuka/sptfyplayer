@@ -23,9 +23,9 @@ const scopes = [
   "user-follow-read",
 ];
 // TODO: to .env
-const FRONTEND_URL = "http://localhost:3001";
 
-const { SPOTIFY_CLIENTID, SPOTIFY_SECRET, SPOTIFY_CALLBACK } = process.env;
+
+const { SPOTIFY_CLIENTID, SPOTIFY_SECRET, SPOTIFY_CALLBACK,FRONTEND_URL } = process.env;
 const PORT = 3000;
 export {
   SPOTIFY_CLIENTID,

@@ -62,7 +62,15 @@ export interface spotifyAlbum {
   type: string;
   uri: string;
   total_tracks: number;
-  tracks: spotifyTrack[];
+  tracks: {
+    href:string;
+    items: spotifyTrack[];
+    limit: number;
+    next: string | null;
+    offset:number;
+    previous: string | null;
+    total: number;
+  };
 }
 
 export interface albumResponse {
