@@ -9,6 +9,7 @@ const useTimeout = (callback: () => void, delay: number) => {
   }, [callback]);
 
   const set = useCallback(() => {
+    //@ts-ignore
     timeoutRef.current = setTimeout(() => callbackRef.current(), delay);
   }, [delay]);
 
