@@ -9,8 +9,8 @@ import {
 import { AuthContext } from "./hooks/useAuth";
 import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
 // TODO: nää proxyyn?
-
-const BASEURL = "http://localhost:3000/api";
+// TODO: .enviin
+const BASEURL = "https://sptfyplayer.herokuapp.com/api";
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
 const API = axios.create({});
