@@ -1,7 +1,7 @@
 import { Text, Box, Flex } from "@chakra-ui/layout";
 import { Image, Avatar, BoxProps } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useContext, useState } from "react";
+import React,{ useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";

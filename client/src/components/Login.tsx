@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const useQuery = () => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { spotifyArtist } from "../../../server/types/SpotifyTypes";
 import { getArtists } from "../API";
 import Item from "./Item";

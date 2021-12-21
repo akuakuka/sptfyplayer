@@ -12,6 +12,7 @@ import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
 
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
+//@ts-ignore
 const BASEURL = import.meta.env.NODE_ENV === "development" ? `${import.meta.env.VITE_BACKEND_URL_PROD}/api` : `${import.meta.env.VITE_BACKEND_URL_DEV}/api`
 console.log({ BASEURL })
 const API = axios.create({});
