@@ -32,7 +32,7 @@ const Login: React.FC = () => {
   }, []);
 
   const handleLogin = () => {
- 
+ //@ts-ignore
    const loginURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/auth/login` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/auth/login`;
    console.log("##########################################################")
    console.log({loginURL})
