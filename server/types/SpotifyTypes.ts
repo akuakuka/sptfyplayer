@@ -63,11 +63,11 @@ export interface spotifyAlbum {
   uri: string;
   total_tracks: number;
   tracks: {
-    href:string;
+    href: string;
     items: spotifyTrack[];
     limit: number;
     next: string | null;
-    offset:number;
+    offset: number;
     previous: string | null;
     total: number;
   };
@@ -183,4 +183,27 @@ export interface SpotifyTokenResponse {
   token_type: string;
   expires_in: number;
   scope: string;
+}
+
+export interface SpotifyUserResponse {
+  country: string;
+  display_name: string;
+  email: string;
+  explicit_content: {
+    filter_enabled: boolean;
+    filter_locked: boolean;
+  }
+  external_urls: {
+    spotify: string;
+  }
+  followers: {
+    href: string;
+    total: number;
+  }
+  href: string;
+  id: string;
+  images: spotifyImage[];
+  product: string;
+  type: string;
+  uri: string;
 }

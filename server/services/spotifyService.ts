@@ -8,6 +8,7 @@ import {
   spotifyUser,
   SpotifySearchResult,
   SpotifyTokenResponse,
+  SpotifyUserResponse,
 } from "../types/SpotifyTypes";
 
 const API = axios.create({
@@ -170,10 +171,20 @@ export const refreshToken = async (
   return data;
 };
 
-/* 
-{
-    "error": {
-        "status": 401,
-        "message": "The access token expired"
-    }
-} */
+export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUserResponse> => {
+
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+
+
+  const { data } = await API.get<SpotifyUserResponse>(`/me`, { headers });
+
+  return data;
+
+
+};
+
+

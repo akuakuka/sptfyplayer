@@ -9,7 +9,7 @@ import {
   FRONTEND_URL,
 } from "../config";
 import { SpotifyTokenResponse } from "../types/SpotifyTypes";
-import { refreshToken } from "../services/spotifyService";
+import { getSpotifyUser, refreshToken } from "../services/spotifyService";
 
 export const authRouter = Router();
 
@@ -69,7 +69,8 @@ authRouter.get("/callback", async (req, res) => {
     codeData,
     { headers }
   );
-
+  const user = await getSpotifyUser(data.access_token);
+  console.log(user)
   res.redirect(
     `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
   );
