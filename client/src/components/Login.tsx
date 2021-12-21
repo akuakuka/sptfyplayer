@@ -34,9 +34,26 @@ const Login: React.FC = () => {
   const handleLogin = () => {
     // TODO: Loginurl to .env
    //  https://sptfyplayer.herokuapp.com
+   // 
+
+
+
+
+
+
+   const BASEURL = import.meta.env.NODE_ENV === "development" ? import.meta.env.VITE_BACKEND_URL_DEV : import.meta.env.VITE_BACKEND_URL_PROD
+
+
+console.log(import.meta.env.MODE) //: {string} the mode the app is running in.
+
+console.log(import.meta.env.BASE_URL) //: {string} the base url the app is being served from. This is determined by the base config option.
+console.log(import.meta.env.VITE_BACKEND_URL_DEV)
+console.log(import.meta.env.VITE_BACKEND_URL_PROD)
+   const loginURL = process.env.NODE_ENV === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/auth/login` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/auth/login`;
+   console.log("##########################################################")
+   console.log({loginURL})
    //@ts-ignore
-   const loginUrl = `${"https://sptfyplayer.herokuapp.com"}/api/auth/login`
-    window.location.href = loginUrl;
+    window.location.href = loginURL;
   };
 
   return (

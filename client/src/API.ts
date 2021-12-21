@@ -8,11 +8,12 @@ import {
 } from "../../server/types/SpotifyTypes";
 import { AuthContext } from "./hooks/useAuth";
 import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
-// TODO: nää proxyyn?
-// TODO: .enviin
-const BASEURL = "https://sptfyplayer.herokuapp.com/api";
-const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
+
+
+const SPOTIFYBASEURL = "https://api.spotify.com/v1";
+const BASEURL = import.meta.env.NODE_ENV === "development" ? `${import.meta.env.VITE_BACKEND_URL_PROD}/api` : `${import.meta.env.VITE_BACKEND_URL_DEV}/api`
+console.log({ BASEURL })
 const API = axios.create({});
 
 const usr = localStorage.getItem("user");
@@ -59,6 +60,12 @@ export const search = async (term: string): Promise<SpotifySearchResult> => {
 };
 
 export const checkAuth = async (): Promise<spotifyUser> => {
+  console.log("CHECKAUTH")
+  console.log("CHECKAUTH")
+  console.log("CHECKAUTH")
+  console.log("CHECKAUTH")
+  console.log("CHECKAUTH")
+
   const resp = await API.get(`${BASEURL}/check/`);
   //@ts-ignore
   return resp;

@@ -14,9 +14,11 @@ import { getSpotifyUser, refreshToken } from "../services/spotifyService";
 export const authRouter = Router();
 
 authRouter.get("/login", (req, res) => {
+  console.log("authRouter.get(login");
   // TODO: oauth state?
   const scopesString = scopes.join(" ");
   const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENTID}&scope=${scopesString}&redirect_uri=${SPOTIFY_CALLBACK}&show_dialog=true`;
+  console.log(url)
   res.redirect(url);
 });
 
@@ -56,7 +58,7 @@ authRouter.get("/callback", async (req, res) => {
   const codeData = qs.stringify({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: `${FRONTEND_URL}/api/auth/callback`,
+    redirect_uri: "http://localhost:3000/api/auth/callback",
   });
 
   const headers = {
@@ -69,8 +71,7 @@ authRouter.get("/callback", async (req, res) => {
     codeData,
     { headers }
   );
-  const user = await getSpotifyUser(data.access_token);
-  console.log(user)
+
   res.redirect(
     `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
   );
