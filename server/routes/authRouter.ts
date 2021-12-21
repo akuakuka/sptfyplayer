@@ -56,7 +56,7 @@ authRouter.get("/callback", async (req, res) => {
   const codeData = qs.stringify({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: "http://localhost:3000/api/auth/callback",
+    redirect_uri: `${FRONTEND_URL}/api/auth/callback`,
   });
 
   const headers = {
