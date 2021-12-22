@@ -9,7 +9,6 @@ import App from "./App";
 import { QueProvider } from "./hooks/usePlayQue";
 import "./index.css";
 
-
 const theme = extendTheme({
   colors: {
     brand: {
@@ -52,14 +51,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// Advent Pro
-// Cabin
-
-/* colors: {
-  eggwhite: "#FAF3F3",
-  lightgrey: "#E1E5EA",
-  darkgrey: "#A7BBC7",
-  mainred:"#DA7F8F"
-}, */
-

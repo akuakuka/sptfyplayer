@@ -6,7 +6,7 @@ import {
   spotifyUser
 } from "../../server/types/SpotifyTypes";
 import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
-
+import { getSmallestImage } from "./utils/dateUtils";
 
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
@@ -42,6 +42,8 @@ export const getArtist = async (id: string): Promise<spotifyArtist> => {
 
 export const getArtistAlbums = async (id: string): Promise<spotifyAlbum[]> => {
   const resp = await API.get(`${BASEURL}/artist/${id}/albums`);
+  //@ts-ignore
+  resp.data.items.map((l: spotifyAlbum) => console.log(getSmallestImage(l.images)))
   //@ts-ignore
   return resp.data.items;
 };
