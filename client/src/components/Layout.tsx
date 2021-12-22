@@ -1,22 +1,29 @@
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Outlet, useNavigate
 } from "react-router-dom";
 import {
+  useErrorState,
   usePlaybackState,
   WebPlaybackSDK
 } from "react-spotify-web-playback-sdk";
-import { checkAuth } from "../API";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
 import Header from "./Header";
+// TODO: Wrapper omaan tiedostoon?
 
 interface wrapperProps {
   albumArtBg: boolean;
 }
 const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
   const playbackState = usePlaybackState();
+  const errorState = useErrorState();
+
+  useEffect(() => {
+    console.log("ERRORSTATE")
+    console.log(errorState)
+  }, [errorState])
 
   const getAlbumArtFromPLaybackState = (
     playbackState: Spotify.PlaybackState
@@ -70,19 +77,13 @@ const Layout: React.FC = () => {
       await refreshAccessToken();
     }
 
-    try {
-      await checkAuth();
-    } catch (e) {
-      console.log("WebPlaybackSDK Checkauth failed");
-      localStorage.removeItem("user");
-      //  setUser("");
-      navigate("/login");
-    }
+
     return user;
   };
 
   const getOAuthToken = useCallback(
     (callback) => {
+      console.log("getOAuthToken")
       const act = getAccesStoken();
       callback(act);
     },

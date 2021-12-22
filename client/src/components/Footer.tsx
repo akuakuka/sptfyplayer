@@ -52,7 +52,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const handlePrev = async () => {
     player?.previousTrack();
   };
-
+  // TODO: Footer not working with small height view
   return (
     <Flex
       justify="space-between"

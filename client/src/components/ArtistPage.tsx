@@ -1,5 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/layout";
-import { Switch, Text } from "@chakra-ui/react";
+import { Switch, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -60,7 +60,7 @@ const ArtistPage: React.FC = () => {
             <Heading paddingLeft="10">Albumit </Heading>
             <Flex gridGap="3">
               <Text>Näytä singlet?</Text>
-              <Switch onChange={() => handleSingleSwitch()}></Switch>
+              <Switch colorScheme={useColorModeValue("yellow", "red")} onChange={() => handleSingleSwitch()}></Switch>
             </Flex>
           </Flex>
           <Flex direction="column" gridGap="10">

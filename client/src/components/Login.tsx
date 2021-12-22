@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getExpiryDate } from "../utils/dateUtils";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -18,9 +19,7 @@ const Login: React.FC = () => {
     const accessToken = query.get("accessToken");
     const refreshToken = query.get("refreshToken");
 
-    const expiryDate = new Date(
-      new Date().setHours(new Date().getHours() + 1)
-    ).valueOf();
+    const expiryDate = getExpiryDate()
 
     // TODO: expiryDate from backend and into user object?
     if (accessToken) {

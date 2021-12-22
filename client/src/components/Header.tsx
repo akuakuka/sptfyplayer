@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
     localStorage.removeItem("expiryDate");
     navigate(`/login`);
   };
-
+  // TODO: Switch background coilor
   return (
     <Flex
       position="fixed"

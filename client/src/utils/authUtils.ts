@@ -17,6 +17,8 @@ export const refreshAccessToken = async (): Promise<void> => {
       } else {
         console.log("RESPONSE ERROR NO ACCESS TOKEN");
       }
+    } else {
+      console.log("refreshAccessToken ELSE");
     }
   } catch (e) {
     console.log(e);

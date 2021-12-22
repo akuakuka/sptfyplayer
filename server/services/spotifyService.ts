@@ -45,20 +45,17 @@ export const getArtist = async (
   id: string,
   accesstoken: string
 ): Promise<spotifyArtist> => {
-  try {
-    const headers = {
-      Authorization: `${accesstoken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-    const { data } = await API.get<spotifyArtist>(`/artists/${id}`, {
-      headers,
-    });
-    return data;
-  } catch (e) {
-    console.log("error getArtist ");
-    console.log(e.response.status);
-  }
+
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  const { data } = await API.get<spotifyArtist>(`/artists/${id}`, {
+    headers,
+  });
+  return data;
+
 };
 
 export const getArtistalbums = async (
@@ -66,44 +63,38 @@ export const getArtistalbums = async (
   accesstoken: string
 ): Promise<spotifyAlbum[]> => {
   // 05fG473iIaoy82BF1aGhL8
-  try {
-    const headers = {
-      Authorization: `${accesstoken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-    const { data } = await API.get<spotifyAlbum[]>(
-      `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`,
-      { headers }
-    );
-    return data;
-  } catch (e) {
-    console.log("error getArtistalbums");
-    console.log(e.response.status);
-  }
+
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  const { data } = await API.get<spotifyAlbum[]>(
+    `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`,
+    { headers }
+  );
+  return data;
+
 };
 
 export const getAlbum = async (
   id: string,
   accesstoken: string
 ): Promise<spotifyAlbum> => {
-  try {
-    const headers = {
-      Authorization: `${accesstoken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
 
-    const { data } = await API.get<spotifyAlbum>(
-      `/albums/${id}?market=${market}`,
-      { headers }
-    );
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
 
-    return data;
-  } catch (e) {
-    console.log("error getAlbum");
-    console.log(e.response.status);
-  }
+  const { data } = await API.get<spotifyAlbum>(
+    `/albums/${id}?market=${market}`,
+    { headers }
+  );
+
+  return data;
+
 };
 //TODO: Tyyppeihin myös error
 export const checkAuth = async (accesstoken: string): Promise<spotifyUser> => {
@@ -120,24 +111,20 @@ export const searchSpotify = async (
   term: string,
   accesstoken: string
 ): Promise<SpotifySearchResult> => {
-  try {
-    //https://api.spotify.com/v1/search
 
-    const headers = {
-      Authorization: `${accesstoken}`,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-    const { data } = await API.get<SpotifySearchResult>(
-      `/search?q=${term}&type=artist%2Calbum&market=${market}`,
-      { headers }
-    );
 
-    return data;
-  } catch (e) {
-    console.log("error checkAuth");
-    console.log(e.response.status);
-  }
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  const { data } = await API.get<SpotifySearchResult>(
+    `/search?q=${term}&type=artist%2Calbum&market=${market}`,
+    { headers }
+  );
+
+  return data;
+
 };
 
 export const refreshToken = async (

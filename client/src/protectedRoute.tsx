@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { checkAuth } from "./API";
-import { refreshAccessToken } from "./utils/authUtils";
 
 export const ProtectedRoute: React.FC = () => {
   // let auth = useAuth();
@@ -14,31 +12,35 @@ export const ProtectedRoute: React.FC = () => {
   useEffect(() => {
     (async () => {
       console.log({ authenticated });
-      setReady(false);
-      if (user) {
-        console.log("USER LÖYTYY");
-        try {
-          await checkAuth();
-
-          setauthenticated(true);
-          setReady(true);
-        } catch (e) {
-          try {
-            await refreshAccessToken();
-            await checkAuth();
-            setauthenticated(true);
-            setReady(true);
-          } catch (e) {
-            setauthenticated(false);
-            //  setUser("");
-            navigate("/login");
-          }
-        }
-      } else {
-        console.log("USER EI LÖYDY");
-        console.log("protectedroute else");
-        navigate("/login");
-      }
+      setReady(true);
+      setauthenticated(true)
+      /*       if (user) {
+              console.log("USER LÖYTYY");
+              try {
+                const resp = await checkAuth();
+                console.log("PROTECTED ROUTE RESPONSE FOR CEHCKAUTH")
+                console.log(resp)
+                setauthenticated(true);
+                setReady(true);
+              } catch (e) {
+                try {
+                  console.log("REFRESHING TOKEN !")
+                  await refreshAccessToken();
+                  await checkAuth();
+                  setauthenticated(true);
+                  setReady(true);
+                } catch (e) {
+                  console.log("FAILED TO REFRESH TOKEN!")
+                  setauthenticated(false);
+                  //  setUser("");
+                  navigate("/login");
+                }
+              }
+            } else {
+              console.log("USER EI LÖYDY");
+              console.log("protectedroute else");
+              navigate("/login");
+            } */
     })();
   }, []);
 

@@ -6,6 +6,7 @@ import {
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET
 } from "../config";
+import { asyncMiddleware } from "../middleware/asyncMiddleware";
 import { refreshToken } from "../services/spotifyService";
 import { SpotifyTokenResponse } from "../types/SpotifyTypes";
 
@@ -20,7 +21,8 @@ authRouter.get("/login", (req, res) => {
   res.redirect(url);
 });
 
-authRouter.post("/refresh/:refreshtoken", async (req, res) => {
+authRouter.post("/refresh/:refreshtoken", asyncMiddleware(async (req, res) => {
+  console.log("/refresh/:refreshtoken")
   //@ts-ignore
   console.log(req.params.refreshtoken);
   //@ts-ignore
@@ -38,13 +40,13 @@ authRouter.post("/refresh/:refreshtoken", async (req, res) => {
   } else {
     res.send(403);
   }
-});
+}))
 
 authRouter.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-authRouter.get("/callback", async (req, res) => {
+authRouter.get("/callback", asyncMiddleware(async (req, res) => {
   if (!req.query.code) res.json(403);
 
   const basic = `Basic ${Buffer.from(
@@ -73,4 +75,4 @@ authRouter.get("/callback", async (req, res) => {
   res.redirect(
     `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
   );
-});
+}));

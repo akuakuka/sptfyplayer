@@ -5,13 +5,15 @@ import {
   SpotifySearchResult,
   spotifyUser
 } from "../../server/types/SpotifyTypes";
-import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
-import { getSmallestImage } from "./utils/dateUtils";
+import { isAccessTokenValid } from "./utils/authUtils";
+import { getExpiryDate } from "./utils/dateUtils";
 
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 //@ts-ignore
-const BASEURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api`
+const BASEURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/spotify` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/spotify`
+//@ts-ignore
+const REFRESHURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/auth/refresh` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/auth/refresh`
 console.log({ BASEURL })
 const API = axios.create({});
 
@@ -20,10 +22,13 @@ console.log(usr);
 //TODO: Headeri Bearer instanceen api
 
 export const play = (token: string, deviceID: string, ids: string[]) => {
-  API.put(
-    `${SPOTIFYBASEURL}/me/player/play?device_id=${deviceID}`,
-    JSON.stringify({ uris: ids })
-  );
+  //  config.headers.Authorization = `Bearer ${token}`;
+  const data = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  axios.put(`${SPOTIFYBASEURL}/me/player/play?device_id=${deviceID}`, JSON.stringify({ uris: ids }), data);
 };
 
 export const getArtists = async (): Promise<spotifyArtist[]> => {
@@ -42,8 +47,6 @@ export const getArtist = async (id: string): Promise<spotifyArtist> => {
 
 export const getArtistAlbums = async (id: string): Promise<spotifyAlbum[]> => {
   const resp = await API.get(`${BASEURL}/artist/${id}/albums`);
-  //@ts-ignore
-  resp.data.items.map((l: spotifyAlbum) => console.log(getSmallestImage(l.images)))
   //@ts-ignore
   return resp.data.items;
 };
@@ -70,18 +73,51 @@ export const checkAuth = async (): Promise<spotifyUser> => {
 export const refreshToken = async (token: string): Promise<spotifyUser> => {
   console.log("API.tsx");
   console.log({ token });
-  const resp = await API.post(`${BASEURL}/auth/refresh/${token}`);
+  const resp = await axios.post(`${REFRESHURL}/${token}`);
   //@ts-ignore
   return resp.data;
 };
 
+/* API.interceptors.request.use(async (config) => {
+  // Check access if token expired
+
+}) */
+
+
+API.interceptors.request.use(async (config) => {
+  if (!isAccessTokenValid()) {
+    const refreshtoken = localStorage.getItem("refreshToken") || "";
+    if (refreshtoken) {
+
+      const response = await refreshToken(refreshtoken);
+
+      //@ts-ignore 
+      localStorage.setItem("user", response.access_token);
+
+
+      const expiryDate = getExpiryDate()
+      localStorage.setItem("expiryDate", expiryDate.toString());
+
+    } else {
+      console.error("NO REFRESHTOKENrefreshtoken")
+    }
+  } return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("user");
+
     if (token) {
       console.log("TOKEN löyty");
       //@ts-ignore
       config.headers.Authorization = `Bearer ${token}`;
+      //@ts-ignore
+
+
     }
     return config;
   },
@@ -90,32 +126,12 @@ API.interceptors.request.use(
 
 API.interceptors.response.use(
   async (config) => {
-    console.log(config.config.url);
-    console.log(config.status);
-    console.log(config.statusText);
-    console.log(config.status);
-    if (config.status === 400) {
-      console.log("xxxxxxxxxxxxxxxx");
-      console.log("xxxxxxxxxxxxxxxx");
-      console.log("xxxxxxxxxxxxxxxx");
-      console.log("xxxxxxxxxxxxxxxx");
-      console.log("xxxxxxxxxxxxxxxx");
-      console.log("xxxxxxxxxxxxxxxx");
-      console.log("xxxxxxxxxxxxxxxx");
-      if (!isAccessTokenValid()) {
-        await refreshAccessToken();
-        try {
-          await checkAuth();
-        } catch (e) {
-          localStorage.removeItem("user");
-          // TODO: Change path without react router?
-          //  setUser("");
-          // navigate("/login");
-        }
-      }
-    }
+    const responseStatus = config.status;
+    console.log({ responseStatus });
 
     return config;
   },
   (error) => Promise.reject(error)
 );
+
+

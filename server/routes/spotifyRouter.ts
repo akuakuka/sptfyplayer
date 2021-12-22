@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { checkBearerWithSpotify } from "../middleware/authMiddleware";
+import { asyncMiddleware } from "../middleware/asyncMiddleware";
 import {
   checkAuth, getAlbum, getArtist,
   getArtistalbums, getFollowedArtists, searchSpotify
 } from "../services/spotifyService";
 export const spotifyRouter = Router();
 
-spotifyRouter.get("/artists", checkBearerWithSpotify, async (req, res) => {
+spotifyRouter.get("/artists", asyncMiddleware(async (req, res) => {
   const { authorization } = req.headers;
   /* 
   console.log(req.headers.authorization);
@@ -21,21 +21,21 @@ spotifyRouter.get("/artists", checkBearerWithSpotify, async (req, res) => {
     console.log(e.response.statusText);
     res.sendStatus(e.response.status);
   }
-});
+}));
 
-spotifyRouter.get("/artist/:id", checkBearerWithSpotify, async (req, res) => {
+spotifyRouter.get("/artist/:id", asyncMiddleware(async (req, res) => {
+  console.log("/artist/:id")
   const { authorization } = req.headers;
   /*   
   console.log({ authorization }); */
   //@ts-ignore
   const resp = await getArtist(req.params.id, authorization);
   res.json(resp);
-});
+}));
 
 spotifyRouter.get(
   "/artist/:id/albums",
-  checkBearerWithSpotify,
-  async (req, res) => {
+  asyncMiddleware(async (req, res) => {
     const { authorization } = req.headers;
     /*   
   console.log({ authorization }); */
@@ -43,15 +43,15 @@ spotifyRouter.get(
     const resp = await getArtistalbums(req.params.id, authorization);
     res.json(resp);
   }
-);
+  ));
 
-spotifyRouter.get("/album/:id", checkBearerWithSpotify, async (req, res) => {
+spotifyRouter.get("/album/:id", asyncMiddleware(async (req, res) => {
   const { authorization } = req.headers;
   /*   console.log({ authorization }); */
   //@ts-ignore
   const resp = await getAlbum(req.params.id, authorization);
   res.json(resp);
-});
+}));
 
 spotifyRouter.get("/check", async (req, res) => {
   const { authorization } = req.headers;
@@ -60,10 +60,10 @@ spotifyRouter.get("/check", async (req, res) => {
   res.json(resp);
 });
 
-spotifyRouter.get("/search/:term", checkBearerWithSpotify, async (req, res) => {
+spotifyRouter.get("/search/:term", asyncMiddleware(async (req, res) => {
   const { authorization } = req.headers;
   /*   const { authorization } = req.headers;
   console.log({ authorization }); */
   const resp = await searchSpotify(req.params.term, authorization);
   res.json(resp);
-});
+}));

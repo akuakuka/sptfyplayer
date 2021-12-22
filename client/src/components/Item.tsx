@@ -79,7 +79,7 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                   alignItems="center"
                 >
                   <IconButton
-                    variant={"play"}
+                    variant={"albumplay"}
                     onClick={() => handlePlayAlbum()}
                   />
                   <Link to={`/app/album/${id}`} key={id}>

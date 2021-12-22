@@ -28,3 +28,10 @@ export const getSmallestImage = (images: spotifyImage[]): string => {
 
     return sorted[0].url
 }
+
+export const getExpiryDate = (): number => {
+    const expiryDate = new Date(
+        new Date().setHours(new Date().getHours() + 1)
+    ).valueOf();
+    return expiryDate;
+}

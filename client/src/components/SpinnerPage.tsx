@@ -16,7 +16,7 @@ export const SpinnerPage: React.FC = () => {
         thickness="4px"
         speed="0.65s"
         emptyColor="gray.200"
-        color="blue.500"
+        color="brandDark.200"
         width="200px"
         height="200px"
       />
