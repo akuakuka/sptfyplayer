@@ -71,7 +71,7 @@ authRouter.get("/callback", asyncMiddleware(async (req, res) => {
     codeData,
     { headers }
   );
-
+  console.log(data)
   res.redirect(
     `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
   );
