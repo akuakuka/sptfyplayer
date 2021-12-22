@@ -1,14 +1,14 @@
-import { Box, Flex, Container, Heading } from "@chakra-ui/layout";
-import { Button, Input, Spacer, Spinner } from "@chakra-ui/react";
-import React,{ useEffect, useState } from "react";
+import { Container, Flex, Heading } from "@chakra-ui/layout";
+import { Spacer, Spinner } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {
   SearchResultAlbum,
-  SearchResultArtist,
+  SearchResultArtist
 } from "../../../server/types/SpotifyTypes";
 import { search } from "../API";
-
 import Item from "./Item";
+
 
 const SearchResultPage: React.FC = () => {
   const [artists, setArtists] = useState<SearchResultArtist[]>(Object);

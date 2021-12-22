@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { Button, Container, Image } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
 import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
@@ -52,7 +52,7 @@ const AlbumPage: React.FC = () => {
           <Flex direction="column" gridGap="10px" wrap="wrap">
             {album.tracks && (
               <>
-              
+
                 {album.tracks.items.map(
                   (t: {
                     id: React.Key | null | undefined;

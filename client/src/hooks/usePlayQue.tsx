@@ -1,4 +1,4 @@
-import React,{ createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 //@ts-ignore
 export const QueContext = createContext();
 //@ts-ignore

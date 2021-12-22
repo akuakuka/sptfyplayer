@@ -1,24 +1,44 @@
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import "@fontsource/aldrich";
+import "@fontsource/cabin";
+import "@fontsource/lemon";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { QueProvider } from "./hooks/usePlayQue";
-import "@fontsource/aldrich";
-import "@fontsource/lemon";
-import "@fontsource/cabin";
-
 import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import { QueProvider } from "./hooks/usePlayQue";
+import "./index.css";
 
-const config = {
-  initialColorMode: "dark",
-  useSystemColorMode: false,
-  fonts: {
-    heading: "Cabin",
-    body: "Cabin",
+
+const theme = extendTheme({
+  colors: {
+    brand: {
+      100: "#FAF3F3",
+      300: "#afb1d7",
+      500: "#FCD6CC",
+      600: "#A7BBC7",
+      700: "#7a626b",
+      800: "#decad6",
+      900: "#e4bbff8a",
+    },
+    brandDark: {
+      100: "#718096",
+      300: "#2D3748",
+      600: "#s1A202C",
+      900: "#171923",
+    }
   },
-};
-const theme = extendTheme({ config });
+  shadows: {
+    neored: 'inset 20px 20px 60px #bdacb6,inset -20px -20px 60px #ffe8f6;',
+    neorednoblur: "11px 11px 0px #4d3e43,-11px -11px 0px #a78693"
+  },
+  initialColorMode: "dark",
+  fonts: {
+    heading: 'Cabin',
+    body: 'Cabin',
+  },
+
+})
 
 ReactDOM.render(
   <React.StrictMode>
@@ -35,3 +55,11 @@ ReactDOM.render(
 
 // Advent Pro
 // Cabin
+
+/* colors: {
+  eggwhite: "#FAF3F3",
+  lightgrey: "#E1E5EA",
+  darkgrey: "#A7BBC7",
+  mainred:"#DA7F8F"
+}, */
+

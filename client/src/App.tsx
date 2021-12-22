@@ -1,14 +1,14 @@
-import React from "react"
-import { Navigate, Route, Routes } from "react-router-dom";
-import ArtistView from "./components/ArtistView";
-import "./index.css";
-import ArtistPage from "./components/ArtistPage";
-import AlbumPage from "./components/AlbumPage";
-import Login from "./components/Login";
-import { ProtectedRoute } from "./protectedRoute";
-import SearchResultPage from "./components/SearchResultPage";
-import Layout from "./components/Layout";
 import { AnimatePresence } from "framer-motion";
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import AlbumPage from "./components/AlbumPage";
+import ArtistPage from "./components/ArtistPage";
+import ArtistView from "./components/ArtistView";
+import Layout from "./components/Layout";
+import Login from "./components/Login";
+import SearchResultPage from "./components/SearchResultPage";
+import "./index.css";
+import { ProtectedRoute } from "./protectedRoute";
 
 const NotFound: React.FC = () => {
   return <Navigate to="/app" />;

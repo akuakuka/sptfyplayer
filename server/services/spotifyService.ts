@@ -2,13 +2,8 @@ import axios from "axios";
 import qs from "qs";
 import { SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "../config";
 import {
-  spotifyArtist,
-  userArtistsResponse,
-  spotifyAlbum,
-  spotifyUser,
-  SpotifySearchResult,
-  SpotifyTokenResponse,
-  SpotifyUserResponse,
+  spotifyAlbum, spotifyArtist, SpotifySearchResult,
+  SpotifyTokenResponse, spotifyUser, SpotifyUserResponse, userArtistsResponse
 } from "../types/SpotifyTypes";
 
 const API = axios.create({

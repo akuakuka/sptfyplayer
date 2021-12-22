@@ -1,9 +1,9 @@
-import express from "express";
 import cors from "cors";
-import { spotifyRouter } from "./routes/spotifyRouter";
-import { authRouter } from "./routes/authRouter";
-import { FRONTEND_URL } from "./config";
+import express from "express";
 import path from "path";
+import { FRONTEND_URL } from "./config";
+import { authRouter } from "./routes/authRouter";
+import { spotifyRouter } from "./routes/spotifyRouter";
 
 const PORT = 3000;
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== "dev") {
   const reactPath = path.resolve(__dirname, "../../client/dist");
   app.use(express.static(reactPath));
   app.use(express.static("public"));
-  app.get('*',  (req, res) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../../client/dist', 'index.html'))
   })
 }

@@ -1,14 +1,13 @@
-import { Flex, Container, Heading, Box } from "@chakra-ui/layout";
+import { Flex, Heading } from "@chakra-ui/layout";
 import { Switch, Text } from "@chakra-ui/react";
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  spotifyArtist,
-  spotifyAlbum,
+  spotifyAlbum, spotifyArtist
 } from "../../../server/types/SpotifyTypes";
-import { SpinnerPage } from "./SpinnerPage";
 import { getArtist, getArtistAlbums } from "../API";
 import Item from "./Item";
+import { SpinnerPage } from "./SpinnerPage";
 
 /* interface ArtistPageProps {
     id:string
@@ -58,14 +57,14 @@ const ArtistPage: React.FC = () => {
           </Flex>
 
           <Flex gridGap="10">
-            <Heading>Albumit </Heading>
+            <Heading paddingLeft="10">Albumit </Heading>
             <Flex gridGap="3">
               <Text>Näytä singlet?</Text>
               <Switch onChange={() => handleSingleSwitch()}></Switch>
             </Flex>
           </Flex>
           <Flex direction="column" gridGap="10">
-            <Flex direction="row" gridGap="10px" wrap="wrap">
+            <Flex direction="row" gridGap="10px" wrap="wrap" justifyContent="center">
               {albums && albums.length ? (
                 <>
                   {albums.map((a, i) => (
@@ -78,8 +77,8 @@ const ArtistPage: React.FC = () => {
             </Flex>
             {showSingles && (
               <Flex direction="column" gridGap="5">
-                <Heading>Singlet </Heading>
-                <Flex direction="row" gridGap="10px" wrap="wrap">
+                <Heading paddingLeft="10">Singlet </Heading>
+                <Flex direction="row" gridGap="10px" wrap="wrap" justifyContent="center">
                   {singles && singles.length ? (
                     <>
                       {singles.map((a, i) => (

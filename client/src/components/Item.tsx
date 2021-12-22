@@ -1,11 +1,10 @@
-import { Text, Box, Flex } from "@chakra-ui/layout";
-import { Image, Avatar, BoxProps } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Avatar, BoxProps, Image, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React,{ useContext, useState } from "react";
-import { useNavigate } from "react-router";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyTrack, spotifyItem } from "../../../server/types/SpotifyTypes";
+import { spotifyItem, spotifyTrack } from "../../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
 import { IconButton } from "./IconButton";
@@ -41,13 +40,13 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   return (
     <Flex
       direction="column"
-      backgroundColor="gray.900"
+      backgroundColor={useColorModeValue("brand.800", "brandDark.900")}
       alignItems="center"
       borderRadius="30"
       width="180px"
       height="200px"
       p="3"
-      boxShadow="dark-lg"
+      boxShadow={useColorModeValue("neored", "dark-lg")}
     >
       {type === "album" ? (
         <>

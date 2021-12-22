@@ -1,21 +1,16 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import {
-  Route,
-  BrowserRouter as Router,
-  Outlet,
-  Routes,
-  useNavigate,
+  Outlet, useNavigate
 } from "react-router-dom";
 import {
   usePlaybackState,
-  WebPlaybackSDK,
+  WebPlaybackSDK
 } from "react-spotify-web-playback-sdk";
-import { checkAuth, refreshToken } from "../API";
+import { checkAuth } from "../API";
+import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
 import Header from "./Header";
-import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 
 interface wrapperProps {
   albumArtBg: boolean;
@@ -43,6 +38,7 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
           ? getAlbumArtFromPLaybackState(playbackState)
           : ""
       }
+      backgroundColor={useColorModeValue("brand.800", "brandDark.900")}
       backgroundRepeat={"no-repeat"}
       backgroundSize={"cover"}
       backgroundAttachment={"fixed"}

@@ -1,19 +1,17 @@
 import { Flex } from "@chakra-ui/layout";
 import {
-  Box,
-  Slider,
+  Box, Image, Slider,
   SliderFilledTrack,
   SliderThumb,
-  SliderTrack,
-  Image,
+  SliderTrack, useColorModeValue
 } from "@chakra-ui/react";
-import React,{ useContext } from "react";
+import React, { useContext } from "react";
 import {
   useErrorState,
   usePlaybackState,
   usePlayerDevice,
   useSpotifyPlayer,
-  useWebPlaybackSDKReady,
+  useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
 import { play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
@@ -55,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   return (
     <Flex
       justify="space-between"
-      backgroundColor="gray.800"
+      backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
       height="100px"
       alignItems="center"
       justifyContent="center"

@@ -1,9 +1,9 @@
-import { Icon, BoxProps, Box } from "@chakra-ui/react";
-import { FaPlay } from "react-icons/fa";
-import { ImPrevious2, ImNext2 } from "react-icons/im";
-import { BsThreeDotsVertical, BsQuestionSquareFill } from "react-icons/bs";
+import { Box, BoxProps, Icon } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
+import { BsQuestionSquareFill, BsThreeDotsVertical } from "react-icons/bs";
+import { FaPlay } from "react-icons/fa";
+import { ImNext2, ImPrevious2 } from "react-icons/im";
 
 interface IconButtonProps {
   variant: string;

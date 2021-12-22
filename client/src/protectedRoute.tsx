@@ -1,5 +1,5 @@
-import React,{ useEffect, useState } from "react";
-import { useNavigate, Outlet, useLocation, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { checkAuth } from "./API";
 import { refreshAccessToken } from "./utils/authUtils";
 

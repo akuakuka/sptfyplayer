@@ -1,15 +1,13 @@
-import { Router } from "express";
 import axios from "axios";
+import { Router } from "express";
 import qs from "qs";
 import {
-  SPOTIFY_CALLBACK,
+  FRONTEND_URL, scopes, SPOTIFY_CALLBACK,
   SPOTIFY_CLIENTID,
-  SPOTIFY_SECRET,
-  scopes,
-  FRONTEND_URL,
+  SPOTIFY_SECRET
 } from "../config";
+import { refreshToken } from "../services/spotifyService";
 import { SpotifyTokenResponse } from "../types/SpotifyTypes";
-import { getSpotifyUser, refreshToken } from "../services/spotifyService";
 
 export const authRouter = Router();
 

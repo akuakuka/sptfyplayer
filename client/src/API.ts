@@ -1,12 +1,10 @@
 import axios from "axios";
-import { useContext } from "react";
 import {
   spotifyAlbum,
   spotifyArtist,
   SpotifySearchResult,
-  spotifyUser,
+  spotifyUser
 } from "../../server/types/SpotifyTypes";
-import { AuthContext } from "./hooks/useAuth";
 import { isAccessTokenValid, refreshAccessToken } from "./utils/authUtils";
 
 
@@ -61,11 +59,6 @@ export const search = async (term: string): Promise<SpotifySearchResult> => {
 };
 
 export const checkAuth = async (): Promise<spotifyUser> => {
-  console.log("CHECKAUTH")
-  console.log("CHECKAUTH")
-  console.log("CHECKAUTH")
-  console.log("CHECKAUTH")
-  console.log("CHECKAUTH")
 
   const resp = await API.get(`${BASEURL}/check/`);
   //@ts-ignore

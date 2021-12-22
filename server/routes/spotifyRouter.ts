@@ -1,12 +1,8 @@
 import { Router } from "express";
 import { checkBearerWithSpotify } from "../middleware/authMiddleware";
 import {
-  getFollowedArtists,
-  getArtist,
-  getArtistalbums,
-  getAlbum,
-  searchSpotify,
-  checkAuth,
+  checkAuth, getAlbum, getArtist,
+  getArtistalbums, getFollowedArtists, searchSpotify
 } from "../services/spotifyService";
 export const spotifyRouter = Router();
 

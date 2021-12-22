@@ -10,8 +10,9 @@ import {
   Switch,
   Text,
   useColorMode,
+  useColorModeValue
 } from "@chakra-ui/react";
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDebounce } from "../hooks/useDebounce";
 
@@ -55,7 +56,8 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       width="100vw"
       borderBottom="100px"
       height="50px"
-      backgroundColor="gray.800"
+
+      backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
       boxShadow="dark-lg"
       alignContent="center"
       alignItems="center"
@@ -78,8 +80,10 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
             aria-label="Options"
             icon={<HamburgerIcon />}
             variant="outline"
+
+            backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
           />
-          <MenuList>
+          <MenuList backgroundColor={useColorModeValue("brand.500", "brandDark.900")}>
             <MenuItem closeOnSelect={false}>
               <Flex direction="row" gridGap="3">
                 <Text>Albumart Background</Text>
