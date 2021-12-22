@@ -1,4 +1,4 @@
-import { Box, BoxProps, Icon } from "@chakra-ui/react";
+import { Box, BoxProps, Icon, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { BiAlbum } from "react-icons/bi";
@@ -18,7 +18,7 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
   const get = (variant: string): React.ReactElement => {
     if (variant == "prev") {
       return (
-        <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
+        <MotionBox whileHover={{ scale: 1.4, color: "#870000" }} height="auto" width="auto">
           <Icon
             as={ImPrevious2}
             w={6}
@@ -29,23 +29,33 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
         </MotionBox>
       );
     }
-    if (variant == "play") {
+
+    /*  <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" fill={useColorModeValue("brand.100", "brand.100")} /> */
+
+    if (variant == "albumplay") {
       return (
         <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
+          <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" fill={useColorModeValue("brand.100", "brand.100")} />
+        </MotionBox>
+      );
+    }
+    if (variant == "play") {
+      return (
+        <MotionBox whileHover={{ scale: 1.4, color: "#870000" }} height="auto" width="auto">
           <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" />
         </MotionBox>
       );
     }
     if (variant == "pause") {
       return (
-        <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
+        <MotionBox whileHover={{ scale: 1.4, color: "#870000" }} height="auto" width="auto">
           <Icon as={FaPause} w={6} h={6} onClick={onClick} cursor="pointer" />
         </MotionBox>
       );
     }
     if (variant == "next") {
       return (
-        <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
+        <MotionBox whileHover={{ scale: 1.4, color: "#870000" }} height="auto" width="auto">
           <Icon as={ImNext2} w={6} h={6} onClick={onClick} cursor="pointer" />
         </MotionBox>
       );
@@ -53,7 +63,7 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
     if (variant == "details") {
       return (
         <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
-          <Icon as={BsThreeDotsVertical} w={6} h={6} cursor="pointer" />
+          <Icon as={BsThreeDotsVertical} w={6} h={6} cursor="pointer" fill={useColorModeValue("brand.100", "brand.100")} />
         </MotionBox>
       );
     }
