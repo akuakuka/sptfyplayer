@@ -1,11 +1,12 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
-import { Button, Container, Image } from "@chakra-ui/react";
+import { Container, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
 import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { getAlbumReleaseYearFromDate } from "../utils/dateUtils";
+import { MotionBox } from "./MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
 
 /* interface ArtistPageProps {
@@ -67,12 +68,12 @@ const AlbumPage: React.FC = () => {
                         name: any;
                         uri: string;
                       }) => (
-                        <Box key={t.id}>
+                        <MotionBox whileHover={{ scale: 1.1, color: "#870000" }} key={t.id} cursor="pointer" onClick={() => handlePlaySong(t.uri)}>
                           {t.name}
-                          <Button onClick={() => handlePlaySong(t.uri)}>
+                          {/*   <Button >
                             play
-                          </Button>
-                        </Box>
+                          </Button> */}
+                        </MotionBox>
                       )
                     )}
                   </>

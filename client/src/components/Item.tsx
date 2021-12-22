@@ -78,11 +78,6 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                   justifyContent="space-around"
                   alignItems="center"
                 >
-                  {/*                   <IconButton
-                    aria-label="playalbum"
-                    icon={<TriangleUpIcon />}
-                    onClick={() => handlePlayAlbum()}
-                  /> */}
                   <IconButton
                     variant={"play"}
                     onClick={() => handlePlayAlbum()}

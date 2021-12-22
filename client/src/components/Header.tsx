@@ -15,6 +15,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDebounce } from "../hooks/useDebounce";
+import { IconButton as IconB } from "./IconButton";
 
 interface HeaderProps {
   handleAlbumArtToggle: () => void;
@@ -65,6 +66,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       zIndex="100"
       gridGap="10"
     >
+      <IconB variant="homepage" key="homepage" onClick={() => navigate(`/app`)} />
       <Box marginLeft="auto">
         <Input
           placeholder="Hae"
@@ -78,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
           <MenuButton
             as={IconButton}
             aria-label="Options"
-            icon={<HamburgerIcon />}
+            icon={<HamburgerIcon stroke="brandDark.200" />}
             variant="outline"
 
             backgroundColor={useColorModeValue("brand.500", "brandDark.900")}

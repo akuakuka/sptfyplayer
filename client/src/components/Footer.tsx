@@ -3,7 +3,7 @@ import {
   Box, Image, Slider,
   SliderFilledTrack,
   SliderThumb,
-  SliderTrack, useColorModeValue
+  SliderTrack, Text, useColorModeValue
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import {
@@ -13,7 +13,6 @@ import {
   useSpotifyPlayer,
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
-import { play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
 import { IconButton } from "./IconButton";
 /* import { useVolume } from "../hooks/useVolume"; */
@@ -37,8 +36,12 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
 
   const handlePlay = async () => {
     if (device === null) return;
-    play(user, device?.device_id, que);
-    player?.togglePlay();
+    /*     play(user, device?.device_id, que); */
+    player?.resume();
+  };
+
+  const handlePause = async () => {
+    player?.pause();
   };
 
   const handleNext = () => {
@@ -91,10 +94,11 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
           >
             <Box>
               {playbackState && (
-                <>
-                  {playbackState.track_window.current_track.artists[0].name} -{" "}
-                  {playbackState.track_window.current_track.name}{" "}
-                </>
+
+                <Text>
+                  {playbackState.track_window.current_track.artists[0].name} - {playbackState.track_window.current_track.name}
+                </Text>
+
               )}
             </Box>
             <Flex px="10">
@@ -102,16 +106,27 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                 aria-label="next track"
                 variant={"prev"}
                 onClick={() => handlePrev()}
+                key="prevbutton"
               />
-              <IconButton
-                aria-label="play-pause"
-                variant={"play"}
-                onClick={() => handlePlay()}
-              />
+              {
+                (playbackState && playbackState.paused) ? <IconButton
+                  aria-label="play-pause"
+                  variant={"play"}
+                  onClick={() => handlePlay()}
+                  key="playbutton"
+                /> : <IconButton
+                  aria-label="play-pause"
+                  variant={"pause"}
+                  onClick={() => handlePause()}
+                  key="pausebutton"
+                />
+              }
+
               <IconButton
                 aria-label="next track"
                 variant={"next"}
                 onClick={() => handleNext()}
+                key="nextbutton"
               />
             </Flex>
           </Flex>
@@ -125,9 +140,9 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
             onChange={(val) => handleVolume(val)}
             maxWidth="100px"
           >
-            <SliderTrack bg="red.100">
+            <SliderTrack bg="brandDark.200">
               <Box position="relative" right={10} />
-              <SliderFilledTrack bg="tomato" />
+              <SliderFilledTrack bg="brandDark.200" />
             </SliderTrack>
             <SliderThumb boxSize={3} />
           </Slider>
