@@ -59,7 +59,7 @@ authRouter.get("/callback", asyncMiddleware(async (req, res) => {
   const codeData = qs.stringify({
     grant_type: "authorization_code",
     code: code,
-    redirect_uri: "http://localhost:3000/api/auth/callback",
+    redirect_uri: SPOTIFY_CALLBACK,
   });
 
   const headers = {
