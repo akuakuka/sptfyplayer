@@ -47,6 +47,7 @@ authRouter.get("/logout", (req, res) => {
 });
 
 authRouter.get("/callback", asyncMiddleware(async (req, res) => {
+  console.log(req.query)
   if (!req.query.code) res.json(403);
 
   const basic = `Basic ${Buffer.from(
