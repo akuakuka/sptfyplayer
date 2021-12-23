@@ -16,6 +16,7 @@ import Header from "./Header";
 interface wrapperProps {
   albumArtBg: boolean;
 }
+// Wrapper is used for getting spotify-sdk-hooks to below parent element level
 const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
   const playbackState = usePlaybackState();
   const errorState = useErrorState();
@@ -76,8 +77,6 @@ const Layout: React.FC = () => {
     if (!isAccessTokenValid()) {
       await refreshAccessToken();
     }
-
-
     return user;
   };
 
@@ -109,7 +108,7 @@ const Layout: React.FC = () => {
             height="91vh"
             width="100vw"
             justifyContent="center"
-            paddingTop="20"
+
           >
             <Outlet />
           </Flex>

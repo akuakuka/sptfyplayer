@@ -14,6 +14,7 @@ import {
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
 import { QueContext } from "../hooks/usePlayQue";
+import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton } from "./IconButton";
 /* import { useVolume } from "../hooks/useVolume"; */
 
@@ -24,6 +25,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const webPlaybackSDKReady = useWebPlaybackSDKReady();
+  const size: Size = useWindowSize();
 
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
@@ -53,55 +55,78 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
     player?.previousTrack();
   };
   // TODO: Footer not working with small height view
+
+
+  /*   <Flex
+    position="fixed"
+    top="0"
+    width="100vw"
+    borderBottom="100px"
+    height="50px"
+    backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
+    boxShadow="dark-lg"
+    alignContent="center"
+    alignItems="center"
+    justifyContent="center"
+    zIndex="100"
+    gridGap="10"
+  >
+   */
+
+
   return (
     <Flex
-      justify="space-between"
-      backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
-      height="100px"
-      alignItems="center"
-      justifyContent="center"
-      gridGap="10px"
       position="fixed"
+      bottom="0"
       width="100vw"
+      height="100px"
+      backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
       boxShadow="dark-lg"
+      alignContent="center"
+      alignItems="center"
+      justifyContent="space-around"
+      zIndex="100"
+      gridGap="3"
     >
       {webPlaybackSDKReady ? (
         <>
           <Box
-            marginBottom="100px"
-            height="150px"
-            width="150px"
-            minHeight="150px"
-            minWidth="150px"
-            position="relative"
-            left="-50vw + 50%"
+            height="30vh"
+            width="30vw"
+            minHeight="80px"
+            minWidth="80px"
             paddingLeft="3"
-            paddingBottom="30"
+            position="relative"
+            marginBottom="0 auto"
+
           >
-            {playbackState && (
-              <Image
-                src={
-                  playbackState.track_window.current_track.album.images[0].url
-                }
-              />
-            )}
+            {(size.width && size.width > 400) &&
+              <>
+                {playbackState && (
+                  <Image position="absolute"
+                    src={
+                      playbackState.track_window.current_track.album.images[0].url
+                    }
+
+                  />
+                )}
+              </>}
+
           </Box>
           <Flex
             direction="column"
-            alignItems="center"
-            justifyContent="center"
-            gridGap="10px"
+            gridGap="1"
+            width="30vw"
           >
-            <Box>
-              {playbackState && (
+            {playbackState && (
 
-                <Text>
-                  {playbackState.track_window.current_track.artists[0].name} - {playbackState.track_window.current_track.name}
-                </Text>
+              <Text noOfLines={1} width="50vw">
+                {playbackState.track_window.current_track.artists[0].name} - {playbackState.track_window.current_track.name}
+              </Text>
 
-              )}
-            </Box>
-            <Flex px="10">
+            )}
+
+            <Flex px="10" paddingBottom="7">
               <IconButton
                 aria-label="next track"
                 variant={"prev"}
@@ -138,7 +163,10 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
             step={0.1}
             value={volume}
             onChange={(val) => handleVolume(val)}
+            width="30vw"
             maxWidth="100px"
+            minWidth="50px"
+            marginRight="1"
           >
             <SliderTrack bg="brandDark.200">
               <Box position="relative" right={10} />
