@@ -14,8 +14,8 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton } from "./IconButton";
-/* import { useVolume } from "../hooks/useVolume"; */
 
+// TODO: Volume contextiin?=
 interface FooterProps {
   handleVolume: (val: number) => void;
   volume: number;
@@ -24,14 +24,12 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const webPlaybackSDKReady = useWebPlaybackSDKReady();
   const size: Size = useWindowSize();
-
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
 
   const handlePlay = async () => {
     if (device === null) return;
-    /*     play(user, device?.device_id, que); */
     player?.resume();
   };
 
@@ -47,25 +45,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const handlePrev = async () => {
     player?.previousTrack();
   };
-  // TODO: Footer not working with small height view
-
-
-  /*   <Flex
-    position="fixed"
-    top="0"
-    width="100vw"
-    borderBottom="100px"
-    height="50px"
-    backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
-    boxShadow="dark-lg"
-    alignContent="center"
-    alignItems="center"
-    justifyContent="center"
-    zIndex="100"
-    gridGap="10"
-  >
-   */
-
 
   return (
     <Flex

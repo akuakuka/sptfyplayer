@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { LOGINURL } from "../config";
 import { getExpiryDate } from "../utils/dateUtils";
 
 const useQuery = () => {
@@ -10,8 +11,7 @@ const useQuery = () => {
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  /*   const user = localStorage.getItem("user"); */
-  let query = useQuery();
+  const query = useQuery();
   // const history = useHistory();
 
   useEffect(() => {
@@ -25,15 +25,13 @@ const Login: React.FC = () => {
     if (accessToken) {
       if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("expiryDate", expiryDate.toString());
-      localStorage.setItem("user", accessToken);
+      localStorage.setItem("accessToken", accessToken);
       navigate("/app");
     }
   }, []);
 
   const handleLogin = () => {
-    //@ts-ignore
-    const loginURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/auth/login` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/auth/login`;
-    window.location.href = loginURL;
+    window.location.href = LOGINURL;
   };
 
   return (

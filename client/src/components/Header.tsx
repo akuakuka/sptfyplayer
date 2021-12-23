@@ -23,11 +23,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState<string>("");
-
   const { toggleColorMode } = useColorMode();
-
   useDebounce(() => doSearch(term), 1500, [term]);
-
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
@@ -44,12 +41,12 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("expiryDate");
     navigate(`/login`);
   };
-  // TODO: Switch background coilor
+
   return (
     <Flex
       position="fixed"

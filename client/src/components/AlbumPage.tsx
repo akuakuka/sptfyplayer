@@ -9,22 +9,12 @@ import { getAlbumReleaseYearFromDate } from "../utils/dateUtils";
 import { MotionBox } from "./MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
 
-/* interface ArtistPageProps {
-    id:string
-} */
-
-//TODO: albu.tracks tyypit rikki. Response tyyppi vs albumtyyppi?
-
 const AlbumPage: React.FC = () => {
-  //const device = usePlayerDevice();
   const [album, setAlbum] = useState<spotifyAlbum>(Object);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const user = localStorage.getItem("user");
-  const device = usePlayerDevice();
-
   const { id } = useParams();
-
-  // const [que, setQue] = useContext(QueContext);
+  const accessToken = localStorage.getItem("accessToken");
+  const device = usePlayerDevice();
 
   useEffect(() => {
     (async () => {
@@ -43,11 +33,11 @@ const AlbumPage: React.FC = () => {
   }, [album]);
 
   const handlePlaySong = async (uri: string) => {
-    // TODO: user is string?
-    if (device && user) {
-      play(user, device?.device_id, [uri]);
+    if (device && accessToken) {
+      play(accessToken, device?.device_id, [uri]);
     }
   };
+
   return (
     <>
       {isLoading ? (
@@ -68,9 +58,6 @@ const AlbumPage: React.FC = () => {
                       }) => (
                         <MotionBox whileHover={{ scale: 1.1, color: "#870000" }} key={t.id} cursor="pointer" onClick={() => handlePlaySong(t.uri)}>
                           {t.name}
-                          {/*   <Button >
-                            play
-                          </Button> */}
                         </MotionBox>
                       )
                     )}

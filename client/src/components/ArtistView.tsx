@@ -14,8 +14,7 @@ const ArtistView: React.FC = () => {
       try {
         setIsLoading(true);
         const resp = await getArtists();
-        // @ts-ignore
-        setArtists(resp.data);
+        setArtists(resp);
         setIsLoading(false);
       } catch (e) {
         setIsLoading(false);
@@ -33,7 +32,6 @@ const ArtistView: React.FC = () => {
           <Heading flexGrow={0} flexShrink={0} flexBasis={"100%"} margin="auto" textAlign="center" textColor={useColorModeValue("brand.200", "brandDark.600")}>Seuratut artistit</Heading>
           {artists && artists.length ? (
             <>
-
               {artists.map((a, i) => (
                 <Item {...a} key={i} />
               ))}{" "}

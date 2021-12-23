@@ -1,7 +1,7 @@
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  Outlet, useNavigate
+  Outlet
 } from "react-router-dom";
 import {
   useErrorState,
@@ -60,13 +60,9 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
 };
 
 const Layout: React.FC = () => {
-  // TODO: rename user to accessToken
-  // TODO: mainview container and header alignment (scrollbar)
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
-  const user = localStorage.getItem("user");
-
+  const accessToken = localStorage.getItem("accessToken");
   const [volume, setVolume] = useState(0.5);
-  const navigate = useNavigate();
 
   const handleVolume = (val: number) => {
     console.log(val);
@@ -77,7 +73,7 @@ const Layout: React.FC = () => {
     if (!isAccessTokenValid()) {
       await refreshAccessToken();
     }
-    return user;
+    return accessToken;
   };
 
   const getOAuthToken = useCallback(
@@ -86,7 +82,7 @@ const Layout: React.FC = () => {
       const act = getAccesStoken();
       callback(act);
     },
-    [user]
+    [accessToken]
   );
 
   return (

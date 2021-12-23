@@ -1,16 +1,23 @@
-import React, { createContext, useEffect, useState } from "react";
-//@ts-ignore
-export const QueContext = createContext();
-//@ts-ignore
-const QueProvider = (props) => {
-  const [que, setQue] = useState(["spotify:track:1jzDzZWeSDBg5fhNc3tczV"]);
+import React, { createContext, useState } from "react";
 
-  useEffect(() => {
-    console.log(que);
-  }, [que]);
+interface defaultQue {
+  que: string[]
+  setQue?: (a: string[]) => void;
+}
+const defaultState = { que: ["spotify:track:1jzDzZWeSDBg5fhNc3tczV"] }
+
+export const QueContext = createContext<defaultQue>(defaultState);
+
+const QueProvider = (props) => {
+  // Paranoid!
+  const [que, setQue] = useState(defaultState.que);
 
   return (
-    <QueContext.Provider value={[que, setQue]}>
+    <QueContext.Provider
+      value={{
+        que,
+        setQue
+      }}>
       {props.children}
     </QueContext.Provider>
   );

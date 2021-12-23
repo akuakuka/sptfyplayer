@@ -1,12 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
-// TODO: Vain tarvittavat scopet
+
+// Spotify-WEB-Player-SDK : "streaming", "user-read-email", "user-read-private"
 const scopes = [
-  "ugc-image-upload",
-  "playlist-modify-private",
-  "playlist-read-private",
-  "playlist-modify-public",
-  "playlist-read-collaborative",
   "user-read-private",
   "user-read-email",
   "user-read-playback-state",
@@ -19,11 +15,8 @@ const scopes = [
   "user-top-read",
   "app-remote-control",
   "streaming",
-  "user-follow-modify",
   "user-follow-read",
 ];
-// TODO: to .env
-
 
 const { SPOTIFY_CLIENTID, SPOTIFY_SECRET, SPOTIFY_CALLBACK_DEV, SPOTIFY_CALLBACK_PROD, FRONTEND_URL_DEV, FRONTEND_URL_PROD, NODE_ENV, BACKEND_URL_DEV } = process.env;
 const FRONTEND_URL = NODE_ENV !== "dev" ? FRONTEND_URL_PROD : FRONTEND_URL_DEV;

@@ -35,8 +35,6 @@ const ArtistPage: React.FC = () => {
     })();
   }, []);
 
-  // TODO: Cachetus?
-
   const handleSingleSwitch = async () => {
     setShowSingles(!showSingles);
   };

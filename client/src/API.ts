@@ -6,20 +6,15 @@ import {
   SpotifyTokenResponse,
   SpotifyUser
 } from "../../server/types/SpotifyTypes";
+import { BASEURL, REFRESHURL } from "./config";
 import { isAccessTokenValid } from "./utils/authUtils";
 import { getExpiryDate } from "./utils/dateUtils";
 
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
-//@ts-ignore
-const BASEURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/spotify` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/spotify`
-//@ts-ignore
-const REFRESHURL = import.meta.env.MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/auth/refresh` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/auth/refresh`
-console.log({ BASEURL })
+
 const API = axios.create({});
 
-const usr = localStorage.getItem("user");
-console.log(usr);
 //TODO: Headeri Bearer instanceen api
 
 export const play = (token: string, deviceID: string, ids: string[]): void => {
@@ -66,20 +61,13 @@ export const refreshToken = async (token: string): Promise<SpotifyTokenResponse>
   return data
 };
 
-
-
-
 API.interceptors.request.use(async (config) => {
   if (!isAccessTokenValid()) {
     const refreshtoken = localStorage.getItem("refreshToken") || "";
     if (refreshtoken) {
 
       const response = await refreshToken(refreshtoken);
-
-      //@ts-ignore 
-      localStorage.setItem("user", response.access_token);
-
-
+      localStorage.setItem("accessToken", response.access_token);
       const expiryDate = getExpiryDate()
       localStorage.setItem("expiryDate", expiryDate.toString());
 
@@ -94,15 +82,11 @@ API.interceptors.request.use(async (config) => {
 
 API.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("user");
+    const accessToken = localStorage.getItem("accessToken");
 
-    if (token) {
+    if (accessToken) {
       console.log("TOKEN löyty");
-      //@ts-ignore
-      config.headers.Authorization = `Bearer ${token}`;
-      //@ts-ignore
-
-
+      if (config.headers) config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },

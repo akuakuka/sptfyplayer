@@ -15,18 +15,18 @@ const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
 
 const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const device = usePlayerDevice();
-  const user = localStorage.getItem("user") || "";
+  const accessToken = localStorage.getItem("accessToken") || "";
 
-  const [que, setQue] = useContext(QueContext);
+  const queContext = useContext(QueContext);
 
   const MotionBox = motion<BoxProps>(Box);
   // TODO: typescript types
   const handlePlayAlbum = async () => {
     const detailedAlbum = await getAlbum(id);
-    setQue(getTrackUrisFromAlbum(detailedAlbum.tracks.items));
+    queContext.setQue && queContext.setQue(getTrackUrisFromAlbum(detailedAlbum.tracks.items));
     if (device) {
       play(
-        user,
+        accessToken,
         device?.device_id,
         getTrackUrisFromAlbum(detailedAlbum.tracks.items)
       );

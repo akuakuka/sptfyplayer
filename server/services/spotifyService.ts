@@ -71,6 +71,7 @@ export const getArtistalbums = async (
     `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`,
     { headers }
   );
+
   return data.items;
 };
 

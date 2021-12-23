@@ -4,7 +4,7 @@ import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 export const ProtectedRoute: React.FC = () => {
   // let auth = useAuth();
   const location = useLocation();
-  const user = localStorage.getItem("user");
+  /* const accessToken = localStorage.getItem("accessToken"); */
   const [authenticated, setauthenticated] = useState<boolean>(false);
   const [ready, setReady] = useState<boolean>(false);
   const navigate = useNavigate();
