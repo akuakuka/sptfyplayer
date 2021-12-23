@@ -12,6 +12,7 @@ import {
   useSpotifyPlayer,
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
+import { SpotifyUser } from "../../../server/types/SpotifyTypes";
 import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton } from "./IconButton";
 
@@ -27,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
-
+  const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
   const handlePlay = async () => {
     if (device === null) return;
     player?.resume();
@@ -60,7 +61,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
       zIndex="100"
       gridGap="3"
     >
-      {webPlaybackSDKReady ? (
+      {user.product === "premium" ? <> {webPlaybackSDKReady ? (
         <>
           <Box
             height="30vh"
@@ -149,7 +150,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
         </>
       ) : (
         <> webPlaybackSDK NOT READY </>
-      )}
+      )} </> : <Text> Premium subscription is needed to play music !</Text>}
     </Flex>
   );
 };

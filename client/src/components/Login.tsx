@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getUser } from "../API";
 import { LOGINURL } from "../config";
 import { getExpiryDate } from "../utils/dateUtils";
 
@@ -14,22 +15,28 @@ const Login: React.FC = () => {
   const query = useQuery();
   // const history = useHistory();
 
+
+
+
   useEffect(() => {
-    // TODO: date
-    const accessToken = query.get("accessToken");
-    const refreshToken = query.get("refreshToken");
+    (async function () {
+      const accessToken = query.get("accessToken");
+      const refreshToken = query.get("refreshToken");
+      const expiryDate = getExpiryDate()
 
-    const expiryDate = getExpiryDate()
+      // TODO: expiryDate from backend and into user object?
+      if (accessToken) {
+        if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("expiryDate", expiryDate.toString());
+        localStorage.setItem("accessToken", accessToken);
+        const user = await getUser()
+        console.log(user)
+        localStorage.setItem("user", JSON.stringify(user))
 
-    // TODO: expiryDate from backend and into user object?
-    if (accessToken) {
-      if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("expiryDate", expiryDate.toString());
-      localStorage.setItem("accessToken", accessToken);
-      navigate("/app");
-    }
+        navigate("/app");
+      }
+    })();
   }, []);
-
   const handleLogin = () => {
     window.location.href = LOGINURL;
   };

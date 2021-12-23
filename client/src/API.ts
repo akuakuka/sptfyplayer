@@ -61,6 +61,11 @@ export const refreshToken = async (token: string): Promise<SpotifyTokenResponse>
   return data
 };
 
+export const getUser = async (): Promise<SpotifyUser> => {
+  const { data } = await API.get<SpotifyUser>(`${BASEURL}/me`);
+  return data
+};
+
 API.interceptors.request.use(async (config) => {
   if (!isAccessTokenValid()) {
     const refreshtoken = localStorage.getItem("refreshToken") || "";

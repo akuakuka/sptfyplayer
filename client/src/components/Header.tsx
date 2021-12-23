@@ -1,11 +1,11 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/layout";
 import {
+  Avatar,
   IconButton,
   Input,
   Menu,
-  MenuButton,
-  MenuItem,
+  MenuButton, MenuDivider, MenuItem,
   MenuList,
   Switch,
   Text,
@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { SpotifyUser } from "../../../server/types/SpotifyTypes";
 import { useDebounce } from "../hooks/useDebounce";
 import { IconButton as IconB } from "./IconButton";
 
@@ -24,6 +25,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState<string>("");
   const { toggleColorMode } = useColorMode();
+  const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
   useDebounce(() => doSearch(term), 1500, [term]);
   const navigate = useNavigate();
 
@@ -41,11 +43,19 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   };
 
   const handleLogout = () => {
+    // TODO: Nämä contextiin
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("expiryDate");
+    localStorage.removeItem("user");
     navigate(`/login`);
   };
+
+  const handleUserClick = () => {
+    if (user.external_urls.spotify) {
+      window.open(user.external_urls.spotify, '_blank');
+    }
+  }
 
   return (
     <Flex
@@ -83,6 +93,17 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
             backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
           />
           <MenuList backgroundColor={useColorModeValue("brand.500", "brandDark.900")}>
+            {user &&
+              <MenuItem disabled={true} onClick={() => handleUserClick()}>
+                <Flex gridGap="3" alignItems="center">
+                  {user.images[0] && <Avatar name={user.display_name} src={user.images[0].url} />}
+                  {user.display_name && <Text>{user.display_name}</Text>}
+                </Flex>
+              </MenuItem>}
+
+            <MenuDivider />
+
+
             <MenuItem closeOnSelect={false}>
               <Flex direction="row" gridGap="3">
                 <Text>Albumart Background</Text>

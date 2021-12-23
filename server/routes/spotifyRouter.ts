@@ -6,6 +6,7 @@ import {
   getArtist,
   getArtistalbums,
   getFollowedArtists,
+  getSpotifyUser,
   searchSpotify
 } from "../services/spotifyService";
 
@@ -62,6 +63,15 @@ spotifyRouter.get(
   asyncMiddleware(async (req: Request, res: Response) => {
     const { authorization } = req.headers;
     const resp = await searchSpotify(req.params.term, authorization);
+    res.json(resp);
+  })
+);
+
+spotifyRouter.get(
+  "/me",
+  asyncMiddleware(async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    const resp = await getSpotifyUser(authorization);
     res.json(resp);
   })
 );
