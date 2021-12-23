@@ -23,8 +23,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState<string>("");
-  //@ts-ignore
-  const { colorMode, toggleColorMode } = useColorMode();
+
+  const { toggleColorMode } = useColorMode();
 
   useDebounce(() => doSearch(term), 1500, [term]);
 

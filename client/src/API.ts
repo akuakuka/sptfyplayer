@@ -3,7 +3,8 @@ import {
   spotifyAlbum,
   spotifyArtist,
   SpotifySearchResult,
-  spotifyUser
+  SpotifyTokenResponse,
+  SpotifyUser
 } from "../../server/types/SpotifyTypes";
 import { isAccessTokenValid } from "./utils/authUtils";
 import { getExpiryDate } from "./utils/dateUtils";
@@ -21,8 +22,7 @@ const usr = localStorage.getItem("user");
 console.log(usr);
 //TODO: Headeri Bearer instanceen api
 
-export const play = (token: string, deviceID: string, ids: string[]) => {
-  //  config.headers.Authorization = `Bearer ${token}`;
+export const play = (token: string, deviceID: string, ids: string[]): void => {
   const data = {
     headers: {
       Authorization: `Bearer ${token}`
@@ -32,56 +32,41 @@ export const play = (token: string, deviceID: string, ids: string[]) => {
 };
 
 export const getArtists = async (): Promise<spotifyArtist[]> => {
-  console.log("TRY");
-  const response = await API.get<spotifyArtist[]>(`${BASEURL}/artists`);
-  console.log(response);
-  //@ts-ignore
-  return response;
+  const { data } = await API.get<spotifyArtist[]>(`${BASEURL}/artists`);
+  return data;
 };
 
 export const getArtist = async (id: string): Promise<spotifyArtist> => {
-  const resp = await API.get(`${BASEURL}/artist/${id}`);
-  //@ts-ignore
-  return resp.data;
+  const { data } = await API.get<spotifyArtist>(`${BASEURL}/artist/${id}`);
+  return data;
 };
 
 export const getArtistAlbums = async (id: string): Promise<spotifyAlbum[]> => {
-  const resp = await API.get(`${BASEURL}/artist/${id}/albums`);
-  //@ts-ignore
-  return resp.data.items;
+  const { data } = await API.get<spotifyAlbum[]>(`${BASEURL}/artist/${id}/albums`);
+  return data;
 };
 
 export const getAlbum = async (id: string): Promise<spotifyAlbum> => {
-  const resp = await API.get(`${BASEURL}/album/${id}`);
-  //@ts-ignore
-  return resp.data;
+  const { data } = await API.get<spotifyAlbum>(`${BASEURL}/album/${id}`);
+  return data
 };
 
 export const search = async (term: string): Promise<SpotifySearchResult> => {
-  const resp = await API.get(`${BASEURL}/search/${term}`);
-  //@ts-ignore
-  return resp.data;
+  const { data } = await API.get<SpotifySearchResult>(`${BASEURL}/search/${term}`);
+  return data;
 };
 
-export const checkAuth = async (): Promise<spotifyUser> => {
-
-  const resp = await API.get(`${BASEURL}/check/`);
-  //@ts-ignore
-  return resp;
+export const checkAuth = async (): Promise<SpotifyUser> => {
+  const { data } = await API.get<SpotifyUser>(`${BASEURL}/check/`);
+  return data;
 };
 
-export const refreshToken = async (token: string): Promise<spotifyUser> => {
-  console.log("API.tsx");
-  console.log({ token });
-  const resp = await axios.post(`${REFRESHURL}/${token}`);
-  //@ts-ignore
-  return resp.data;
+export const refreshToken = async (token: string): Promise<SpotifyTokenResponse> => {
+  const { data } = await axios.post<SpotifyTokenResponse>(`${REFRESHURL}/${token}`);
+  return data
 };
 
-/* API.interceptors.request.use(async (config) => {
-  // Check access if token expired
 
-}) */
 
 
 API.interceptors.request.use(async (config) => {

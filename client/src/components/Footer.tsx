@@ -5,15 +5,13 @@ import {
   SliderThumb,
   SliderTrack, Text, useColorModeValue
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React from "react";
 import {
-  useErrorState,
   usePlaybackState,
   usePlayerDevice,
   useSpotifyPlayer,
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
-import { QueContext } from "../hooks/usePlayQue";
 import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton } from "./IconButton";
 /* import { useVolume } from "../hooks/useVolume"; */
@@ -30,11 +28,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
-  //@ts-ignore
-  const [que, setQue] = useContext(QueContext);
-  //@ts-ignore
-  const errorState = useErrorState();
-  const user = localStorage.getItem("user") || "";
 
   const handlePlay = async () => {
     if (device === null) return;

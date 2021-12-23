@@ -43,11 +43,9 @@ const AlbumPage: React.FC = () => {
   }, [album]);
 
   const handlePlaySong = async (uri: string) => {
-    console.log(uri);
     // TODO: user is string?
-    if (user) {
-      //@ts-ignore
-      play(user.accessToken, device?.device_id, [uri]);
+    if (device && user) {
+      play(user, device?.device_id, [uri]);
     }
   };
   return (

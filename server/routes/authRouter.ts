@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import qs from "qs";
 import {
   FRONTEND_URL, scopes, SPOTIFY_CALLBACK,
@@ -12,42 +12,31 @@ import { SpotifyTokenResponse } from "../types/SpotifyTypes";
 
 export const authRouter = Router();
 
-authRouter.get("/login", (req, res) => {
-  console.log("authRouter.get(login");
-  // TODO: oauth state?
+authRouter.get("/login", (req: Request, res: Response) => {
   const scopesString = scopes.join(" ");
   const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENTID}&scope=${scopesString}&redirect_uri=${SPOTIFY_CALLBACK}&show_dialog=true`;
-  console.log(url)
   res.redirect(url);
 });
 
-authRouter.post("/refresh/:refreshtoken", asyncMiddleware(async (req, res) => {
-  console.log("/refresh/:refreshtoken")
-  //@ts-ignore
-  console.log(req.params.refreshtoken);
-  //@ts-ignore
+authRouter.post("/refresh/:refreshtoken", asyncMiddleware(async (req: Request, res: Response) => {
   if (req.params.refreshtoken) {
     try {
-      //@ts-ignore
       const resp = await refreshToken(req.params.refreshtoken);
-      console.log(resp);
       res.json(resp);
     } catch (e) {
-      console.log(e);
-      console.log("authRouter refreshtoken error");
-      res.send(503);
+      res.sendStatus(503);
     }
   } else {
     res.send(403);
   }
 }))
 
-authRouter.get("/logout", (req, res) => {
+authRouter.get("/logout", (_req: Request, res: Response) => {
   res.redirect("/");
 });
 
-authRouter.get("/callback", asyncMiddleware(async (req, res) => {
-  console.log(req.query)
+authRouter.get("/callback", asyncMiddleware(async (req: Request, res: Response) => {
+
   if (!req.query.code) res.json(403);
 
   const basic = `Basic ${Buffer.from(
@@ -55,7 +44,7 @@ authRouter.get("/callback", asyncMiddleware(async (req, res) => {
   ).toString("base64")}`;
 
   const code = req.query.code;
-  // TODO: redirect_uri to .env
+
   const codeData = qs.stringify({
     grant_type: "authorization_code",
     code: code,
@@ -72,7 +61,7 @@ authRouter.get("/callback", asyncMiddleware(async (req, res) => {
     codeData,
     { headers }
   );
-  console.log(data)
+
   res.redirect(
     `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
   );

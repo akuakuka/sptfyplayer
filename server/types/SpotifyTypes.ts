@@ -1,9 +1,63 @@
+interface SpotifyCopyrights {
+  text: string;
+  type: string;
+}
+
 interface externalUrl {
   spotify: string;
 }
 
 interface followers {
   href: string | null;
+  total: number;
+}
+
+interface external_urls {
+  spotify: string | null;
+  total: number;
+}
+
+interface external_ids {
+  [key: string]: any;
+}
+
+export interface spotifyImage {
+  height: number;
+  url: string;
+  width: number;
+}
+
+interface spotifySimpleAlbumArtist {
+  external_urls: externalUrl;
+  href: string;
+  id: string;
+  name: string;
+  type: string;
+  uri: string;
+}
+export interface spotifyArtistAlbum {
+  album_group: string;
+  album_type: string;
+  artists: spotifySimpleAlbumArtist[];
+  external_urls: externalUrl;
+  href: string;
+  id: string;
+  images: spotifyImage[];
+  name: string;
+  release_date: string;
+  release_date_precision: string;
+  total_tracks: number;
+  type: string;
+  uri: string;
+}
+
+export interface spotifyArtistAlbumsReponse {
+  href: string;
+  items: spotifyArtistAlbum[];
+  limit: number;
+  next: string;
+  offset: number;
+  previous: string;
   total: number;
 }
 
@@ -39,12 +93,6 @@ export interface spotifyArtist {
   popularity: number;
   type: string;
   uri: string;
-}
-
-export interface spotifyImage {
-  height: number;
-  url: string;
-  width: number;
 }
 
 //TODO: detailed type vs search tyhpe?
@@ -83,28 +131,8 @@ export interface albumResponse {
   total: number;
 }
 
-export interface spotifyUser {
-  birthdate: string;
-  country: string;
-  display_name: string;
-  email: string;
-  explicit_content: {
-    filter_enabled: boolean;
-    filter_locked: boolean;
-  };
-  external_urls: externalUrl;
-
-  followers: followers;
-  href: string;
-  id: string;
-  images: spotifyImage[];
-  product: string;
-  type: string;
-  uri: string;
-}
-
 export interface UserData {
-  user: spotifyUser;
+  user: spotifyAlbum;
   accessToken: string;
   refreshToken: string;
   expires_in: number;
@@ -115,7 +143,6 @@ export interface spotifyTrack {
   disc_number: number;
   duration_ms: number;
   explicit: boolean;
-
   external_urls: externalUrl;
   href: string;
   id: string;
@@ -185,25 +212,81 @@ export interface SpotifyTokenResponse {
   scope: string;
 }
 
-export interface SpotifyUserResponse {
+export interface SpotifyUser {
   country: string;
   display_name: string;
   email: string;
   explicit_content: {
     filter_enabled: boolean;
     filter_locked: boolean;
-  }
-  external_urls: {
-    spotify: string;
-  }
-  followers: {
-    href: string;
-    total: number;
-  }
+  };
+  external_urls: externalUrl;
+  followers: followers;
   href: string;
   id: string;
   images: spotifyImage[];
   product: string;
+  type: string;
+  uri: string;
+}
+export interface SpotifyDetailedTrack {
+  album: {
+    album_type: string;
+    artists: spotifySimpleAlbumArtist[];
+    external_urls: external_urls;
+    href: string;
+    id: string;
+    images: spotifyImage[];
+    name: string;
+    release_date: string;
+    release_date_precision: string;
+    total_tracks: number;
+    type: string;
+    uri: string;
+  };
+  artists: spotifySimpleAlbumArtist[];
+  disc_number: number;
+  duration_ms: number;
+  explicit: boolean;
+  external_ids: external_ids;
+  external_urls: external_urls;
+  href: string;
+  id: string;
+  is_local: boolean;
+  is_playable: boolean;
+  name: string;
+  popularity: number;
+  preview_url: string;
+  track_number: number;
+  type: string;
+  uri: string;
+}
+
+export interface SpotifyDetailedAlbum {
+  album_type: string;
+  artists: spotifySimpleAlbumArtist[];
+  copyrights: SpotifyCopyrights[];
+  external_ids: external_ids;
+  external_urls: external_urls;
+  genres: [];
+  href: string;
+  id: string;
+  images: spotifyImage[];
+  label: string;
+  name: string;
+  popularity: number;
+  release_date: string;
+  release_date_precision: string;
+  total_tracks: number;
+  tracks: {
+    href: string;
+    items: spotifyTrack[];
+    limit: number;
+    next: string | null;
+    offset: number;
+    previous: string | null;
+    total: number;
+  };
   type: string;
   uri: string;
 }

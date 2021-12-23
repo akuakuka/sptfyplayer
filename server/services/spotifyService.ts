@@ -2,8 +2,8 @@ import axios from "axios";
 import qs from "qs";
 import { SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "../config";
 import {
-  spotifyAlbum, spotifyArtist, SpotifySearchResult,
-  SpotifyTokenResponse, spotifyUser, SpotifyUserResponse, userArtistsResponse
+  spotifyArtist, spotifyArtistAlbum, spotifyArtistAlbumsReponse, SpotifyDetailedAlbum, SpotifySearchResult,
+  SpotifyTokenResponse, SpotifyUser, userArtistsResponse
 } from "../types/SpotifyTypes";
 
 const API = axios.create({
@@ -61,26 +61,23 @@ export const getArtist = async (
 export const getArtistalbums = async (
   id: string,
   accesstoken: string
-): Promise<spotifyAlbum[]> => {
-  // 05fG473iIaoy82BF1aGhL8
-
+): Promise<spotifyArtistAlbum[]> => {
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
     "Content-Type": "application/json",
   };
-  const { data } = await API.get<spotifyAlbum[]>(
+  const { data } = await API.get<spotifyArtistAlbumsReponse>(
     `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`,
     { headers }
   );
-  return data;
-
+  return data.items;
 };
 
 export const getAlbum = async (
   id: string,
   accesstoken: string
-): Promise<spotifyAlbum> => {
+): Promise<SpotifyDetailedAlbum> => {
 
   const headers = {
     Authorization: `${accesstoken}`,
@@ -88,7 +85,7 @@ export const getAlbum = async (
     "Content-Type": "application/json",
   };
 
-  const { data } = await API.get<spotifyAlbum>(
+  const { data } = await API.get<SpotifyDetailedAlbum>(
     `/albums/${id}?market=${market}`,
     { headers }
   );
@@ -96,14 +93,14 @@ export const getAlbum = async (
   return data;
 
 };
-//TODO: Tyyppeihin myös error
-export const checkAuth = async (accesstoken: string): Promise<spotifyUser> => {
+
+export const checkAuth = async (accesstoken: string): Promise<SpotifyUser> => {
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
     "Content-Type": "application/json",
   };
-  const { data } = await API.get<spotifyUser>(`/me/`, { headers });
+  const { data } = await API.get<SpotifyUser>(`/me/`, { headers });
   return data;
 };
 
@@ -153,7 +150,7 @@ export const refreshToken = async (
   return data;
 };
 
-export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUserResponse> => {
+export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> => {
 
   const headers = {
     Authorization: `${accesstoken}`,
@@ -161,8 +158,7 @@ export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUserRe
     "Content-Type": "application/json",
   };
 
-
-  const { data } = await API.get<SpotifyUserResponse>(`/me`, { headers });
+  const { data } = await API.get<SpotifyUser>(`/me`, { headers });
 
   return data;
 

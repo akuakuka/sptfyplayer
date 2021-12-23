@@ -15,28 +15,24 @@ const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
 
 const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const device = usePlayerDevice();
-  const user = localStorage.getItem("user");
-  //@ts-ignore
+  const user = localStorage.getItem("user") || "";
+
   const [que, setQue] = useContext(QueContext);
-  /*   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const navigate = useNavigate(); */
 
   const MotionBox = motion<BoxProps>(Box);
   // TODO: typescript types
   const handlePlayAlbum = async () => {
     const detailedAlbum = await getAlbum(id);
-    //todo: types
-    //@ts-ignore
     setQue(getTrackUrisFromAlbum(detailedAlbum.tracks.items));
-    play(
-      //@ts-ignore
-      user,
-      device?.device_id,
-      //@ts-ignore
-      getTrackUrisFromAlbum(detailedAlbum.tracks.items)
-    );
+    if (device) {
+      play(
+        user,
+        device?.device_id,
+        getTrackUrisFromAlbum(detailedAlbum.tracks.items)
+      );
+    }
   };
-  // TODO: Better hover icons
+
   return (
     <Flex
       direction="column"
