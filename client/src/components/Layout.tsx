@@ -92,7 +92,6 @@ const Layout: React.FC = () => {
             height="91vh"
             width="100vw"
             justifyContent="center"
-
           >
             <Outlet />
           </Flex>

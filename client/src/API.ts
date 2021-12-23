@@ -13,7 +13,7 @@ import { getExpiryDate } from "./utils/dateUtils";
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
-const API = axios.create({});
+export const API = axios.create({ baseURL: BASEURL });
 
 //TODO: Headeri Bearer instanceen api
 
@@ -27,7 +27,7 @@ export const play = (token: string, deviceID: string, ids: string[]): void => {
 };
 
 export const getArtists = async (): Promise<spotifyArtist[]> => {
-  const { data } = await API.get<spotifyArtist[]>(`${BASEURL}/artists`);
+  const { data } = await API.get<spotifyArtist[]>(`/artists`);
   return data;
 };
 
