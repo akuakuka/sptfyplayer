@@ -20,23 +20,16 @@ const SearchResultPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      try {
-        if (term) {
-          const nonordics = term
-            .replaceAll("ö", "o")
-            .replaceAll("ä", "a")
-            .replaceAll("å", "a");
-          console.log(nonordics);
-          setLoading(true);
-          const resp = await search(nonordics);
-          console.log(resp);
-          if (resp.artists) setArtists(resp.artists.items);
-          if (resp.albums) setAlbums(resp.albums.items);
-
-          setLoading(false);
-        }
-      } catch (e) {
-        console.log(e);
+      if (term) {
+        const nonordics = term
+          .replaceAll("ö", "o")
+          .replaceAll("ä", "a")
+          .replaceAll("å", "a");
+        setLoading(true);
+        const resp = await search(nonordics);
+        if (resp.artists) setArtists(resp.artists.items);
+        if (resp.albums) setAlbums(resp.albums.items);
+        setLoading(false);
       }
     })();
   }, [term]);

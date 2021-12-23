@@ -37,7 +37,6 @@ export const getFollowedArtists = async (
       data.artists.next
     );
   }
-  /*   console.log("Artisteja pituus : ", [...items, ...data.artists.items].length); */
   return [...items, ...data.artists.items];
 };
 
@@ -128,8 +127,6 @@ export const searchSpotify = async (
 export const refreshToken = async (
   refreshtoken: string
 ): Promise<SpotifyTokenResponse> => {
-  console.log("SpotifyService refersh token");
-  console.log(refreshtoken);
   const basic = `Basic ${Buffer.from(
     `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`
   ).toString("base64")}`;

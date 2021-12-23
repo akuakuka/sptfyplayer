@@ -11,15 +11,12 @@ const ArtistView: React.FC = () => {
   // TODO : Artistien cache - react memo?
   useEffect(() => {
     (async () => {
-      try {
-        setIsLoading(true);
-        const resp = await getArtists();
-        setArtists(resp);
-        setIsLoading(false);
-      } catch (e) {
-        setIsLoading(false);
-        console.log(e);
-      }
+
+      setIsLoading(true);
+      const resp = await getArtists();
+      setArtists(resp);
+      setIsLoading(false);
+
     })();
   }, []);
 

@@ -77,7 +77,7 @@ API.interceptors.request.use(async (config) => {
       localStorage.setItem("expiryDate", expiryDate.toString());
 
     } else {
-      console.error("NO REFRESHTOKENrefreshtoken")
+      console.error("No RefreshToken Found!")
     }
   } return config;
 }, (error) => {
@@ -88,9 +88,7 @@ API.interceptors.request.use(async (config) => {
 API.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
-
     if (accessToken) {
-      console.log("TOKEN löyty");
       if (config.headers) config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;

@@ -22,7 +22,6 @@ const ArtistPage: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      console.log("useeffect");
       if (id) {
         setIsLoading(true);
         const resp = await getArtist(id);

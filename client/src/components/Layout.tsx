@@ -1,10 +1,9 @@
 import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Outlet
 } from "react-router-dom";
 import {
-  useErrorState,
   usePlaybackState,
   WebPlaybackSDK
 } from "react-spotify-web-playback-sdk";
@@ -19,23 +18,13 @@ interface wrapperProps {
 // Wrapper is used for getting spotify-sdk-hooks to below parent element level
 const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
   const playbackState = usePlaybackState();
-  const errorState = useErrorState();
-
-  useEffect(() => {
-    console.log("ERRORSTATE")
-    console.log(errorState)
-  }, [errorState])
-
+  // TODO: SDK Error state
   const getAlbumArtFromPLaybackState = (
     playbackState: Spotify.PlaybackState
   ): string => {
     if (playbackState) {
       return playbackState.track_window.current_track.album.images[0].url;
     }
-    /*     console.log(playbackState);
-    if (playbackState.track_window.current_track.album) {
-     
-    } */
     return "";
   };
 
@@ -65,20 +54,19 @@ const Layout: React.FC = () => {
   const [volume, setVolume] = useState(0.5);
 
   const handleVolume = (val: number) => {
-    console.log(val);
     setVolume(val);
   };
 
   const getAccesStoken = async () => {
     if (!isAccessTokenValid()) {
-      await refreshAccessToken();
+      const newToken = await refreshAccessToken();
+      return newToken;
     }
     return accessToken;
   };
 
   const getOAuthToken = useCallback(
     (callback) => {
-      console.log("getOAuthToken")
       const act = getAccesStoken();
       callback(act);
     },

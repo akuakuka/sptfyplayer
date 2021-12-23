@@ -14,12 +14,8 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const query = useQuery();
   // const history = useHistory();
-
-
-
-
   useEffect(() => {
-    (async function () {
+    (async () => {
       const accessToken = query.get("accessToken");
       const refreshToken = query.get("refreshToken");
       const expiryDate = getExpiryDate()
@@ -30,13 +26,12 @@ const Login: React.FC = () => {
         localStorage.setItem("expiryDate", expiryDate.toString());
         localStorage.setItem("accessToken", accessToken);
         const user = await getUser()
-        console.log(user)
         localStorage.setItem("user", JSON.stringify(user))
-
         navigate("/app");
       }
     })();
   }, []);
+
   const handleLogin = () => {
     window.location.href = LOGINURL;
   };

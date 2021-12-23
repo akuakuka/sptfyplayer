@@ -23,13 +23,6 @@ const FRONTEND_URL = NODE_ENV !== "dev" ? FRONTEND_URL_PROD : FRONTEND_URL_DEV;
 const BASEURL = NODE_ENV !== "dev" ? FRONTEND_URL_PROD : BACKEND_URL_DEV;
 const SPOTIFY_CALLBACK = NODE_ENV !== "dev" ? SPOTIFY_CALLBACK_PROD : SPOTIFY_CALLBACK_DEV;
 
-console.log({ NODE_ENV })
-console.log({ SPOTIFY_CLIENTID })
-console.log({ SPOTIFY_SECRET })
-console.log({ SPOTIFY_CALLBACK })
-console.log({ FRONTEND_URL })
-console.log({ BASEURL })
-
 export {
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,

@@ -21,16 +21,11 @@ const AlbumPage: React.FC = () => {
       if (id) {
         setIsLoading(true)
         const resp = await getAlbum(id);
-        console.log(resp)
         setAlbum(resp);
         setIsLoading(false)
       }
     })();
   }, []);
-
-  useEffect(() => {
-    console.log(album);
-  }, [album]);
 
   const handlePlaySong = async (uri: string) => {
     if (device && accessToken) {

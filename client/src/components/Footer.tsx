@@ -39,7 +39,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   };
 
   const handleNext = () => {
-    console.log("handlenext");
     player?.nextTrack();
   };
 
