@@ -290,3 +290,9 @@ export interface SpotifyDetailedAlbum {
   type: string;
   uri: string;
 }
+
+export interface SpotifyClientCredentialsFlowResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number
+}

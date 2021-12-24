@@ -7,7 +7,7 @@ import { spotifyRouter } from "./routes/spotifyRouter";
 
 const PORT = 3000;
 
-const app = express();
+export const app = express();
 
 app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 
@@ -27,8 +27,27 @@ if (process.env.NODE_ENV !== "dev") {
   })
 }
 const port = process.env.PORT || PORT
-app.listen(port, () => {
+
+if (process.env.NODE_ENV !== 'test') {
+
+  app.listen(port, () => {
+    console.info(
+      `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
+    );
+  });
+
+} else {
+  app.listen(() => {
+
+    console.info(
+      `Server listening on MODE = ${process.env.NODE_ENV}`
+    );
+  });
+}
+
+
+/* app.listen(port, () => {
   console.info(
     `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
   );
-});
+}); */

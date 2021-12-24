@@ -16,12 +16,9 @@ spotifyRouter.get(
   "/artists",
   asyncMiddleware(async (req: Request, res: Response) => {
     const { authorization } = req.headers;
-    try {
-      const resp = await getFollowedArtists(authorization, [], null);
-      res.json(resp);
-    } catch (e) {
-      res.sendStatus(e.response.status);
-    }
+    const resp = await getFollowedArtists(authorization, [], null);
+    res.json(resp);
+
   })
 );
 

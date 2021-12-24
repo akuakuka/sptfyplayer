@@ -24,7 +24,7 @@ authRouter.post("/refresh/:refreshtoken", asyncMiddleware(async (req: Request, r
       const resp = await refreshToken(req.params.refreshtoken);
       res.json(resp);
     } catch (e) {
-      res.sendStatus(503);
+      res.sendStatus(400);
     }
   } else {
     res.send(403);
@@ -32,8 +32,7 @@ authRouter.post("/refresh/:refreshtoken", asyncMiddleware(async (req: Request, r
 }))
 
 authRouter.get("/callback", asyncMiddleware(async (req: Request, res: Response) => {
-
-  if (!req.query.code) res.json(403);
+  if (!req.query.code) res.sendStatus(400);
 
   const basic = `Basic ${Buffer.from(
     `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`

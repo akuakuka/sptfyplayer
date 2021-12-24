@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 import { SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "../config";
 import {
-  spotifyArtist, spotifyArtistAlbum, spotifyArtistAlbumsReponse, SpotifyDetailedAlbum, SpotifySearchResult,
+  spotifyArtist, spotifyArtistAlbum, spotifyArtistAlbumsReponse, SpotifyClientCredentialsFlowResponse, SpotifyDetailedAlbum, SpotifySearchResult,
   SpotifyTokenResponse, SpotifyUser, userArtistsResponse
 } from "../types/SpotifyTypes";
 
@@ -164,3 +164,28 @@ export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> 
 };
 
 
+export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlowResponse> => {
+  // Client Credentials Flow
+
+  const url = 'https://accounts.spotify.com/api/token';
+
+  const basic = `Basic ${Buffer.from(
+    `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`
+  ).toString("base64")}`;
+
+  const tokenData = qs.stringify({
+    grant_type: "client_credentials",
+  });
+
+  const headers = {
+    Authorization: basic,
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+
+  const { data } = await axios.post<SpotifyTokenResponse>(url,
+    tokenData,
+    { headers }
+  );
+
+  return data;
+};
