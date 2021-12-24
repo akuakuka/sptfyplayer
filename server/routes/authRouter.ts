@@ -31,10 +31,6 @@ authRouter.post("/refresh/:refreshtoken", asyncMiddleware(async (req: Request, r
   }
 }))
 
-authRouter.get("/logout", (_req: Request, res: Response) => {
-  res.redirect("/");
-});
-
 authRouter.get("/callback", asyncMiddleware(async (req: Request, res: Response) => {
 
   if (!req.query.code) res.json(403);
