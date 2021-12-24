@@ -35,15 +35,19 @@ if (process.env.NODE_ENV !== 'test') {
       `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
     );
   });
+}
 
-} else {
+
+
+
+/* else {
   app.listen(() => {
 
     console.info(
       `Server listening on MODE = ${process.env.NODE_ENV}`
     );
   });
-}
+} */
 
 
 /* app.listen(port, () => {
