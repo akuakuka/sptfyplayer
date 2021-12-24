@@ -1,4 +1,4 @@
-import { Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import {
   Outlet
@@ -29,7 +29,7 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
   };
 
   return (
-    <Box
+    <Flex
       backgroundImage={
         albumArtBg && playbackState
           ? getAlbumArtFromPLaybackState(playbackState)
@@ -42,9 +42,10 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
       backgroundPosition={"center"}
       width={"100vw"}
       overflow={"hidden"}
+      direction="column"
     >
       {children}
-    </Box>
+    </Flex>
   );
 };
 
@@ -89,9 +90,10 @@ const Layout: React.FC = () => {
             gridGap="10px"
             wrap="wrap"
             overflow="auto"
-            height="91vh"
+            sx={{ height: 'calc(100vh - 150px);' }}
             width="100vw"
             justifyContent="center"
+            paddingY="5"
           >
             <Outlet />
           </Flex>

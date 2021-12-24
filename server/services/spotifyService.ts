@@ -163,7 +163,6 @@ export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> 
 
 };
 
-
 export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlowResponse> => {
   // Client Credentials Flow
 

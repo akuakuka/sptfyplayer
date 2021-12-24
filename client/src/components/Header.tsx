@@ -59,12 +59,10 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
 
   return (
     <Flex
-      position="fixed"
+
       top="0"
       width="100vw"
-      borderBottom="100px"
       height="50px"
-
       backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
       boxShadow="dark-lg"
       alignContent="center"

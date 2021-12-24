@@ -10,7 +10,6 @@ describe("Testing spotifyRouter", () => {
     let request;
 
     beforeAll((done) => {
-
         server = app.listen(done);
         request = supertest(server);
     });
