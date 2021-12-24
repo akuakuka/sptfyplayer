@@ -95,15 +95,3 @@ API.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
-API.interceptors.response.use(
-  async (config) => {
-    const responseStatus = config.status;
-    console.log({ responseStatus });
-
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-

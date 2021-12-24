@@ -22,11 +22,10 @@ describe("Testing spotifyService", () => {
         expect(response).hasOwnProperty("access_token")
         expect(response).hasOwnProperty("token_type")
         expect(response).hasOwnProperty("expires_in")
-        /* console.log(response) */
+
     })
 
     it("Gets album with id", async () => {
-        console.log(access_token)
         const response = await getAlbum(paranoidAlbum, access_token)
         expect(response.album_type).toBe("album")
         expect(response.name).toBe("Paranoid (2009 Remastered Version)")
