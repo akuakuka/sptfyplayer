@@ -35,6 +35,6 @@ export const useAPI = (url: string, API: AxiosInstance): APIResponse => {
     useEffect(() => {
         getAPIData();
     }, []);
-
+    // @ts-ignore
     return [status, statusText, data, error, loading];
 };
