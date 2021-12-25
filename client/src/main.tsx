@@ -5,9 +5,14 @@ import "@fontsource/lemon";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+//@ts-ignore
+import { registerSW } from "virtual:pwa-register";
 import App from "./App";
 import { QueProvider } from "./hooks/usePlayQue";
 import "./index.css";
+
+
+registerSW();
 
 const theme = extendTheme({
   colors: {
