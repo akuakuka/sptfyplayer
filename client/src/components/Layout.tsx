@@ -1,15 +1,16 @@
-import { Flex, useColorModeValue } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
-import {
-  Outlet
-} from "react-router-dom";
+import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import React, { useCallback, useContext, useState } from "react";
+import { Outlet } from "react-router-dom";
 import {
   usePlaybackState,
   WebPlaybackSDK
 } from "react-spotify-web-playback-sdk";
+import { UIContext } from "../hooks/useUI";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
 import Header from "./Header";
+import { IconButton } from "./IconButton";
+
 // TODO: Wrapper omaan tiedostoon?
 
 interface wrapperProps {
@@ -52,8 +53,14 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
 const Layout: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
   const accessToken = localStorage.getItem("accessToken");
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState<number>(0.5);
+  /*   const [viewMode, setViewMode] = useState<string>(""); */
+  const UICOntext = useContext(UIContext);
 
+  /*   useEffect(() => {
+      console.log(viewMode)
+    }, [viewMode])
+   */
   const handleVolume = (val: number) => {
     setVolume(val);
   };
@@ -84,17 +91,32 @@ const Layout: React.FC = () => {
       >
         <Wrapper albumArtBg={albumArtBg}>
           <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
-
           <Flex
             direction="row"
             gridGap="10px"
             wrap="wrap"
             overflow="auto"
-            sx={{ height: 'calc(100vh - 150px);' }}
+            sx={{ height: "calc(100vh - 150px);" }}
             width="100vw"
             justifyContent="center"
             paddingY="5"
           >
+            <Flex
+              direction="row"
+              alignItems={"center"}
+              justifyContent="center"
+              gridGap="10"
+              width="95vw"
+              backgroundColor={"brandDark.300"}
+              height={"40px"}
+              borderRadius={"10"}
+            >
+              <Heading>Artistit</Heading>
+              <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
+                <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
+                <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
+              </Flex>
+            </Flex>
             <Outlet />
           </Flex>
 

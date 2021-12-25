@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { registerSW } from "virtual:pwa-register";
 import App from "./App";
 import { QueProvider } from "./hooks/usePlayQue";
+import { UIProvider } from "./hooks/useUI";
 import "./index.css";
 
 
@@ -51,7 +52,9 @@ ReactDOM.render(
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <QueProvider>
-          <App />
+          <UIProvider>
+            <App />
+          </UIProvider>
         </QueProvider>
       </ChakraProvider>
     </BrowserRouter>

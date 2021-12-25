@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       <IconB variant="homepage" key="homepage" onClick={() => navigate(`/app`)} />
       <Box marginLeft="auto">
         <Input
-          placeholder="Hae"
+          placeholder="Hae Spotifystä"
           size="md"
           maxWidth="200px"
           onChange={(e) => handleSearch(e)}

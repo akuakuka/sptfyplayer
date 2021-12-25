@@ -87,6 +87,7 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                 src={images ? images[0].url : "https://via.placeholder.com/150"}
                 cursor="pointer"
                 boxSize="150px"
+                loading="lazy"
               />
             </Box>
           )}
@@ -102,6 +103,7 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                   }
                   boxSize="150px"
                   boxShadow="dark-lg"
+                  loading="lazy"
                 />
               </MotionBox>
             )}
