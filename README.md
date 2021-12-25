@@ -1,13 +1,14 @@
-sptfyplayer
+# sptfyplayer
 
 alternative client for Spotify with focus on albums
-Install instructions
-Register new app with Spotify
 
+# Install instructions
+
+### Register new app with Spotify ###
 https://developer.spotify.com/dashboard/login
-.env
 
-/server/.env
+### .env ###
+/server/.env 
 
 SPOTIFY_SECRET=
 
@@ -24,11 +25,12 @@ FRONTEND_URL_PROD=
 BACKEND_URL_DEV=
 
 VITE_BACKEND_URL_DEV=
-Local
 
-npm install
+### Local ###
+npm install 
 
 npm run dev
-Docker
 
-docker-compose build docker-compose up
+### Docker ###
+docker-compose build
+docker-compose up
