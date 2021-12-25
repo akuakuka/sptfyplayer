@@ -1,10 +1,11 @@
 import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import {
   usePlaybackState,
   WebPlaybackSDK
 } from "react-spotify-web-playback-sdk";
+import { useLocation } from "react-router-dom"
 import { UIContext } from "../hooks/useUI";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
@@ -55,12 +56,10 @@ const Layout: React.FC = () => {
   const accessToken = localStorage.getItem("accessToken");
   const [volume, setVolume] = useState<number>(0.5);
   /*   const [viewMode, setViewMode] = useState<string>(""); */
+  const location = useLocation();
   const UICOntext = useContext(UIContext);
 
-  /*   useEffect(() => {
-      console.log(viewMode)
-    }, [viewMode])
-   */
+
   const handleVolume = (val: number) => {
     setVolume(val);
   };
@@ -112,10 +111,16 @@ const Layout: React.FC = () => {
               borderRadius={"10"}
             >
               <Heading>Artistit</Heading>
+              {!location.pathname.includes("/app/album/") && 
+              
               <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
-                <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
-                <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
-              </Flex>
+         
+              <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
+              <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
+            </Flex>
+            
+            }
+      
             </Flex>
             <Outlet />
           </Flex>
