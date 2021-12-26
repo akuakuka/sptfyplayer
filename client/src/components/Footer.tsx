@@ -193,13 +193,12 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                     <Spinner />
                   ) : (
                     <>
-                      {" "}
                       {devices && (
                         <>
                           {devices.map((d) => {
                             return (
-                              <MenuItem>
-                                {" "}
+                              <MenuItem key={d.key}>
+                              
                                 <Flex
                                   direction="row"
                                   alignItems="center"
