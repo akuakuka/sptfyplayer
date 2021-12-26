@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",
+    "test:coverage": "jest --collectCoverage",
     "dev": "NODE_ENV=dev ts-node-dev ./index.ts",
     "start": "tsc && node --max_old_space_size=2560 dist/index.js"
   },
