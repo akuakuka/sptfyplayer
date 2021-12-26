@@ -15,9 +15,8 @@
   "name": "sptfyplayer",
   "scripts": {
     "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
-    "start": "npm install && cd ./client && npm run build && cd .. && node server/dist/index.js",
+    "start": "cd ./client && npm install && npm run build && cd .. && cd ./server && npm install && tsc && node dist/index.js",
     "debug": "npm install && cd ./client && npm run build && cd .. && node server/dist/index.js",
-    "test": "cd ./server && npm install && npm run test",
-    "postinstall": "cd ./client && npm install && cd .. && cd ./server && npm install && cd .."
+    "test": "cd ./server && npm install && npm run test"
   }
 }
