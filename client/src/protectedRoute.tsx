@@ -18,6 +18,7 @@ export const ProtectedRoute: React.FC = () => {
       console.log("ProtectedRoute useEffect")
       if (accessToken) {
         setAuthenticated(true)
+        setReady(true)
       }
     })();
   }, []);
