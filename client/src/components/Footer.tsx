@@ -197,7 +197,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                         <>
                           {devices.map((d) => {
                             return (
-                              <MenuItem key={d.key}>
+                              <MenuItem key={d.id}>
                               
                                 <Flex
                                   direction="row"
