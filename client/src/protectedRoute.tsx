@@ -15,22 +15,12 @@ export const ProtectedRoute: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      
+      console.log("ProtectedRoute useEffect")
       if (accessToken) {
-        if(expiryDate && (+expiryDate < getDateNow())) {
-          setAuthenticated(true)
-          setReady(true)
-        } else {
-          await refreshAccessToken();
-          setReady(false)
-        }
-
-      } else {
-        setAuthenticated(false)
-        setReady(true)
+        setAuthenticated(true)
       }
     })();
-  }, [accessToken]);
+  }, []);
 
   if (ready) {
     if (!authenticated) {
