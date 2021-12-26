@@ -73,7 +73,7 @@ export const getDevices = async (): Promise<SpotifyDevice[]> => {
   return data
 };
 
-export const changeDevice = async (deviceid:string): Promise<SpotifyDevice[]> => {
+export const changeDevice = async (deviceid: string): Promise<SpotifyDevice[]> => {
   const { data } = await API.get<SpotifyDevice[]>(`${BASEURL}/devices/${deviceid}`);
   console.log(data)
   return data

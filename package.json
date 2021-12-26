@@ -12,6 +12,7 @@
     "typescript": "^4.3.2"
   },
   "main": "dist/index.js",
+  "name": "sptfyplayer",
   "scripts": {
     "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
     "start": "cd ./client && npm install && npm run build && cd .. && cd ./server && npm install && tsc && node dist/index.js",

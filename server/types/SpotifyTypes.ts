@@ -298,7 +298,7 @@ export interface SpotifyClientCredentialsFlowResponse {
 }
 
 export interface SpotifyDevice {
-  id : string;
+  id: string;
   is_active: boolean;
   is_private_session: boolean;
   is_restricted: boolean;
@@ -308,5 +308,5 @@ export interface SpotifyDevice {
 }
 
 export interface SpotifyDeviceResponse {
-    devices: SpotifyDevice[]
+  devices: SpotifyDevice[]
 }
