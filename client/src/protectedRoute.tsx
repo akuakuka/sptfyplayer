@@ -19,6 +19,8 @@ export const ProtectedRoute: React.FC = () => {
       if (accessToken) {
         setAuthenticated(true)
         setReady(true)
+      } else{
+        setAuthenticated(false)
       }
     })();
   }, []);
