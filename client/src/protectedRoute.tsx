@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { checkAuth } from "./API";
 import { refreshAccessToken } from "./utils/authUtils";
-import { getExpiryDate } from "./utils/dateUtils";
+import { getDateNow, getExpiryDate } from "./utils/dateUtils";
 
 export const ProtectedRoute: React.FC = () => {
   // let auth = useAuth();
@@ -15,8 +15,9 @@ export const ProtectedRoute: React.FC = () => {
 
   useEffect(() => {
     (async () => {
+      
       if (accessToken) {
-        if(expiryDate && (+expiryDate < getExpiryDate())) {
+        if(expiryDate && (+expiryDate < getDateNow())) {
           setAuthenticated(true)
           setReady(true)
         } else {
