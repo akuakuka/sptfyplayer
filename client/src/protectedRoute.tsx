@@ -21,6 +21,7 @@ export const ProtectedRoute: React.FC = () => {
         setReady(true)
       } else{
         setAuthenticated(false)
+        setReady(true)
       }
     })();
   }, []);
