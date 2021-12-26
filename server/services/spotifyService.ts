@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 import { SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "../config";
 import {
-  spotifyArtist, spotifyArtistAlbum, spotifyArtistAlbumsReponse, SpotifyClientCredentialsFlowResponse, SpotifyDetailedAlbum, SpotifySearchResult,
+  spotifyArtist, spotifyArtistAlbum, spotifyArtistAlbumsReponse, SpotifyClientCredentialsFlowResponse, SpotifyDetailedAlbum, SpotifyDevice, SpotifyDeviceResponse, SpotifySearchResult,
   SpotifyTokenResponse, SpotifyUser, userArtistsResponse
 } from "../types/SpotifyTypes";
 
@@ -188,3 +188,45 @@ export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlow
 
   return data;
 };
+
+
+
+
+export const getSpotifyDevices = async (accesstoken: string): Promise<SpotifyDevice[]> => {
+
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+
+  const { data } = await API.get<SpotifyDeviceResponse>(`/me/player/devices`, { headers });
+
+  return data.devices;
+
+
+};
+
+
+
+export const changeSpotifyDevice = async (accesstoken: string,deviceid:string) => {
+
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+
+  const putData = {
+    device_ids: [deviceid]
+  }
+
+  const { data } = await API.put(`/me/player/`,putData, { headers });
+  console.log(data)
+  return data;
+
+
+};
+
+
+

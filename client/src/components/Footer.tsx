@@ -1,11 +1,12 @@
 import { Flex } from "@chakra-ui/layout";
 import {
-  Box, Image, Slider,
+  Box, Button, Image, Slider,
   SliderFilledTrack,
   SliderThumb,
   SliderTrack, Text, useColorModeValue
 } from "@chakra-ui/react";
 import React from "react";
+import { useEffect } from "react";
 import {
   usePlaybackState,
   usePlayerDevice,
@@ -13,6 +14,7 @@ import {
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
 import { SpotifyUser } from "../../../server/types/SpotifyTypes";
+import { changeDevice, getDevices } from "../API";
 import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton } from "./IconButton";
 
@@ -28,7 +30,13 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
+
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
+
+  useEffect(() => {
+    console.log(device)
+    console.log(playbackState)
+  },[playbackState,device])
   const handlePlay = async () => {
     if (device === null) return;
     player?.resume();
@@ -127,7 +135,8 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
               />
             </Flex>
           </Flex>
-
+<Button onClick={() => getDevices() }> l</Button>
+<Button onClick={() => changeDevice("ae652a79f98302ea55069071663f61001820efe2")}>c </Button>
           <Slider
             defaultValue={0.5}
             min={0}

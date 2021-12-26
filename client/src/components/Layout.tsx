@@ -80,6 +80,15 @@ const Layout: React.FC = () => {
     [accessToken]
   );
 
+  const getHeading = ():string => {
+    // TODO: Artist or album name to heading
+    console.log(location.pathname)
+    if(location.pathname==="/app") return "Seuratut Artistit"
+    if(location.pathname.includes("/app/artist")) return "Albumit"
+    if(location.pathname.includes("/app/album")) return "Albumi"
+    return ""
+  }
+
   return (
     <>
       <WebPlaybackSDK
@@ -110,7 +119,7 @@ const Layout: React.FC = () => {
               height={"40px"}
               borderRadius={"10"}
             >
-              <Heading>Artistit</Heading>
+              <Heading>{getHeading()}</Heading>
               {!location.pathname.includes("/app/album/") && 
               
               <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">

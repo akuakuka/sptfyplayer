@@ -1,11 +1,13 @@
 import { Request, Response, Router } from "express";
 import { asyncMiddleware } from "../middleware/asyncMiddleware";
 import {
+  changeSpotifyDevice,
   checkAuth,
   getAlbum,
   getArtist,
   getArtistalbums,
   getFollowedArtists,
+  getSpotifyDevices,
   getSpotifyUser,
   searchSpotify
 } from "../services/spotifyService";
@@ -69,6 +71,24 @@ spotifyRouter.get(
   asyncMiddleware(async (req: Request, res: Response) => {
     const { authorization } = req.headers;
     const resp = await getSpotifyUser(authorization);
+    res.json(resp);
+  })
+);
+
+spotifyRouter.get(
+  "/devices",
+  asyncMiddleware(async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    const resp = await getSpotifyDevices(authorization);
+    res.json(resp);
+  })
+);
+
+spotifyRouter.get(
+  "/devices/:id",
+  asyncMiddleware(async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    const resp = await changeSpotifyDevice(authorization,req.params.id);
     res.json(resp);
   })
 );

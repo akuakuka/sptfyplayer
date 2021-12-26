@@ -59,7 +59,7 @@ const AlbumPage: React.FC = () => {
                   </>
                 )}
               </Flex>
-              <Box width="40vw">
+              <Box width="40vw" marginLeft="auto" paddingRight="3">
                 {album.images && <Image maxHeight="500px" src={album.images[0].url} />}
               </Box>
             </Flex>

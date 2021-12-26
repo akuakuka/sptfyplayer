@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   spotifyAlbum,
   spotifyArtist,
+  SpotifyDevice,
   SpotifySearchResult,
   SpotifyTokenResponse,
   SpotifyUser
@@ -65,6 +66,20 @@ export const getUser = async (): Promise<SpotifyUser> => {
   const { data } = await API.get<SpotifyUser>(`${BASEURL}/me`);
   return data
 };
+
+export const getDevices = async (): Promise<SpotifyDevice[]> => {
+  const { data } = await API.get<SpotifyDevice[]>(`${BASEURL}/devices`);
+  console.log(data)
+  return data
+};
+
+export const changeDevice = async (deviceid:string): Promise<SpotifyDevice[]> => {
+  const { data } = await API.get<SpotifyDevice[]>(`${BASEURL}/devices/${deviceid}`);
+  console.log(data)
+  return data
+};
+
+
 
 API.interceptors.request.use(async (config) => {
   if (!isAccessTokenValid()) {

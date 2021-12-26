@@ -58,9 +58,8 @@ const ArtistPage: React.FC = () => {
                 direction="column"
                 alignContent="center"
                 alignItems="center"
-                paddingBottom="4"
               >
-                <Heading>{artist.name} </Heading>
+                <Heading>{artist.name}</Heading>
               </Flex>
 
               <Flex gridGap="10">
