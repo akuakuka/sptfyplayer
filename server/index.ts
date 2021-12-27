@@ -28,15 +28,15 @@ console.log(process.env.NODE_ENV)
 //     res.sendFile(path.join(__dirname, reactPath, 'index.html'));
 //   });
 // }
-// if (process.env.NODE_ENV === 'production') {
-  // const reactPath = path.resolve(__dirname, "../../client/dist");
-  // console.log(reactPath);
-  // app.use(express.static(reactPath));
+if (process.env.NODE_ENV === 'production') {
+  const reactPath = path.resolve(__dirname, "../../client/dist");
+  console.log(reactPath);
+  app.use(express.static(reactPath));
 
-  // app.get('*', (req, res) => {
-//       res.sendFile(path.join(__dirname, 'public', 'index.html'));
-//   });
-// }
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
+}
 app.use((error, req, res, next) => {
   if(error.response) {
     res.sendStatus(error.response.status)
