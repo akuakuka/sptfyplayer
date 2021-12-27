@@ -83,6 +83,7 @@ export const changeDevice = async (deviceid: string): Promise<SpotifyDevice[]> =
 
 API.interceptors.request.use(async (config) => {
   if (!isAccessTokenValid()) {
+    // TODO: Locastorage handling to elsewhere
     const refreshtoken = localStorage.getItem("refreshToken") || "";
     if (refreshtoken) {
 
@@ -96,6 +97,27 @@ API.interceptors.request.use(async (config) => {
     }
   } return config;
 }, (error) => {
+  return Promise.reject(error);
+});
+
+
+API.interceptors.response.use((response) => {
+  return response
+}, async (error) => {
+  console.log("NEW API INTERCEPTOR FOR 403 RAN !")
+  const originalRequest = error.config;
+  if (error.response.status === 403 && !originalRequest._retry) {
+    originalRequest._retry = true;
+
+    const refreshtoken = localStorage.getItem("refreshToken") || "";
+    const response = await refreshToken(refreshtoken);
+    localStorage.setItem("accessToken", response.access_token);
+    const expiryDate = getExpiryDate()
+    localStorage.setItem("expiryDate", expiryDate.toString());
+
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.access_token;
+    return API(originalRequest);
+  }
   return Promise.reject(error);
 });
 

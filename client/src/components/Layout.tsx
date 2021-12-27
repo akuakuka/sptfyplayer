@@ -1,11 +1,10 @@
 import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useCallback, useContext, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import {
   usePlaybackState,
   WebPlaybackSDK
 } from "react-spotify-web-playback-sdk";
-import { useLocation } from "react-router-dom"
 import { UIContext } from "../hooks/useUI";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
@@ -53,9 +52,9 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
 
 const Layout: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
-  const accessToken = localStorage.getItem("accessToken");
   const [volume, setVolume] = useState<number>(0.5);
   /*   const [viewMode, setViewMode] = useState<string>(""); */
+  const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
   const UICOntext = useContext(UIContext);
 
@@ -63,7 +62,7 @@ const Layout: React.FC = () => {
   const handleVolume = (val: number) => {
     setVolume(val);
   };
-
+  // TODO: Voiko nämä yhdistää?
   const getAccesStoken = async () => {
     if (!isAccessTokenValid()) {
       const newToken = await refreshAccessToken();
@@ -80,12 +79,12 @@ const Layout: React.FC = () => {
     [accessToken]
   );
 
-  const getHeading = ():string => {
-    // TODO: Artist or album name to heading
+  const getHeading = (): string => {
+    // TODO: Artist or album name to heading, Better way to get heading than route?
     console.log(location.pathname)
-    if(location.pathname==="/app") return "Seuratut Artistit"
-    if(location.pathname.includes("/app/artist")) return "Albumit"
-    if(location.pathname.includes("/app/album")) return "Albumi"
+    if (location.pathname === "/app") return "Seuratut Artistit"
+    if (location.pathname.includes("/app/artist")) return "Albumit"
+    if (location.pathname.includes("/app/album")) return "Albumi"
     return ""
   }
 
@@ -120,16 +119,14 @@ const Layout: React.FC = () => {
               borderRadius={"10"}
             >
               <Heading>{getHeading()}</Heading>
-              {!location.pathname.includes("/app/album/") && 
-              
-              <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
-         
-              <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
-              <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
-            </Flex>
-            
-            }
-      
+              {!location.pathname.includes("/app/album/") &&
+
+                <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
+
+                  <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
+                  <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
+                </Flex>
+              }
             </Flex>
             <Outlet />
           </Flex>

@@ -14,7 +14,7 @@ import {
   Text,
   useColorModeValue
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdComputer, MdDevices, MdSmartphone, MdSpeaker } from "react-icons/md";
 import {
   usePlaybackState,
@@ -32,22 +32,17 @@ interface FooterProps {
   handleVolume: (val: number) => void;
   volume: number;
 }
-
+// TODO: CONTEXT ORDER HOOK ERROR RED !
 const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const [devicesLoading, setDevicesLoading] = useState<boolean>(false);
   const [devices, setDevices] = useState<SpotifyDevice[]>([]);
-  const webPlaybackSDKReady = useWebPlaybackSDKReady();
   const size: Size = useWindowSize();
+  const webPlaybackSDKReady = useWebPlaybackSDKReady();
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
-
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
 
-  useEffect(() => {
-    console.log(device);
-    console.log(playbackState);
-  }, [playbackState, device]);
   const handlePlay = async () => {
     if (device === null) return;
     player?.resume();
@@ -71,6 +66,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
     setDevices(devices);
     setDevicesLoading(false);
   };
+
   const getDeviceIcon = (type: string, active: boolean) => {
     if (type === "Computer") {
       if (active) {
@@ -94,6 +90,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
       }
     }
   };
+
   return (
     <Flex
       position="fixed"
@@ -110,7 +107,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
     >
       {user.product === "premium" ? (
         <>
-          {" "}
           {webPlaybackSDKReady ? (
             <>
               <Box
@@ -193,13 +189,11 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                     <Spinner />
                   ) : (
                     <>
-                      {" "}
                       {devices && (
                         <>
                           {devices.map((d) => {
                             return (
                               <MenuItem>
-                                {" "}
                                 <Flex
                                   direction="row"
                                   alignItems="center"
@@ -210,7 +204,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                                 </Flex>
                               </MenuItem>
                             );
-                          })}{" "}
+                          })}
                         </>
                       )}
                     </>

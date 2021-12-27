@@ -88,7 +88,7 @@ spotifyRouter.get(
   "/devices/:id",
   asyncMiddleware(async (req: Request, res: Response) => {
     const { authorization } = req.headers;
-    const resp = await changeSpotifyDevice(authorization,req.params.id);
+    const resp = await changeSpotifyDevice(authorization, req.params.id);
     res.json(resp);
   })
 );

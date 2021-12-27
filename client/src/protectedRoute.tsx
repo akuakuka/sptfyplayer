@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { SpinnerPage } from "./components/SpinnerPage";
 
 export const ProtectedRoute: React.FC = () => {
   // let auth = useAuth();
@@ -26,5 +27,5 @@ export const ProtectedRoute: React.FC = () => {
       return <Navigate to="/login" state={{ from: location }} />;
     }
     return <Outlet />;
-  } return null;
+  } return <SpinnerPage />;
 };

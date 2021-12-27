@@ -164,7 +164,7 @@ export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> 
 };
 
 export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlowResponse> => {
-  // Client Credentials Flow
+  // Client Credentials Flow token -> No access to user data
 
   const url = 'https://accounts.spotify.com/api/token';
 
@@ -185,7 +185,7 @@ export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlow
     tokenData,
     { headers }
   );
-
+  console.log(data)
   return data;
 };
 
@@ -209,7 +209,7 @@ export const getSpotifyDevices = async (accesstoken: string): Promise<SpotifyDev
 
 
 
-export const changeSpotifyDevice = async (accesstoken: string,deviceid:string) => {
+export const changeSpotifyDevice = async (accesstoken: string, deviceid: string) => {
 
   const headers = {
     Authorization: `${accesstoken}`,
@@ -221,7 +221,7 @@ export const changeSpotifyDevice = async (accesstoken: string,deviceid:string) =
     device_ids: [deviceid]
   }
 
-  const { data } = await API.put(`/me/player/`,putData, { headers });
+  const { data } = await API.put(`/me/player/`, putData, { headers });
   console.log(data)
   return data;
 

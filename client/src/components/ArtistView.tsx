@@ -10,14 +10,17 @@ import { SpinnerPage } from "./SpinnerPage";
 
 const ArtistView: React.FC = () => {
   const [artists, setArtists] = useState<spotifyArtist[]>([]);
-  // @ts-ignore
-  const [status, statusText, data, error, loading] = useAPI(`/artists`, API);
   // TODO : Artistien cache - react memo?
   const UICOntext = useContext(UIContext);
+  // @ts-ignore
+  const [status, statusText, data, error, loading] = useAPI(`/artists`, API);
+
+
   useEffect(() => {
     console.log("UICOntext.view")
     console.log(UICOntext.view)
   }, [UICOntext.view])
+
   return (
     <>
       {loading ? (
