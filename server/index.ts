@@ -71,8 +71,9 @@ if (process.env.NODE_ENV !== 'test') {
   );
 }); */
 
-
+/*
 
 app.use((error, req, res, next) => {
   res.sendStatus(error.response.status)
 })
+*/
