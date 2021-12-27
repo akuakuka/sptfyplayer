@@ -34,10 +34,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(reactPath));
 
   app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'public', 'index.html'));
+      res.sendFile(path.join(reactPath, 'index.html'));
   });
 }
-
+// Error: ENOENT: no such file or directory, stat '/app/server/dist/public/index.html'
 const port = process.env.PORT || PORT
 
 if (process.env.NODE_ENV !== 'test') {
@@ -49,10 +49,6 @@ if (process.env.NODE_ENV !== 'test') {
   });
 
 }
-
-
-
-
 
 
 /* else {
