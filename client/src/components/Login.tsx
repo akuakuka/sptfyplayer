@@ -24,7 +24,9 @@ const Login: React.FC = () => {
       const refreshToken = query.get("refreshToken");
       const expiryDate = getExpiryDate();
       // TODO: expiryDate from backend and into user object?
+      console.log("ennen if")
       if (userToken) {
+        console.log("if (userToken) {")
         try {
           console.log("Try")
           await checkAuth();
@@ -38,6 +40,7 @@ const Login: React.FC = () => {
           setIsLoading(false);
         }
       } else if (accessToken) {
+        console.log("LOGIN } else if (accessToken) {")
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("expiryDate", expiryDate.toString());
         localStorage.setItem("accessToken", accessToken);
@@ -46,7 +49,7 @@ const Login: React.FC = () => {
         setIsLoading(false);
         navigate("/app");
       }
-
+      console.log("jalkeen if")
       setIsLoading(false);
     })();
   }, []);
