@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== "dev") {
   const reactPath = path.resolve(__dirname, "../../client/dist");
   console.log(reactPath);
   app.use(express.static(reactPath));
-  /*   app.use(express.static("public")); */
+   app.use(express.static("public")); 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../../client/dist', 'index.html'))
   })
