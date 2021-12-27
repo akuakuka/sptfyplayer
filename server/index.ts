@@ -15,23 +15,29 @@ app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
+console.log(process.env.NODE_ENV)
 
-
-if (process.env.NODE_ENV === "production") {
-  /*  app.use(enforce.HTTPS()); */
+// if (process.env.NODE_ENV === "production") {
+//   /*  app.use(enforce.HTTPS()); */
+//   const reactPath = path.resolve(__dirname, "../../client/dist");
+//   console.log(reactPath);
+//   app.use(express.static(reactPath));
+//   app.use(express.static("public")); 
+//   app.use((req, res, next) => {
+//     console.log(path.join(__dirname, reactPath, 'index.html'))
+//     res.sendFile(path.join(__dirname, reactPath, 'index.html'));
+//   });
+// }
+if (process.env.NODE_ENV === 'production') {
   const reactPath = path.resolve(__dirname, "../../client/dist");
   console.log(reactPath);
   app.use(express.static(reactPath));
-  app.use(express.static("public")); 
-  app.use((req, res, next) => {
-    console.log(path.join(__dirname, reactPath, 'index.html'))
-    res.sendFile(path.join(__dirname, reactPath, 'index.html'));
+
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
 
-app.use((error, req, res, next) => {
-  res.sendStatus(error.response.status)
-})
 const port = process.env.PORT || PORT
 
 if (process.env.NODE_ENV !== 'test') {
@@ -64,3 +70,9 @@ if (process.env.NODE_ENV !== 'test') {
     `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
   );
 }); */
+
+
+
+app.use((error, req, res, next) => {
+  res.sendStatus(error.response.status)
+})
