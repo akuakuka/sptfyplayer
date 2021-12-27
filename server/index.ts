@@ -37,14 +37,7 @@ if (process.env.NODE_ENV === 'production') {
       res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
-app.use((error, req, res, next) => {
-  if(error.response) {
-    res.sendStatus(error.response.status)
-  } else {
-    res.sendStatus(400)
-  }
- 
-})
+
 const port = process.env.PORT || PORT
 
 if (process.env.NODE_ENV !== 'test') {
