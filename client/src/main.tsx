@@ -13,7 +13,7 @@ import { UIProvider } from "./hooks/useUI";
 import "./index.css";
 
 
-registerSW();
+// registerSW();
 
 const theme = extendTheme({
   colors: {
