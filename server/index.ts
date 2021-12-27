@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { enforce } from "express-sslify";
+import enforce from "express-sslify";
 import path from "path";
 import { FRONTEND_URL } from "./config";
 import { authRouter } from "./routes/authRouter";
@@ -38,6 +38,7 @@ if (process.env.NODE_ENV !== 'test') {
       `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
     );
   });
+
 }
 
 
