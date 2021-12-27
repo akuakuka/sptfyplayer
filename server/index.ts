@@ -15,21 +15,22 @@ app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
-app.use((error, req, res, next) => {
-  res.sendStatus(error.response.status)
-})
 
-if (process.env.NODE_ENV !== "dev") {
+
+if (process.env.NODE_ENV === "production") {
   /*  app.use(enforce.HTTPS()); */
-
   const reactPath = path.resolve(__dirname, "../../client/dist");
   console.log(reactPath);
   app.use(express.static(reactPath));
-   app.use(express.static("public")); 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../client/dist', 'index.html'))
-  })
+  app.use(express.static("public")); 
+  app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, reactPath, 'index.html'));
+  });
 }
+
+app.use((error, req, res, next) => {
+  res.sendStatus(error.response.status)
+})
 const port = process.env.PORT || PORT
 
 if (process.env.NODE_ENV !== 'test') {
@@ -41,6 +42,8 @@ if (process.env.NODE_ENV !== 'test') {
   });
 
 }
+
+
 
 
 
