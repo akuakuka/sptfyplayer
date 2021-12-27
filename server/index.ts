@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(reactPath));
   app.use(express.static("public")); 
   app.use((req, res, next) => {
+    console.log(path.join(__dirname, reactPath, 'index.html'))
     res.sendFile(path.join(__dirname, reactPath, 'index.html'));
   });
 }
