@@ -35,3 +35,10 @@ export const getExpiryDate = (): number => {
     ).valueOf();
     return expiryDate;
 }
+
+export const getDateNow = (): number => {
+    const expiryDate = new Date(
+        new Date().setHours(new Date().getHours())
+    ).valueOf();
+    return expiryDate;
+}
