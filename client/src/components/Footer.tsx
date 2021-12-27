@@ -153,14 +153,14 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                   />
                   {playbackState && playbackState.paused ? (
                     <IconB
-                      aria-label="play-pause"
+                      aria-label="play"
                       variant={"play"}
                       onClick={() => handlePlay()}
                       key="playbutton"
                     />
                   ) : (
                     <IconB
-                      aria-label="play-pause"
+                      aria-label="pause"
                       variant={"pause"}
                       onClick={() => handlePause()}
                       key="pausebutton"
