@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import enforce from "express-sslify";
+/* import enforce from "express-sslify"; */
 import path from "path";
 import { FRONTEND_URL } from "./config";
 import { authRouter } from "./routes/authRouter";
@@ -20,11 +20,12 @@ app.use((error, req, res, next) => {
 })
 
 if (process.env.NODE_ENV !== "dev") {
-  app.use(enforce.HTTPS());
+  /*  app.use(enforce.HTTPS()); */
 
   const reactPath = path.resolve(__dirname, "../../client/dist");
+  console.log(reactPath);
   app.use(express.static(reactPath));
-  app.use(express.static("public"));
+  /*   app.use(express.static("public")); */
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../../client/dist', 'index.html'))
   })
