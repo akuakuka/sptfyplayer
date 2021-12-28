@@ -88,7 +88,7 @@ const Layout: React.FC = () => {
     if (location.pathname.includes("/app/album")) return "Albumi"
     return ""
   }
-
+  // TODO: UICOntext.setView && 
   return (
     <>
       <WebPlaybackSDK
@@ -123,8 +123,8 @@ const Layout: React.FC = () => {
               {!location.pathname.includes("/app/album/") &&
 
                 <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
-                  <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
-                  <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
+                  <IconButton variant="list" onClick={() => UICOntext.setView && UICOntext.setView("LIST")} />
+                  <IconButton variant="listimages" onClick={() => UICOntext.setView && UICOntext.setView("IMAGES")} />
                 </Flex>
               }
             </Flex>
