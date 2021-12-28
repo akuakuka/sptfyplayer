@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import {
   spotifyAlbum,
   spotifyArtist
-} from "../../../server/types/SpotifyTypes";
+} from "../../server/types/SpotifyTypes";
 import { getArtist, getArtistAlbums } from "../API";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";

@@ -22,7 +22,7 @@ import {
   useSpotifyPlayer,
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
-import { SpotifyDevice, SpotifyUser } from "../../../server/types/SpotifyTypes";
+import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
 import { getDevices } from "../API";
 import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton as IconB } from "./IconButton";

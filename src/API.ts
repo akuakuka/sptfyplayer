@@ -6,7 +6,7 @@ import {
   SpotifySearchResult,
   SpotifyTokenResponse,
   SpotifyUser
-} from "../../server/types/SpotifyTypes";
+} from "../server/types/SpotifyTypes";
 import { BASEURL, REFRESHURL } from "./config";
 import { isAccessTokenValid } from "./utils/authUtils";
 import { getExpiryDate } from "./utils/dateUtils";

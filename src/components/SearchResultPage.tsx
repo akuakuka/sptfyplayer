@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import {
   SearchResultAlbum,
   SearchResultArtist
-} from "../../../server/types/SpotifyTypes";
+} from "../../server/types/SpotifyTypes";
 import { search } from "../API";
 import Item from "./Item";
 import { SpinnerPage } from "./SpinnerPage";

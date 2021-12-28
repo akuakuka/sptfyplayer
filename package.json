@@ -50,7 +50,8 @@
     "frontend": "vite --host 0.0.0.0",
     "backend": "NODE_ENV=dev ts-node-dev --respawn  --project server/tsconfig.json ./server/index.ts",
     "dev": "npx concurrently \"npm run frontend\" \"npm run backend\"",
-    "start": "cd ./client && npm install && npm run build && cd .. && cd ./server && npm install && tsc && node dist/index.js",
+    "start1": "tsc && node ./server/dist/index.js",
+    "start": "npm run build && cd ./server && tsc && node --max_old_space_size=2560 dist/index.js",
     "test": "jest",
     "build": "tsc && vite build",
     "serve": "vite preview"

@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+
+console.log(__dirname + '.env')
 dotenv.config();
 
 // Spotify-WEB-Player-SDK : "streaming", "user-read-email", "user-read-private"
@@ -28,6 +30,7 @@ console.log({ SPOTIFY_CALLBACK })
 console.log({ FRONTEND_URL })
 console.log({ NODE_ENV })
 console.log({ BASEURL })
+
 export {
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,

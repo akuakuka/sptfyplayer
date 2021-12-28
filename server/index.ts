@@ -28,13 +28,18 @@ console.log(process.env.NODE_ENV)
 //     res.sendFile(path.join(__dirname, reactPath, 'index.html'));
 //   });
 // }
+
+/* const reactPath = path.resolve(__dirname, "../dist");
+console.log(reactPath);
+console.log(reactPath);
+console.log(path.join(reactPath, 'index.html')) */
 if (process.env.NODE_ENV === 'production') {
-  const reactPath = path.resolve(__dirname, "../../client/dist");
+  const reactPath = path.resolve(__dirname, "../dist");
   console.log(reactPath);
   app.use(express.static(reactPath));
 
   app.get('*', (req, res) => {
-      res.sendFile(path.join(reactPath, 'index.html'));
+    res.sendFile(path.join(reactPath, 'index.html'));
   });
 }
 // Error: ENOENT: no such file or directory, stat '/app/server/dist/public/index.html'

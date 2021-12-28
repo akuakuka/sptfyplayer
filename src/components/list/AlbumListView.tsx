@@ -8,7 +8,7 @@ import {
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { spotifyAlbum } from "../../../../server/types/SpotifyTypes";
+import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
 import { getAlbumReleaseYearFromDate } from "../../utils/dateUtils";
 import { SpinnerPage } from "../SpinnerPage";
 
@@ -34,10 +34,10 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
 
     useEffect(() => {
         console.log("ALBUMS CHANGED")
-        if(albums.length>1) {
+        if (albums.length > 1) {
             console.log(albums[0].name)
         }
-      
+
     }, [albums])
 
 
@@ -53,48 +53,48 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
             console.log("IF")
             if (sortStatus === "NAME") {
                 console.log("name")
-               
+
                 setAlbums(copy.reverse())
-             
+
             } else {
                 setAlbums(copy.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
             }
-            
+
         }
 
         if (column === "YEAR") {
             console.log(albums[0].release_date)
             if (sortStatus === "YEAR") {
-            
+
                 setAlbums(copy.reverse())
-            }else {
+            } else {
                 setAlbums(copy.sort((a, b) => getAlbumReleaseYearFromDate(a.release_date, a.release_date_precision) > getAlbumReleaseYearFromDate(b.release_date, b.release_date_precision) ? 1 : -1))
-           
+
             }
-           
-           
+
+
         }
 
         if (column === "TRACKS") {
             if (sortStatus === "TRACKS") {
                 setAlbums(copy.reverse())
-             
+
             } else {
                 setAlbums(copy.sort((a, b) => a.total_tracks > b.total_tracks ? 1 : -1))
             }
-            
+
         }
         if (column === "TYPE") {
             if (sortStatus === "TYPE") {
-                
+
                 setAlbums(copy.reverse())
             } else {
                 setAlbums(copy.sort((a, b) => a.album_type > b.album_type ? 1 : -1))
             }
-           
+
         }
         setSortStatus(column)
-       
+
     }
 
     return (
@@ -104,8 +104,8 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
                     <Thead>
                         <Tr>
                             <Th cursor="pointer" onClick={() => handleSortChange("NAME")}>Name <MinusIcon cursor={"pointer"} /></Th>
-                            <Th cursor="pointer"  isNumeric onClick={() => handleSortChange("YEAR")}>Year <MinusIcon cursor={"pointer"} /></Th>
-                            <Th cursor="pointer" isNumeric  onClick={() => handleSortChange("TRACKS")}>Tracks <MinusIcon cursor={"pointer"}/></Th>
+                            <Th cursor="pointer" isNumeric onClick={() => handleSortChange("YEAR")}>Year <MinusIcon cursor={"pointer"} /></Th>
+                            <Th cursor="pointer" isNumeric onClick={() => handleSortChange("TRACKS")}>Tracks <MinusIcon cursor={"pointer"} /></Th>
                             <Th cursor="pointer" onClick={() => handleSortChange("TYPE")}>Type <MinusIcon cursor={"pointer"} /></Th>
 
                             {/*  <Th>Name <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("NAME")} /></Th>
