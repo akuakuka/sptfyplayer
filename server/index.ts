@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 /* import enforce from "express-sslify"; */
 import path from "path";
-import { FRONTEND_URL } from "./config";
+import { FRONTEND_URL, NODE_ENV } from "./config";
 import { authRouter } from "./routes/authRouter";
 import { spotifyRouter } from "./routes/spotifyRouter";
 
@@ -15,7 +15,7 @@ app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
-console.log(process.env.NODE_ENV)
+console.log(NODE_ENV)
 
 // if (process.env.NODE_ENV === "production") {
 //   /*  app.use(enforce.HTTPS()); */
@@ -33,8 +33,8 @@ console.log(process.env.NODE_ENV)
 console.log(reactPath);
 console.log(reactPath);
 console.log(path.join(reactPath, 'index.html')) */
-if (process.env.NODE_ENV === 'production') {
-  const reactPath = path.resolve(__dirname, "../dist");
+if (NODE_ENV === 'production') {
+  const reactPath = path.resolve(__dirname, "../../dist");
   console.log(reactPath);
   app.use(express.static(reactPath));
 
@@ -46,8 +46,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 // Error: ENOENT: no such file or directory, stat '/app/server/dist/public/index.html'
 const port = process.env.PORT || PORT
-
-if (process.env.NODE_ENV !== 'test') {
+//@ts-ignore
+if (NODE_ENV !== 'test') {
 
   app.listen(port, () => {
     console.info(
