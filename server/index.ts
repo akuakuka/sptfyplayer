@@ -33,9 +33,12 @@ app.use("/api/auth/", authRouter);
 console.log(reactPath);
 console.log(reactPath);
 console.log(path.join(reactPath, 'index.html')) */
+console.log("#########")
+const reactPath = path.resolve(__dirname, "..", "./dist");
+console.log(reactPath);
+console.log(path.join(reactPath, 'index.html'));
 if (NODE_ENV === 'production') {
-  const reactPath = path.resolve(__dirname, "../../dist");
-  console.log(reactPath);
+  const reactPath = path.resolve(__dirname, "..", "./dist");
   app.use(express.static(reactPath));
 
   app.get('*', (req, res) => {
