@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/layout";
+import { Center, Flex, Heading } from "@chakra-ui/layout";
 import { Switch, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -48,20 +48,33 @@ const ArtistPage: React.FC = () => {
   return (
     <Flex direction="column">
       {isLoading ? (
-        <SpinnerPage />
+        <Center width="90vw">
+          <SpinnerPage />
+        </Center>
       ) : (
-        <>
+        <Flex
+          direction="row"
+          gridGap="10px"
+          wrap="wrap"
+          overflow="hidden"
+          sx={{ height: "calc(100vh - 150px);" }}
+          width="90vw"
+          justifyContent="center"
+          alignContent={"flex-start"}
+          paddingY="5"
+        >
+
           {UICOntext.view === "LIST" ? (
             <AlbumListView albumList={albums} loading={isLoading} />
           ) : (
-            <Flex direction="column">
-              <Flex
+            <Flex direction="column" alignContent={"flex-start"} justifyContent={"flex-start"}>
+              {/*               <Flex
                 direction="column"
                 alignContent="center"
                 alignItems="center"
               >
                 <Heading>{artist.name}</Heading>
-              </Flex>
+              </Flex> */}
 
               <Flex gridGap="10">
                 <Heading paddingLeft="10">Albumit </Heading>
@@ -114,7 +127,7 @@ const ArtistPage: React.FC = () => {
               </Flex>
             </Flex>
           )}
-        </>
+        </Flex>
       )}
     </Flex>
   );

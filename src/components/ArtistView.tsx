@@ -1,4 +1,4 @@
-import { Heading, useColorModeValue } from "@chakra-ui/react";
+import { Center, useColorModeValue } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { spotifyArtist } from "../../server/types/SpotifyTypes";
 import { API } from "../API";
@@ -20,10 +20,12 @@ const ArtistView: React.FC = () => {
   return (
     <>
       {loading ? (
-        <SpinnerPage />
+        <Center width="90vw">
+          <SpinnerPage />
+        </Center>
       ) : (
         <>
-          <Heading
+          {/*           <Heading
             flexGrow={0}
             flexShrink={0}
             flexBasis={"100%"}
@@ -33,7 +35,7 @@ const ArtistView: React.FC = () => {
           >
             Seuratut artistit
           </Heading>
-
+ */}
           {UICOntext.view === "LIST" ? <ListView artistsList={data} loading={loading} /> :
             <>{data && data.length ? (
               <>

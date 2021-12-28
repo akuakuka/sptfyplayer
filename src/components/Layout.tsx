@@ -106,7 +106,7 @@ const Layout: React.FC = () => {
             overflow="auto"
             sx={{ height: "calc(100vh - 150px);" }}
             width="100vw"
-            justifyContent="center"
+            alignContent={"flex-start"}
             paddingY="5"
           >
             <Flex
