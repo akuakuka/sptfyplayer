@@ -135,8 +135,13 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
 
                 <>
                   {playbackState && (
+
                     <Image
-                      position="absolute"
+                      position={"fixed"}
+                      bottom={"15px"}
+                      width={"20vw"}
+                      maxWidth="200px"
+                      align={"revert"}
                       src={
                         playbackState.track_window.current_track.album
                           .images[0].url
@@ -144,7 +149,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                     />
                   )}
                 </>
-                )
+
               </Box>
               <Flex direction="column" gridGap="1" width="30vw">
                 {playbackState && (
