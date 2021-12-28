@@ -39,6 +39,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(reactPath));
 
   app.get('*', (req, res) => {
+    console.log("serving from :")
+    console.log(path.join(reactPath, 'index.html'));
     res.sendFile(path.join(reactPath, 'index.html'));
   });
 }
