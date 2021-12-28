@@ -46,6 +46,9 @@
   },
   "main": "dist/index.js",
   "name": "sptfyplayer",
+  "engines": {
+    "node": "17.x"
+  },
   "scripts": {
     "frontend": "vite --host 0.0.0.0",
     "backend": "NODE_ENV=dev ts-node-dev --respawn  --project server/tsconfig.json ./server/index.ts",
