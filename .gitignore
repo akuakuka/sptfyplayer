@@ -8,3 +8,9 @@ server/dist
 /client/node_modules/*
 /server/.env
 /server/coverage/
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local

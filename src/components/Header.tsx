@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { SpotifyUser } from "../../../server/types/SpotifyTypes";
+import { SpotifyUser } from "../../server/types/SpotifyTypes";
 import { useDebounce } from "../hooks/useDebounce";
 import { IconButton as IconB } from "./IconButton";
 

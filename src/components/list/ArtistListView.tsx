@@ -9,7 +9,7 @@ import {
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { spotifyArtist } from "../../../../server/types/SpotifyTypes";
+import { spotifyArtist } from "../../../server/types/SpotifyTypes";
 import { SpinnerPage } from "../SpinnerPage";
 
 /* interface sortStatus {

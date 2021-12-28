@@ -1,6 +1,6 @@
 import { Heading, useColorModeValue } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { spotifyArtist } from "../../../server/types/SpotifyTypes";
+import { spotifyArtist } from "../../server/types/SpotifyTypes";
 import { API } from "../API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";

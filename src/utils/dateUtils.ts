@@ -1,4 +1,4 @@
-import { spotifyImage } from "../../../server/types/SpotifyTypes"
+import { spotifyImage } from "../../server/types/SpotifyTypes";
 
 export const getAlbumReleaseYearFromDate = (date: string, precision: string): string => {
     /*     release_date

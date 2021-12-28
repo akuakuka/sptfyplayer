@@ -3,7 +3,7 @@ import { Container, Image } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
+import { spotifyAlbum } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { getAlbumReleaseYearFromDate } from "../utils/dateUtils";
 import { MotionBox } from "./MotionBox";

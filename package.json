@@ -1,4 +1,27 @@
 {
+  "dependencies": {
+    "@chakra-ui/icons": "^1.0.16",
+    "@chakra-ui/react": "^1.6.10",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@fontsource/aldrich": "^4.5.0",
+    "@fontsource/cabin": "^4.5.0",
+    "@fontsource/lemon": "^4.5.0",
+    "axios": "^0.23.0",
+    "framer-motion": "^4.1.17",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.1.1",
+    "react-spotify-web-playback-sdk": "^2.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.16.4",
+    "express-sslify": "^1.2.0",
+    "jest": "^27.4.5",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.1.2"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
@@ -9,13 +32,31 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.2",
+    "@types/node": "^17.0.2",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.11",
+    "@vitejs/plugin-react": "^1.0.0",
+    "vite": "^2.6.4",
+    "vite-plugin-pwa": "^0.11.12",
+    "@types/express": "^4.16.1",
+    "@types/jest": "^27.0.3",
+    "ts-node-dev": "^1.1.8",
+    "tslint": "^5.12.1"
   },
   "main": "dist/index.js",
   "name": "sptfyplayer",
+  "engines": {
+    "node": "17.x"
+  },
   "scripts": {
-    "dev": "npx concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
-    "start": "cd ./client && npm install && npm run build && cd .. && cd ./server && npm install && tsc && node dist/index.js",
-    "test": "cd ./server && npm install && npm run test"
+    "frontend": "vite --host 0.0.0.0",
+    "backend": "NODE_ENV=dev ts-node-dev --respawn  --project server/tsconfig.json ./server/index.ts",
+    "dev": "npx concurrently \"npm run frontend\" \"npm run backend\"",
+    "start1": "tsc && node ./server/dist/index.js",
+    "start": "npm run build && cd ./server && tsc && node --max_old_space_size=2560 dist/index.js",
+    "test": "jest",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   }
 }

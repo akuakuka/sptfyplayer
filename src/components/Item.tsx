@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyItem, spotifyTrack } from "../../../server/types/SpotifyTypes";
+import { spotifyItem, spotifyTrack } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { QueContext } from "../hooks/usePlayQue";
 import { IconButton } from "./IconButton";

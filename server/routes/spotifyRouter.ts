@@ -17,8 +17,8 @@ export const spotifyRouter = Router();
 spotifyRouter.get(
   "/artists",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
-    const resp = await getFollowedArtists(authorization, [], null);
+    const authorization = req.headers.authorization || "";
+    const resp = await getFollowedArtists(authorization, [], "");
     res.json(resp);
 
   })
@@ -27,7 +27,7 @@ spotifyRouter.get(
 spotifyRouter.get(
   "/artist/:id",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await getArtist(req.params.id, authorization);
     res.json(resp);
   })
@@ -36,7 +36,7 @@ spotifyRouter.get(
 spotifyRouter.get(
   "/artist/:id/albums",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await getArtistalbums(req.params.id, authorization);
     res.json(resp);
   })
@@ -45,14 +45,14 @@ spotifyRouter.get(
 spotifyRouter.get(
   "/album/:id",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await getAlbum(req.params.id, authorization);
     res.json(resp);
   })
 );
 // TODO: Tarvitaanko async middleware=?
 spotifyRouter.get("/check", async (req: Request, res: Response) => {
-  const { authorization } = req.headers;
+  const authorization = req.headers.authorization || "";
   const resp = await checkAuth(authorization);
   res.json(resp);
 });
@@ -60,7 +60,7 @@ spotifyRouter.get("/check", async (req: Request, res: Response) => {
 spotifyRouter.get(
   "/search/:term",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await searchSpotify(req.params.term, authorization);
     res.json(resp);
   })
@@ -69,7 +69,7 @@ spotifyRouter.get(
 spotifyRouter.get(
   "/me",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await getSpotifyUser(authorization);
     res.json(resp);
   })
@@ -78,7 +78,7 @@ spotifyRouter.get(
 spotifyRouter.get(
   "/devices",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await getSpotifyDevices(authorization);
     res.json(resp);
   })
@@ -87,7 +87,7 @@ spotifyRouter.get(
 spotifyRouter.get(
   "/devices/:id",
   asyncMiddleware(async (req: Request, res: Response) => {
-    const { authorization } = req.headers;
+    const authorization = req.headers.authorization || "";
     const resp = await changeSpotifyDevice(authorization, req.params.id);
     res.json(resp);
   })
