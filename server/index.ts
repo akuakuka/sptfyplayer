@@ -15,7 +15,7 @@ app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
-console.log(NODE_ENV)
+
 
 // if (process.env.NODE_ENV === "production") {
 //   /*  app.use(enforce.HTTPS()); */
