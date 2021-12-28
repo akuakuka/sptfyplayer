@@ -34,11 +34,22 @@ console.log(reactPath);
 console.log(reactPath);
 console.log(path.join(reactPath, 'index.html')) */
 console.log("#########")
-const reactPath = path.resolve(__dirname, "..", "./dist");
-console.log(reactPath);
-console.log(path.join(reactPath, 'index.html'));
+
+
 if (NODE_ENV === 'production') {
   const reactPath = path.resolve(__dirname, "..", "./dist");
+  console.log("__dirname")
+  console.log(__dirname)
+
+  console.log("reactPath")
+  console.log(reactPath)
+
+
+  console.log("path.join(reactPath, 'index.html')")
+  console.log(path.join(reactPath, 'index.html'))
+
+
+
   app.use(express.static(reactPath));
 
   app.get('*', (req, res) => {
@@ -47,6 +58,7 @@ if (NODE_ENV === 'production') {
     res.sendFile(path.join(reactPath, 'index.html'));
   });
 }
+
 // Error: ENOENT: no such file or directory, stat '/app/server/dist/public/index.html'
 const port = process.env.PORT || PORT
 //@ts-ignore

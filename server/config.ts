@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 
-console.log(__dirname + '.env')
 dotenv.config();
 
 // Spotify-WEB-Player-SDK : "streaming", "user-read-email", "user-read-private"
