@@ -14,7 +14,7 @@ import {
   Text,
   useColorModeValue
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdComputer, MdDevices, MdSmartphone, MdSpeaker } from "react-icons/md";
 import {
   usePlaybackState,
@@ -23,7 +23,7 @@ import {
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
 import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
-import { getDevices } from "../API";
+import { changeDevice, getDevices } from "../API";
 import { IconButton as IconB } from "./IconButton";
 
 // TODO: Volume contextiin?=
@@ -31,8 +31,9 @@ interface FooterProps {
   handleVolume: (val: number) => void;
   volume: number;
 }
-// TODO: CONTEXT ORDER HOOK ERROR RED !
+
 const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
+  const [initialCheck, setInitialCheck] = useState<boolean>(false)
   const [devicesLoading, setDevicesLoading] = useState<boolean>(false);
   const [devices, setDevices] = useState<SpotifyDevice[]>([]);
   const webPlaybackSDKReady = useWebPlaybackSDKReady();
@@ -41,6 +42,19 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const device = usePlayerDevice();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
   const bgColor = useColorModeValue("brand.500", "brandDark.900")
+
+  // Change spotify device when connected
+  useEffect(() => {
+    (async () => {
+      if (!initialCheck) {
+        if (device) {
+          console.log(device)
+          await changeDevice(device.device_id)
+          setInitialCheck(true)
+        }
+      }
+    })();
+  }, [device]);
 
 
   const handlePlay = async () => {

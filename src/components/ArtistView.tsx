@@ -16,7 +16,7 @@ const ArtistView: React.FC = () => {
   // TODO : Artistien cache - react memo?
   const UICOntext = useContext(UIContext);
   // @ts-ignore
-
+  // TODO: ArtistImage lazyload
   return (
     <>
       {loading ? (
