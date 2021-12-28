@@ -34,7 +34,28 @@ console.log(reactPath);
 console.log(reactPath);
 console.log(path.join(reactPath, 'index.html')) */
 console.log("#########")
+console.log({ NODE_ENV })
 
+const reactPath = path.resolve(__dirname, "..", "./dist");
+console.log("__dirname")
+console.log(__dirname)
+
+console.log("reactPath")
+console.log(reactPath)
+console.log("path.dirname(filename).split(path.sep).pop()")
+console.log(path.dirname(__dirname).split(path.sep).pop())
+
+console.log("path.join(reactPath, 'index.html')")
+console.log(path.join(reactPath, 'index.html'))
+
+console.log("require('path').resolve(__dirname, '..')")
+console.log(require('path').resolve(__dirname, '..'))
+
+console.log("require('path').resolve(__dirname, '..', '..')")
+console.log(require('path').resolve(__dirname, '..', '..'))
+
+console.log("require('path').resolve(__dirname, '..', '..' src)")
+console.log(require('path').resolve(__dirname, '..', '..', "src", "dist", "index.html"))
 
 if (NODE_ENV === 'production') {
   const reactPath = path.resolve(__dirname, "..", "./dist");
@@ -47,15 +68,15 @@ if (NODE_ENV === 'production') {
 
   console.log("path.join(reactPath, 'index.html')")
   console.log(path.join(reactPath, 'index.html'))
+  const kk = require('path').resolve(__dirname, '..', '..', "src", "dist",)
+  const pp = require('path').resolve(__dirname, '..', '..', "src", "dist", "index.html")
 
-
-
-  app.use(express.static(reactPath));
+  app.use(express.static(kk));
 
   app.get('*', (req, res) => {
     console.log("serving from :")
-    console.log(path.join(reactPath, 'index.html'));
-    res.sendFile(path.join(reactPath, 'index.html'));
+    console.log(path.join(pp));
+    res.sendFile(path.join(pp));
   });
 }
 
