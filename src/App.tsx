@@ -1,9 +1,6 @@
-import {
-  Box
-} from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AlbumPage from "./components/AlbumPage";
 import ArtistPage from "./components/ArtistPage";
 import ArtistView from "./components/ArtistView";
@@ -14,8 +11,8 @@ import "./index.css";
 import { ProtectedRoute } from "./protectedRoute";
 // TODO : types from ../server path to alias
 const NotFound: React.FC = () => {
-  /* return <Navigate to="/app" />; */
-  return <Box>404</Box>
+  return <Navigate to="/app" />;
+  /* return <Box>404</Box> */
 };
 
 const App: React.FC = () => {

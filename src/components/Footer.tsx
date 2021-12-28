@@ -24,7 +24,6 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
 import { getDevices } from "../API";
-import { Size, useWindowSize } from "../hooks/useWindowSize";
 import { IconButton as IconB } from "./IconButton";
 
 // TODO: Volume contextiin?=
@@ -36,12 +35,13 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const [devicesLoading, setDevicesLoading] = useState<boolean>(false);
   const [devices, setDevices] = useState<SpotifyDevice[]>([]);
-  const size: Size = useWindowSize();
   const webPlaybackSDKReady = useWebPlaybackSDKReady();
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
+  const bgColor = useColorModeValue("brand.500", "brandDark.900")
+
 
   const handlePlay = async () => {
     if (device === null) return;
@@ -97,7 +97,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
       bottom="0"
       width="100vw"
       height="100px"
-      backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
+      backgroundColor={bgColor}
       boxShadow="dark-lg"
       alignContent="center"
       alignItems="center"
@@ -118,19 +118,19 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                 position="relative"
                 marginBottom="0 auto"
               >
-                {size.width && size.width > 400 && (
-                  <>
-                    {playbackState && (
-                      <Image
-                        position="absolute"
-                        src={
-                          playbackState.track_window.current_track.album
-                            .images[0].url
-                        }
-                      />
-                    )}
-                  </>
-                )}
+
+                <>
+                  {playbackState && (
+                    <Image
+                      position="absolute"
+                      src={
+                        playbackState.track_window.current_track.album
+                          .images[0].url
+                      }
+                    />
+                  )}
+                </>
+                )
               </Box>
               <Flex direction="column" gridGap="1" width="30vw">
                 {playbackState && (
@@ -178,10 +178,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                   aria-label="Options"
                   icon={<MdDevices stroke="brandDark.200" />}
                   variant="outline"
-                  backgroundColor={useColorModeValue(
-                    "brand.500",
-                    "brandDark.900"
-                  )}
+                  backgroundColor={bgColor}
                   onClick={() => handleDeviceMenu()}
                 />
                 <MenuList>

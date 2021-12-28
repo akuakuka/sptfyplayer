@@ -54,9 +54,10 @@ const Layout: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
   /*   const [viewMode, setViewMode] = useState<string>(""); */
+  const UICOntext = useContext(UIContext);
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
-  const UICOntext = useContext(UIContext);
+
 
 
   const handleVolume = (val: number) => {
@@ -122,7 +123,6 @@ const Layout: React.FC = () => {
               {!location.pathname.includes("/app/album/") &&
 
                 <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
-
                   <IconButton variant="list" onClick={() => UICOntext.setView("LIST")} />
                   <IconButton variant="listimages" onClick={() => UICOntext.setView("IMAGES")} />
                 </Flex>

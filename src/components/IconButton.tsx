@@ -14,6 +14,7 @@ interface IconButtonProps {
 const MotionBox = motion<BoxProps>(Box);
 // TODO: Rename because chakra has IconButton component
 export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
+  const fillColor = useColorModeValue("brand.100", "brand.100");
   //TODO: Play icon animation bug. Key?
   const get = (variant: string): React.ReactElement => {
     if (variant == "prev") {
@@ -30,12 +31,12 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
       );
     }
 
-    /*  <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" fill={useColorModeValue("brand.100", "brand.100")} /> */
+    /*  <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" fill={fillColor} /> */
 
     if (variant == "albumplay") {
       return (
         <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
-          <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" fill={useColorModeValue("brand.100", "brand.100")} />
+          <Icon as={FaPlay} w={6} h={6} onClick={onClick} cursor="pointer" fill={fillColor} />
         </MotionBox>
       );
     }
@@ -63,7 +64,7 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
     if (variant == "details") {
       return (
         <MotionBox whileHover={{ scale: 1.4 }} height="auto" width="auto">
-          <Icon as={BsThreeDotsVertical} w={6} h={6} cursor="pointer" fill={useColorModeValue("brand.100", "brand.100")} />
+          <Icon as={BsThreeDotsVertical} w={6} h={6} cursor="pointer" fill={fillColor} />
         </MotionBox>
       );
     }

@@ -15,68 +15,15 @@ app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
-
-
-// if (process.env.NODE_ENV === "production") {
-//   /*  app.use(enforce.HTTPS()); */
-//   const reactPath = path.resolve(__dirname, "../../client/dist");
-//   console.log(reactPath);
-//   app.use(express.static(reactPath));
-//   app.use(express.static("public")); 
-//   app.use((req, res, next) => {
-//     console.log(path.join(__dirname, reactPath, 'index.html'))
-//     res.sendFile(path.join(__dirname, reactPath, 'index.html'));
-//   });
-// }
-
-/* const reactPath = path.resolve(__dirname, "../dist");
-console.log(reactPath);
-console.log(reactPath);
-console.log(path.join(reactPath, 'index.html')) */
-console.log("#########")
-console.log({ NODE_ENV })
-
-const reactPath = path.resolve(__dirname, "..", "./dist");
-console.log("__dirname")
-console.log(__dirname)
-
-console.log("reactPath")
-console.log(reactPath)
-console.log("path.dirname(filename).split(path.sep).pop()")
-console.log(path.dirname(__dirname).split(path.sep).pop())
-
-console.log("path.join(reactPath, 'index.html')")
-console.log(path.join(reactPath, 'index.html'))
-
-console.log("require('path').resolve(__dirname, '..')")
-console.log(require('path').resolve(__dirname, '..'))
-
-console.log("require('path').resolve(__dirname, '..', '..')")
-console.log(require('path').resolve(__dirname, '..', '..'))
-
-console.log("require('path').resolve(__dirname, '..', '..' src)")
-console.log(require('path').resolve(__dirname, '..', '..', "src", "dist", "index.html"))
-
 if (NODE_ENV === 'production') {
-  const reactPath = path.resolve(__dirname, "..", "./dist");
-  console.log("__dirname")
-  console.log(__dirname)
 
-  console.log("reactPath")
-  console.log(reactPath)
+  const distpath = require('path').resolve(__dirname, '..', '..', "src", "dist",)
+  const indexpath = require('path').resolve(__dirname, '..', '..', "src", "dist", "index.html")
 
-
-  console.log("path.join(reactPath, 'index.html')")
-  console.log(path.join(reactPath, 'index.html'))
-  const kk = require('path').resolve(__dirname, '..', '..', "src", "dist",)
-  const pp = require('path').resolve(__dirname, '..', '..', "src", "dist", "index.html")
-
-  app.use(express.static(kk));
+  app.use(express.static(distpath));
 
   app.get('*', (req, res) => {
-    console.log("serving from :")
-    console.log(path.join(pp));
-    res.sendFile(path.join(pp));
+    res.sendFile(path.join(indexpath));
   });
 }
 

@@ -26,6 +26,7 @@ interface ListViewProps {
 export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) => {
     const [albums, setAlbums] = useState<spotifyAlbum[]>([])
     const [sortStatus, setSortStatus] = useState<string>("")
+    const bgColor = useColorModeValue("brand.200", "brandDark.900")
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -100,7 +101,7 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
     return (
         <>
             {loading ? <SpinnerPage /> :
-                <Table size='sm' backgroundColor={useColorModeValue("brand.200", "brandDark.900")}>
+                <Table size='sm' backgroundColor={bgColor}>
                     <Thead>
                         <Tr>
                             <Th cursor="pointer" onClick={() => handleSortChange("NAME")}>Name <MinusIcon cursor={"pointer"} /></Th>

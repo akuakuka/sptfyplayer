@@ -26,7 +26,9 @@ interface ListViewProps {
 export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
     const [artists, setArtists] = useState<spotifyArtist[]>([])
     const [sortStatus, setSortStatus] = useState<string>("")
+    const bgColor = useColorModeValue("brand.200", "brandDark.900");
     const navigate = useNavigate();
+
     useEffect(() => {
         setArtists(artistsList)
     }, [artistsList])
@@ -52,8 +54,6 @@ export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
 
         if (column === "FOLLOWERS") {
             if (sortStatus === "FOLLOWERS") {
-                //@ts-ignore
-                // setArtists([].concat(artists).reverse())
                 setArtists(artists.sort((a, b) => a.followers.total < b.followers.total ? 1 : -1))
             }
             setArtists(artists.sort((a, b) => a.followers.total > b.followers.total ? 1 : -1))
@@ -66,7 +66,7 @@ export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
     return (
         <>
             {loading ? <SpinnerPage /> :
-                <Table size='sm' backgroundColor={useColorModeValue("brand.200", "brandDark.900")}>
+                <Table size='sm' backgroundColor={bgColor}>
                     <Thead>
                         <Tr>
                             <Th>Name <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("NAME")} /></Th>

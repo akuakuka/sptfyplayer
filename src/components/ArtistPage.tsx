@@ -21,6 +21,7 @@ const ArtistPage: React.FC = () => {
   const [singles, setSingles] = useState<spotifyAlbum[]>([]);
   const [showSingles, setShowSingles] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const bgColor = useColorModeValue("yellow", "red")
   const UICOntext = useContext(UIContext);
 
   const { id } = useParams();
@@ -67,7 +68,7 @@ const ArtistPage: React.FC = () => {
                 <Flex gridGap="3">
                   <Text>Näytä singlet?</Text>
                   <Switch
-                    colorScheme={useColorModeValue("yellow", "red")}
+                    colorScheme={bgColor}
                     onChange={() => handleSingleSwitch()}
                   ></Switch>
                 </Flex>
