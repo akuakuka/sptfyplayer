@@ -1,22 +1,25 @@
-import { Center, useColorModeValue } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import { Center } from "@chakra-ui/react";
+import React, { useContext, useEffect } from "react";
 import { spotifyArtist } from "../../server/types/SpotifyTypes";
-import { API } from "../API";
+import { getArtists } from "../API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
 import { ListView } from "./list/ArtistListView";
 import { SpinnerPage } from "./SpinnerPage";
 
+// TODO : Artistien cache - react memo?
+// TODO: ArtistImage lazyload
+
 const ArtistView: React.FC = () => {
-  const [artists, setArtists] = useState<spotifyArtist[]>([]);
-  const textcolor = useColorModeValue("brand.200", "brandDark.600")
-  // @ts-ignore
-  const [status, statusText, data, error, loading] = useAPI(`/artists`, API);
-  // TODO : Artistien cache - react memo?
+
+  const { execute, loading, data, error } = useAPI<spotifyArtist[]>(getArtists, false);
+
   const UICOntext = useContext(UIContext);
-  // @ts-ignore
-  // TODO: ArtistImage lazyload
+  useEffect(() => {
+    execute()
+  }, [])
+
   return (
     <>
       {loading ? (
@@ -25,18 +28,7 @@ const ArtistView: React.FC = () => {
         </Center>
       ) : (
         <>
-          {/*           <Heading
-            flexGrow={0}
-            flexShrink={0}
-            flexBasis={"100%"}
-            margin="auto"
-            textAlign="center"
-            textColor={textcolor}
-          >
-            Seuratut artistit
-          </Heading>
- */}
-          {UICOntext.view === "LIST" ? <ListView artistsList={data} loading={loading} /> :
+          {UICOntext.view === "LIST" ? <ListView artistsList={data ? data : []} loading={loading} /> :
             <>{data && data.length ? (
               <>
                 {data.map((a, i) => (

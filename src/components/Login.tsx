@@ -1,9 +1,11 @@
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { checkAuth, getUser } from "../API";
+import { SpotifyUser } from "../../server/types/SpotifyTypes";
+import { getUser } from "../API";
 import { LOGINURL } from "../config";
+import { useAPI } from "../hooks/useApi";
 import { getExpiryDate } from "../utils/dateUtils";
 import { SpinnerPage } from "./SpinnerPage";
 
@@ -12,70 +14,65 @@ const useQuery = () => {
 };
 
 const Login: React.FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { execute, loading, data, error } = useAPI<SpotifyUser>(() => getUser(), false);
   const navigate = useNavigate();
   const query = useQuery();
   const userToken = localStorage.getItem("accessToken") || "";
-  // const history = useHistory();
+
+
+
   useEffect(() => {
     (async () => {
-      setIsLoading(true);
       const accessToken = query.get("accessToken");
-      const refreshToken = query.get("refreshToken");
-      const expiryDate = getExpiryDate();
-      // TODO: expiryDate from backend and into user object?
-      console.log("ennen if")
-      if (userToken) {
-        console.log("if (userToken) {")
-        try {
-          console.log("Try")
-          await checkAuth();
-          setIsLoading(false);
-          navigate("/app");
-        } catch (e) {
-          console.log("e")
-          localStorage.removeItem("refreshToken");
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("user");
-          setIsLoading(false);
-        }
-      } else if (accessToken) {
-        console.log("LOGIN } else if (accessToken) {")
+
+      if (accessToken) {
+        console.log("   if (accessToken) {")
+        console.log("Found Tokens From URL!")
+        localStorage.setItem("accessToken", accessToken);
+        const refreshToken = query.get("refreshToken");
+        const expiryDate = getExpiryDate();
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("expiryDate", expiryDate.toString());
-        localStorage.setItem("accessToken", accessToken);
-        const user = await getUser();
-        localStorage.setItem("user", JSON.stringify(user));
-        setIsLoading(false);
+
+        await execute()
+
+
+        navigate("/app");
+      } else if (userToken) {
         navigate("/app");
       }
-      console.log("jalkeen if")
-      setIsLoading(false);
+
     })();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+  }, [data])
+
   const handleLogin = () => {
-    console.log(LOGINURL);
     window.location.href = LOGINURL;
   };
 
   return (
     <>
-      {isLoading ? (
-        <SpinnerPage />
-      ) : (
-        <Flex justifyContent="center" alignItems="center" height="100vh">
-          <Button
-            boxShadow="dark-lg"
-            p="6"
-            rounded="md"
-            bg="green.400"
-            onClick={() => handleLogin()}
-          >
-            Login with spotify
-          </Button>
-        </Flex>
-      )}
+      {loading ?
+        (
+          <SpinnerPage />
+        ) : (
+          <Flex justifyContent="center" alignItems="center" height="100vh">
+            <Button
+              boxShadow="dark-lg"
+              p="6"
+              rounded="md"
+              bg="green.400"
+              onClick={() => handleLogin()}
+            >
+              Login with spotify
+            </Button>
+          </Flex>
+        )}
     </>
   );
 };

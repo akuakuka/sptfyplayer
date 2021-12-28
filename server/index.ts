@@ -17,8 +17,8 @@ app.use("/api/auth/", authRouter);
 
 if (NODE_ENV === 'production') {
 
-  const distpath = require('path').resolve(__dirname, '..', '..', "src", "dist",)
-  const indexpath = require('path').resolve(__dirname, '..', '..', "src", "dist", "index.html")
+  const distpath = path.resolve(__dirname, '..', '..', "src", "dist",)
+  const indexpath = path.resolve(__dirname, '..', '..', "src", "dist", "index.html")
 
   app.use(express.static(distpath));
 
@@ -27,11 +27,9 @@ if (NODE_ENV === 'production') {
   });
 }
 
-// Error: ENOENT: no such file or directory, stat '/app/server/dist/public/index.html'
 const port = process.env.PORT || PORT
-//@ts-ignore
-if (NODE_ENV !== 'test') {
 
+if (NODE_ENV !== 'test') {
   app.listen(port, () => {
     console.info(
       `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
@@ -39,27 +37,3 @@ if (NODE_ENV !== 'test') {
   });
 
 }
-
-
-/* else {
-  app.listen(() => {
-
-    console.info(
-      `Server listening on MODE = ${process.env.NODE_ENV}`
-    );
-  });
-} */
-
-
-/* app.listen(port, () => {
-  console.info(
-    `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
-  );
-}); */
-
-/*
-
-app.use((error, req, res, next) => {
-  res.sendStatus(error.response.status)
-})
-*/

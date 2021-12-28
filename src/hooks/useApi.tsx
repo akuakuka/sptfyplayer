@@ -1,40 +1,56 @@
-import { AxiosInstance } from "axios";
-import { useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import { useCallback, useEffect, useState } from "react";
 
 
-export type APIResponse = {
+/* export type APIResponse = {
     status: number;
     statusText: string;
     data: any;
     error: any;
     loading: boolean;
 };
+ */
+/* const useAsync = <T, E = string>(
+    asyncFunction: () => Promise<T>,
+    immediate = true
+  ) => {
+ */
 
-export const useAPI = (url: string, API: AxiosInstance): APIResponse => {
-    const [status, setStatus] = useState<number>(0);
-    const [statusText, setStatusText] = useState<string>('');
-    const [data, setData] = useState<any>();
-    const [error, setError] = useState<any>();
+
+
+
+export const useAPI = <T, E = string | undefined>(
+    asyncFunction: (s?: E) => Promise<T>,
+    immediate
+) => {
+    console.log({ immediate })
     const [loading, setLoading] = useState<boolean>(false);
-    //  const { data } = await API.get<spotifyArtist[]>(`/artists`);
-    const getAPIData = async () => {
+    const [data, setData] = useState<T | null>(null);
+    const [error, setError] = useState<AxiosError>(Object);
+
+    const execute = useCallback(() => {
         setLoading(true);
-        try {
-            /*      const apiResponse = await fetch(url);
-                 const json = await apiResponse.json(); */
-            const response = await API.get(url)
-            setStatus(response.status);
-            setStatusText(response.statusText);
-            setData(response.data);
-        } catch (error) {
-            setError(error);
-        }
-        setLoading(false);
-    };
+        setData(null);
+        // TODO : async / await synmtax
+        return asyncFunction()
+            .then((response: any) => {
+                console.log("useApi then")
+                console.log(response)
+                setData(response);
+                setLoading(false);
+            })
+            .catch((error: AxiosError) => {
+                console.log("useApi error")
+                setError(error);
+                setLoading(false);
+            });
+    }, [asyncFunction]);
 
     useEffect(() => {
-        getAPIData();
-    }, []);
-    // @ts-ignore
-    return [status, statusText, data, error, loading];
-};
+        if (immediate) {
+            execute();
+        }
+    }, [execute, immediate]);
+    return { execute, loading, data, error };
+
+}

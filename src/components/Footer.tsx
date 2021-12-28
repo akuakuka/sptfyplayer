@@ -119,7 +119,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
       zIndex="100"
       gridGap="3"
     >
-      {user.product === "premium" ? (
+      {user && user.product === "premium" ? (
         <>
           {webPlaybackSDKReady ? (
             <>

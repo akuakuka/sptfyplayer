@@ -9,12 +9,12 @@ const REFRESHURL = MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_
 const LOGINURL = MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/auth/login` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/auth/login`;
 
 
-
+/* 
 console.log({ MODE })
 console.log({ BASEURL })
 console.log({ REFRESHURL })
 console.log({ LOGINURL })
-
+ */
 
 export {
     BASEURL,

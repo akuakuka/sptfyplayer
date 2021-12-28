@@ -2,52 +2,52 @@ import { Center, Flex, Heading } from "@chakra-ui/layout";
 import { Switch, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  spotifyAlbum,
-  spotifyArtist
-} from "../../server/types/SpotifyTypes";
+import { spotifyAlbum, spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtist, getArtistAlbums } from "../API";
+import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
 import { AlbumListView } from "./list/AlbumListView";
 import { SpinnerPage } from "./SpinnerPage";
 
-/* interface ArtistPageProps {
-    id:string
-} */
 const ArtistPage: React.FC = () => {
-  const [artist, setArtist] = useState<spotifyArtist>(Object);
-  const [albums, setAlbums] = useState<spotifyAlbum[]>([]);
-  const [singles, setSingles] = useState<spotifyAlbum[]>([]);
+  const dd = useParams();
+  const id = dd.id || ""
+
+
+  const { execute, loading, data, error } = useAPI<spotifyArtist>(
+    () => getArtist(id),
+    false
+  );
+
+  const { execute: albExecute, loading: albLoading, data: albData, error: albError } = useAPI<spotifyAlbum[]>(
+    () => getArtistAlbums(id),
+    false
+  );
+
+
   const [showSingles, setShowSingles] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const bgColor = useColorModeValue("yellow", "red")
+  const bgColor = useColorModeValue("yellow", "red");
   const UICOntext = useContext(UIContext);
 
-  const { id } = useParams();
-
   useEffect(() => {
-    (async () => {
-      if (id) {
-        setIsLoading(true);
-        const resp = await getArtist(id);
-        setArtist(resp);
-        const alabums = await getArtistAlbums(id);
-        console.log(alabums)
-        setAlbums(alabums.filter((a) => a.album_type === "album"));
-        setSingles(alabums.filter((a) => a.album_type === "single"));
-        setIsLoading(false);
-      }
-    })();
+
+    if (id.length) {
+      execute();
+      albExecute();
+    }
+
   }, []);
+
 
   const handleSingleSwitch = async () => {
     setShowSingles(!showSingles);
   };
   //  { UICOntext.view === "LIST" ? <div>asd</div> : <div>asd</div> }
+
   return (
     <Flex direction="column">
-      {isLoading ? (
+      {loading || albLoading ? (
         <Center width="90vw">
           <SpinnerPage />
         </Center>
@@ -63,18 +63,15 @@ const ArtistPage: React.FC = () => {
           alignContent={"flex-start"}
           paddingY="5"
         >
-
           {UICOntext.view === "LIST" ? (
-            <AlbumListView albumList={albums} loading={isLoading} />
+            <AlbumListView albumList={albData ? albData : []} loading={loading || albLoading} />
           ) : (
-            <Flex direction="column" alignContent={"flex-start"} justifyContent={"flex-start"}>
-              {/*               <Flex
-                direction="column"
-                alignContent="center"
-                alignItems="center"
-              >
-                <Heading>{artist.name}</Heading>
-              </Flex> */}
+            <Flex
+              direction="column"
+              alignContent={"flex-start"}
+              justifyContent={"flex-start"}
+            >
+
 
               <Flex gridGap="10">
                 <Heading paddingLeft="10">Albumit </Heading>
@@ -93,9 +90,9 @@ const ArtistPage: React.FC = () => {
                   wrap="wrap"
                   justifyContent="center"
                 >
-                  {albums && albums.length ? (
+                  {albData && albData.length ? (
                     <>
-                      {albums.map((a, i) => (
+                      {albData.map((a, i) => (
                         <Item key={i} {...a} />
                       ))}
                     </>
@@ -103,7 +100,7 @@ const ArtistPage: React.FC = () => {
                     <> ei albumeita</>
                   )}
                 </Flex>
-                {showSingles && (
+                {/*   {showSingles && (
                   <Flex direction="column" gridGap="5">
                     <Heading paddingLeft="10">Singlet </Heading>
                     <Flex
@@ -123,7 +120,7 @@ const ArtistPage: React.FC = () => {
                       )}
                     </Flex>
                   </Flex>
-                )}
+                )} */}
               </Flex>
             </Flex>
           )}
