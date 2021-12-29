@@ -1,4 +1,4 @@
-import { Center } from "@chakra-ui/react";
+import { Center, Flex } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtists } from "../API";
@@ -12,13 +12,20 @@ import { SpinnerPage } from "./SpinnerPage";
 // TODO: ArtistImage lazyload
 
 const ArtistView: React.FC = () => {
-
-  const { execute, loading, data, error } = useAPI<spotifyArtist[]>(getArtists, false);
+  const { execute, loading, data, error } = useAPI<spotifyArtist[]>(
+    getArtists,
+    false
+  );
 
   const UICOntext = useContext(UIContext);
+
   useEffect(() => {
-    execute()
-  }, [])
+    execute();
+  }, []);
+
+  useEffect(() => {
+    UICOntext.setHeading && UICOntext.setHeading("Seuratut artistit")
+  }, []);
 
   return (
     <>
@@ -28,18 +35,26 @@ const ArtistView: React.FC = () => {
         </Center>
       ) : (
         <>
-          {UICOntext.view === "LIST" ? <ListView artistsList={data ? data : []} loading={loading} /> :
-            <>{data && data.length ? (
-              <>
-                {data.map((a, i) => (
-                  <Item {...a} key={i} />
-                ))}
-              </>
-            ) : (
-              <> ei artisteja</>
-            )}</>
-          }
-
+          {UICOntext.view === "LIST" ? (
+            <ListView artistsList={data ? data : []} loading={loading} />
+          ) : (
+            <>
+              {data && data.length ? (
+                <Flex
+                  direction="row"
+                  gridGap="10px"
+                  wrap="wrap"
+                  justifyContent="center"
+                >
+                  {data.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map((a, i) => (
+                    <Item {...a} key={i} />
+                  ))}
+                </Flex>
+              ) : (
+                <> ei artisteja</>
+              )}
+            </>
+          )}
         </>
       )}
     </>

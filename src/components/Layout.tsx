@@ -1,5 +1,5 @@
-import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
-import React, { useCallback, useContext, useState } from "react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import {
   usePlaybackState,
@@ -9,7 +9,7 @@ import { UIContext } from "../hooks/useUI";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
 import Header from "./Header";
-import { IconButton } from "./IconButton";
+import { SubHeading } from "./SubHeading";
 
 // TODO: Wrapper omaan tiedostoon?
 
@@ -60,6 +60,20 @@ const Layout: React.FC = () => {
 
 
 
+  /*   useEffect(
+      () => {
+        console.log("LOCATION CHANGED")
+      },
+      [location]
+    )
+  }
+   */
+  useEffect(() => {
+    console.log("LOCATION CHANGED CLEARING FILTER")
+    //@ts-ignore
+    UICOntext.setFilter("")
+  }, [location])
+
   const handleVolume = (val: number) => {
     setVolume(val);
   };
@@ -80,14 +94,7 @@ const Layout: React.FC = () => {
     [accessToken]
   );
 
-  const getHeading = (): string => {
-    // TODO: Artist or album name to heading, Better way to get heading than route?
-    console.log(location.pathname)
-    if (location.pathname === "/app") return "Seuratut Artistit"
-    if (location.pathname.includes("/app/artist")) return "Albumit"
-    if (location.pathname.includes("/app/album")) return "Albumi"
-    return ""
-  }
+
   // TODO: UICOntext.setView && 
   return (
     <>
@@ -103,32 +110,21 @@ const Layout: React.FC = () => {
             direction="row"
             gridGap="10px"
             wrap="wrap"
-            overflow="auto"
+
             sx={{ height: "calc(100vh - 150px);" }}
-            width="100vw"
+            width="90vw"
+            justifyContent="center"
             alignContent={"flex-start"}
             paddingY="5"
           >
+            <SubHeading />
             <Flex
-              direction="row"
-              alignItems={"center"}
-              justifyContent="center"
-              gridGap="10"
-              width="95vw"
-              backgroundColor={"brandDark.300"}
-              height={"40px"}
-              borderRadius={"10"}
+              direction="column"
+              alignContent={"flex-start"}
+              justifyContent={"flex-start"}
             >
-              <Heading>{getHeading()}</Heading>
-              {!location.pathname.includes("/app/album/") &&
-
-                <Flex marginLeft="auto" direction={"row"} gridGap="10" p="3">
-                  <IconButton variant="list" onClick={() => UICOntext.setView && UICOntext.setView("LIST")} />
-                  <IconButton variant="listimages" onClick={() => UICOntext.setView && UICOntext.setView("IMAGES")} />
-                </Flex>
-              }
+              <Outlet />
             </Flex>
-            <Outlet />
           </Flex>
 
           <Footer handleVolume={handleVolume} volume={volume} />

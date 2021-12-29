@@ -1,12 +1,13 @@
 import { Container, Flex, Heading } from "@chakra-ui/layout";
 import { Spacer } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {
   SearchResultAlbum,
   SearchResultArtist
 } from "../../server/types/SpotifyTypes";
 import { search } from "../API";
+import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
 import { SpinnerPage } from "./SpinnerPage";
 
@@ -17,6 +18,7 @@ const SearchResultPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const { term } = useParams();
+  const UICOntext = useContext(UIContext);
 
   useEffect(() => {
     (async () => {
@@ -33,6 +35,18 @@ const SearchResultPage: React.FC = () => {
       }
     })();
   }, [term]);
+
+
+  useEffect(() => {
+
+    UICOntext.setHeading && UICOntext.setHeading(`Tulokset : ${term}`)
+
+
+  }, []);
+
+
+
+
   // TODO: Artist-itemit menee Albumien alle joillan vw
   return (
     <>

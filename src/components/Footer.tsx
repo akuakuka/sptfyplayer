@@ -5,8 +5,7 @@ import {
   Menu,
   MenuButton,
   MenuItem,
-  MenuList,
-  Slider,
+  MenuList, Slider,
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
@@ -25,6 +24,7 @@ import {
 import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
 import { changeDevice, getDevices } from "../API";
 import { IconButton as IconB } from "./IconButton";
+import { SongProgress } from "./SongProgress";
 
 // TODO: Volume contextiin?=
 interface FooterProps {
@@ -56,6 +56,11 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
     })();
   }, [device]);
 
+  useEffect(() => {
+    console.log(playbackState)
+    console.log("############")
+
+  }, [playbackState])
 
   const handlePlay = async () => {
     if (device === null) return;
@@ -106,156 +111,159 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   };
 
   return (
-    <Flex
-      position="fixed"
-      bottom="0"
-      width="100vw"
-      height="100px"
-      backgroundColor={bgColor}
-      boxShadow="dark-lg"
-      alignContent="center"
-      alignItems="center"
-      justifyContent="space-around"
-      zIndex="100"
-      gridGap="3"
-    >
-      {user && user.product === "premium" ? (
-        <>
-          {webPlaybackSDKReady ? (
-            <>
-              <Box
-                height="30vh"
-                width="30vw"
-                minHeight="80px"
-                minWidth="80px"
-                paddingLeft="3"
-                position="relative"
-                marginBottom="0 auto"
-              >
+    <>
+      {playbackState && <SongProgress durationMS={playbackState.duration} />}
+      <Flex
+        position="fixed"
+        bottom="0"
+        width="100vw"
+        height="100px"
+        backgroundColor={bgColor}
+        boxShadow="dark-lg"
+        alignContent="center"
+        alignItems="center"
+        justifyContent="space-around"
+        zIndex="100"
+        gridGap="3"
+      >
 
-                <>
+        {user && user.product === "premium" ? (
+          <>
+            {webPlaybackSDKReady ? (
+              <>
+                <Box
+                  height="30vh"
+                  width="30vw"
+                  minHeight="80px"
+                  minWidth="80px"
+                  paddingLeft="3"
+                  position="relative"
+                  marginBottom="0 auto"
+                >
+
+                  <>
+                    {playbackState && (
+
+                      <Image
+                        position={"fixed"}
+                        bottom={"15px"}
+                        width={"20vw"}
+                        maxWidth="200px"
+                        align={"revert"}
+                        src={
+                          playbackState.track_window.current_track.album
+                            .images[0].url
+                        }
+                      />
+                    )}
+                  </>
+
+                </Box>
+                <Flex direction="column" gridGap="1" width="30vw">
                   {playbackState && (
-
-                    <Image
-                      position={"fixed"}
-                      bottom={"15px"}
-                      width={"20vw"}
-                      maxWidth="200px"
-                      align={"revert"}
-                      src={
-                        playbackState.track_window.current_track.album
-                          .images[0].url
-                      }
-                    />
-                  )}
-                </>
-
-              </Box>
-              <Flex direction="column" gridGap="1" width="30vw">
-                {playbackState && (
-                  <Text noOfLines={1} width="50vw">
-                    {playbackState.track_window.current_track.artists[0].name} -{" "}
-                    {playbackState.track_window.current_track.name}
-                  </Text>
-                )}
-
-                <Flex px="10" paddingBottom="7">
-                  <IconB
-                    aria-label="next track"
-                    variant={"prev"}
-                    onClick={() => handlePrev()}
-                    key="prevbutton"
-                  />
-                  {playbackState && playbackState.paused ? (
-                    <IconB
-                      aria-label="play"
-                      variant={"play"}
-                      onClick={() => handlePlay()}
-                      key="playbutton"
-                    />
-                  ) : (
-                    <IconB
-                      aria-label="pause"
-                      variant={"pause"}
-                      onClick={() => handlePause()}
-                      key="pausebutton"
-                    />
+                    <Text noOfLines={1} width="50vw">
+                      {playbackState.track_window.current_track.artists[0].name} -{" "}
+                      {playbackState.track_window.current_track.name}
+                    </Text>
                   )}
 
-                  <IconB
-                    aria-label="next track"
-                    variant={"next"}
-                    onClick={() => handleNext()}
-                    key="nextbutton"
-                  />
+                  <Flex px="10" paddingBottom="7">
+                    <IconB
+                      aria-label="next track"
+                      variant={"prev"}
+                      onClick={() => handlePrev()}
+                      key="prevbutton"
+                    />
+                    {playbackState && playbackState.paused ? (
+                      <IconB
+                        aria-label="play"
+                        variant={"play"}
+                        onClick={() => handlePlay()}
+                        key="playbutton"
+                      />
+                    ) : (
+                      <IconB
+                        aria-label="pause"
+                        variant={"pause"}
+                        onClick={() => handlePause()}
+                        key="pausebutton"
+                      />
+                    )}
+
+                    <IconB
+                      aria-label="next track"
+                      variant={"next"}
+                      onClick={() => handleNext()}
+                      key="nextbutton"
+                    />
+                  </Flex>
                 </Flex>
-              </Flex>
 
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  aria-label="Options"
-                  icon={<MdDevices stroke="brandDark.200" />}
-                  variant="outline"
-                  backgroundColor={bgColor}
-                  onClick={() => handleDeviceMenu()}
-                />
-                <MenuList>
-                  {devicesLoading ? (
-                    <Spinner />
-                  ) : (
-                    <>
-                      {devices && (
-                        <>
-                          {devices.map((d) => {
-                            return (
-                              <MenuItem key={d.id}>
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="Options"
+                    icon={devicesLoading ? <Spinner /> : <MdDevices stroke="brandDark.200" />}
+                    variant="outline"
+                    backgroundColor={bgColor}
+                    onClick={() => handleDeviceMenu()}
 
-                                <Flex
-                                  direction="row"
-                                  alignItems="center"
-                                  gridGap={3}
-                                >
-                                  {getDeviceIcon(d.type, d.is_active)}
-                                  <Text> {d.name} </Text>
-                                </Flex>
-                              </MenuItem>
-                            );
-                          })}
-                        </>
-                      )}
-                    </>
-                  )}
-                </MenuList>
-              </Menu>
+                  />
+                  <MenuList>
 
-              <Slider
-                defaultValue={0.5}
-                min={0}
-                max={1}
-                step={0.1}
-                value={volume}
-                onChange={(val) => handleVolume(val)}
-                width="30vw"
-                maxWidth="100px"
-                minWidth="50px"
-                marginRight="1"
-              >
-                <SliderTrack bg="brandDark.200">
-                  <Box position="relative" right={10} />
-                  <SliderFilledTrack bg="brandDark.200" />
-                </SliderTrack>
-                <SliderThumb boxSize={3} />
-              </Slider>
-            </>
-          ) : (
-            <> webPlaybackSDK NOT READY </>
-          )}
-        </>
-      ) : (
-        <Text> Premium subscription is needed to play music !</Text>
-      )}
-    </Flex>
+
+                    {devices && (
+                      <>
+                        {devices.map((d) => {
+                          return (
+                            <MenuItem key={d.id}>
+
+                              <Flex
+                                direction="row"
+                                alignItems="center"
+                                gridGap={3}
+                              >
+                                {getDeviceIcon(d.type, d.is_active)}
+                                <Text> {d.name} </Text>
+                              </Flex>
+                            </MenuItem>
+                          );
+                        })}
+                      </>
+                    )}
+
+
+                  </MenuList>
+                </Menu>
+
+                <Slider
+                  defaultValue={0.5}
+                  min={0}
+                  max={1}
+                  step={0.1}
+                  value={volume}
+                  onChange={(val) => handleVolume(val)}
+                  width="30vw"
+                  maxWidth="100px"
+                  minWidth="50px"
+                  marginRight="1"
+                >
+                  <SliderTrack bg="brandDark.200">
+                    <Box position="relative" right={10} />
+                    <SliderFilledTrack bg="brandDark.200" />
+                  </SliderTrack>
+                  <SliderThumb boxSize={3} />
+                </Slider>
+              </>
+            ) : (
+              <> webPlaybackSDK NOT READY </>
+            )}
+          </>
+        ) : (
+          <Text> Premium subscription is needed to play music !</Text>
+        )}
+      </Flex>
+    </>
   );
 };
 

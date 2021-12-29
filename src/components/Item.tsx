@@ -39,8 +39,8 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
       backgroundColor={useColorModeValue("brand.800", "brandDark.900")}
       alignItems="center"
       borderRadius="30"
-      width="180px"
-      height="200px"
+      width="150px"
+      height="180px"
       p="3"
       boxShadow={useColorModeValue("neored", "dark-lg")}
     >
@@ -86,7 +86,7 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
               <Image
                 src={images ? images[0].url : "https://via.placeholder.com/150"}
                 cursor="pointer"
-                boxSize="150px"
+                boxSize="140px"
                 loading="lazy"
               />
             </Box>

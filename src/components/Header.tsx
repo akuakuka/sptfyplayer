@@ -72,14 +72,16 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       gridGap="10"
     >
       <IconB variant="homepage" key="homepage" onClick={() => navigate(`/app`)} />
-      <Box marginLeft="auto">
+
+      <Flex marginLeft="auto" direction={"row"}>
+        <IconB variant="search" />
         <Input
           placeholder="Hae Spotifystä"
           size="md"
           maxWidth="200px"
           onChange={(e) => handleSearch(e)}
         />
-      </Box>
+      </Flex>
       <Box paddingRight="5" marginLeft="auto">
         <Menu>
           <MenuButton

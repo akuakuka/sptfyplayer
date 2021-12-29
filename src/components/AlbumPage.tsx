@@ -1,11 +1,12 @@
 import { Box, Flex, Heading } from "@chakra-ui/layout";
 import { Container, Image } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
 import { spotifyAlbum } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API";
 import { useAPI } from "../hooks/useApi";
+import { UIContext } from "../hooks/useUI";
 import { getAlbumReleaseYearFromDate } from "../utils/dateUtils";
 import { MotionBox } from "./MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
@@ -14,7 +15,7 @@ const AlbumPage: React.FC = () => {
   const params = useParams();
   const id = params.id || ""
   const { execute, loading, data: album, error } = useAPI<spotifyAlbum>(() => getAlbum(id), false);
-
+  const UICOntext = useContext(UIContext);
 
   const accessToken = localStorage.getItem("accessToken");
   const device = usePlayerDevice();
@@ -32,6 +33,15 @@ const AlbumPage: React.FC = () => {
       play(accessToken, device?.device_id, [uri]);
     }
   };
+
+  useEffect(() => {
+    if (album) {
+      UICOntext.setHeading && UICOntext.setHeading(`${album.artists[0].name} - ${album.name}`)
+    }
+
+  }, []);
+
+
 
   return (
     <>

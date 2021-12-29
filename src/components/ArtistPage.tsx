@@ -1,6 +1,6 @@
 import { Center, Flex, Heading } from "@chakra-ui/layout";
-import { Switch, Text, useColorModeValue } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import { useColorModeValue } from "@chakra-ui/react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { spotifyAlbum, spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtist, getArtistAlbums } from "../API";
@@ -14,7 +14,6 @@ const ArtistPage: React.FC = () => {
   const dd = useParams();
   const id = dd.id || ""
 
-
   const { execute, loading, data, error } = useAPI<spotifyArtist>(
     () => getArtist(id),
     false
@@ -26,7 +25,6 @@ const ArtistPage: React.FC = () => {
   );
 
 
-  const [showSingles, setShowSingles] = useState<boolean>(false);
   const bgColor = useColorModeValue("yellow", "red");
   const UICOntext = useContext(UIContext);
 
@@ -40,9 +38,16 @@ const ArtistPage: React.FC = () => {
   }, []);
 
 
-  const handleSingleSwitch = async () => {
-    setShowSingles(!showSingles);
-  };
+  useEffect(() => {
+    if (UICOntext.setHeading && data?.name) {
+      UICOntext.setHeading && UICOntext.setHeading(data?.name)
+    }
+
+  }, [data]);
+
+  /*   const handleSingleSwitch = async () => {
+      setShowSingles(!showSingles);
+    }; */
   //  { UICOntext.view === "LIST" ? <div>asd</div> : <div>asd</div> }
 
   return (
@@ -75,13 +80,6 @@ const ArtistPage: React.FC = () => {
 
               <Flex gridGap="10">
                 <Heading paddingLeft="10">Albumit </Heading>
-                <Flex gridGap="3">
-                  <Text>Näytä singlet?</Text>
-                  <Switch
-                    colorScheme={bgColor}
-                    onChange={() => handleSingleSwitch()}
-                  ></Switch>
-                </Flex>
               </Flex>
               <Flex direction="column" gridGap="10">
                 <Flex
@@ -92,7 +90,8 @@ const ArtistPage: React.FC = () => {
                 >
                   {albData && albData.length ? (
                     <>
-                      {albData.map((a, i) => (
+
+                      {albData.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).filter(s => s.album_type !== "single").map((a, i) => (
                         <Item key={i} {...a} />
                       ))}
                     </>
@@ -100,7 +99,7 @@ const ArtistPage: React.FC = () => {
                     <> ei albumeita</>
                   )}
                 </Flex>
-                {/*   {showSingles && (
+                {UICOntext.singles && (
                   <Flex direction="column" gridGap="5">
                     <Heading paddingLeft="10">Singlet </Heading>
                     <Flex
@@ -109,9 +108,9 @@ const ArtistPage: React.FC = () => {
                       wrap="wrap"
                       justifyContent="center"
                     >
-                      {singles && singles.length ? (
+                      {albData && albData.length ? (
                         <>
-                          {singles.map((a, i) => (
+                          {albData.filter(s => s.album_type === "single").map((a, i) => (
                             <Item key={i} {...a} />
                           ))}
                         </>
@@ -120,7 +119,7 @@ const ArtistPage: React.FC = () => {
                       )}
                     </Flex>
                   </Flex>
-                )} */}
+                )}
               </Flex>
             </Flex>
           )}
