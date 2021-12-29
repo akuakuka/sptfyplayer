@@ -111,7 +111,7 @@ const Layout: React.FC = () => {
             gridGap="10px"
             wrap="wrap"
 
-            sx={{ height: "calc(100vh - 150px);" }}
+            sx={{ height: "calc(100vh - 155px);" }}
             width="90vw"
             justifyContent="center"
             alignContent={"flex-start"}

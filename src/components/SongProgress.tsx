@@ -3,32 +3,42 @@ import React, { useEffect, useState } from "react";
 
 interface SongProgressProps {
     durationMS: number;
+    paused: boolean;
 }
 
-export const SongProgress: React.FC<SongProgressProps> = ({ durationMS }) => {
-
-    const [time, setTime] = useState(Date.now());
-
+export const SongProgress: React.FC<SongProgressProps> = ({ durationMS, paused }) => {
     const [progress, setProgress] = useState<number>(0);
     const [percents, setPercents] = useState<number>(0);
 
     useEffect(() => {
-        /*   const interval = setInterval(() => setTime(Date.now()), 1000); */
-        const interval2 = setInterval(() => setProgress(progress + 1000), 1000);
-        console.log(progress)
-        return () => {
-            clearInterval(interval2);
-        };
+        setProgress(0)
+        setPercents(0)
+    }, [durationMS])
+    useEffect(() => {
+        console.log("PAUSED")
+console.log(paused)
 
-    }, [progress]);
+    }, [paused])
+
+    useEffect(() => {
+        console.log({paused})
+        const interval = setInterval(() => {
+
+          setProgress(progress + 1000);
+        }, 1000);
+        return () => clearInterval(interval);
+      },[]);
+
+
 
 
     useEffect(() => {
         console.log(percents)
-        setPercents((+durationMS / +progress) * 100)
+        setPercents((+progress / +durationMS) * 100)
+
     }, [progress]);
 
     return (
-        <Progress value={(progress / durationMS) * 100} size='xs' colorScheme="pink" width={"100vw"} />
+        <Progress value={percents} height="5px" color="brandDark.200" width={"100vw"} />
     )
 }

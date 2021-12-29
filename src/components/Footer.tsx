@@ -56,11 +56,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
     })();
   }, [device]);
 
-  useEffect(() => {
-    console.log(playbackState)
-    console.log("############")
 
-  }, [playbackState])
 
   const handlePlay = async () => {
     if (device === null) return;
@@ -112,7 +108,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
 
   return (
     <>
-      {playbackState && <SongProgress durationMS={playbackState.duration} />}
+      {playbackState && <SongProgress durationMS={playbackState.duration} paused={playbackState.paused} />}
       <Flex
         position="fixed"
         bottom="0"
