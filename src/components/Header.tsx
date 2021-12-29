@@ -1,4 +1,4 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/layout";
 import {
   Avatar,
@@ -24,7 +24,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const [term, setTerm] = useState<string>("");
-  const { toggleColorMode } = useColorMode();
+  const { toggleColorMode, colorMode } = useColorMode();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
   useDebounce(() => doSearch(term), 1500, [term]);
   const navigate = useNavigate();
@@ -110,9 +110,12 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
             </MenuItem>
 
             <MenuItem closeOnSelect={false}>
-              <Flex direction="row" gridGap="3">
-                <Text>ColorMode</Text>
-                <Switch size="md" onChange={() => toggleColorMode()} />
+              <Flex direction="row" gridGap="3" alignContent={"center"} alignItems={"center"} width={"100%"}>
+
+                <Text>{colorMode === "dark" ? "Light" : "Dark"}</Text>
+                {/* <Switch size="md" onChange={() => toggleColorMode()} /> */}
+
+                <IconButton aria-label='ColorMode' icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />} onClick={() => toggleColorMode()} marginLeft={"auto"} />
               </Flex>
             </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
