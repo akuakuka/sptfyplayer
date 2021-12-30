@@ -30,18 +30,18 @@ export const SubHeading: React.FC = () => {
                     {UICOntext.heading !== "Seuratut artistit" &&
                         <Flex gridGap="2" p="3">
                             <Text >Singlet</Text>
-                            <Switch size="md" isChecked={UICOntext.singles} onChange={() => UICOntext.toggleSingles && UICOntext.toggleSingles()} />
+                            <Switch size="md" isChecked={UICOntext.singles} onChange={() => UICOntext.toggleSingles()} />
                         </Flex>
                     }
 
-                    <Input variant='flushed' placeholder='Filtteröi' value={UICOntext.filter} onChange={(e) => UICOntext.setFilter && UICOntext.setFilter(e.target.value)} />
+                    <Input variant='flushed' placeholder='Filtteröi' value={UICOntext.filter} onChange={(e) => UICOntext.setFilter(e.target.value)} />
                     <IconButton
                         variant="list"
-                        onClick={() => UICOntext.setView && UICOntext.setView("LIST")}
+                        onClick={() => UICOntext.setView("LIST")}
                     />
                     <IconButton
                         variant="listimages"
-                        onClick={() => UICOntext.setView && UICOntext.setView("IMAGES")}
+                        onClick={() => UICOntext.setView("IMAGES")}
                     />
                 </Flex>
             )}

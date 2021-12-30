@@ -23,8 +23,6 @@ const ArtistPage: React.FC = () => {
     () => getArtistAlbums(id),
     false
   );
-
-
   const bgColor = useColorModeValue("yellow", "red");
   const UICOntext = useContext(UIContext);
 
@@ -39,16 +37,11 @@ const ArtistPage: React.FC = () => {
 
 
   useEffect(() => {
-    if (UICOntext.setHeading && data?.name) {
-      UICOntext.setHeading && UICOntext.setHeading(data?.name)
+    if (data?.name) {
+      UICOntext.setHeading(data?.name)
     }
 
   }, [data]);
-
-  /*   const handleSingleSwitch = async () => {
-      setShowSingles(!showSingles);
-    }; */
-  //  { UICOntext.view === "LIST" ? <div>asd</div> : <div>asd</div> }
 
   return (
     <Flex direction="column">

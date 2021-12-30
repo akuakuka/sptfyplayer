@@ -24,7 +24,7 @@ const ArtistView: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    UICOntext.setHeading && UICOntext.setHeading("Seuratut artistit")
+    UICOntext.setHeading("Seuratut artistit")
   }, []);
 
   return (

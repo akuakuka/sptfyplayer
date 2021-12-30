@@ -5,20 +5,20 @@ interface defaultUI {
     singles: boolean;
     heading: string;
     filter: string;
-    setFilter?: (a: string) => void;
-    setHeading?: (h: string) => void;
-    setView?: (a: string) => void;
-    toggleSingles?: () => void;
+    setFilter: (a: string) => void;
+    setHeading: (h: string) => void;
+    setView: (a: string) => void;
+    toggleSingles: () => void;
 }
-const defaultState = { view: "IMAGES", singles: false, heading: "", filter: "" }
+/* const defaultState = { view: "IMAGES", singles: false, heading: "", filter: "", setFilter: ("") => } */
 
-export const UIContext = createContext<defaultUI>(defaultState);
+export const UIContext = createContext<defaultUI>({} as defaultUI);
 
 const UIProvider = (props) => {
-    const [filter, setFilter] = useState(defaultState.filter);
-    const [view, setView] = useState(defaultState.view);
-    const [singles, setSingless] = useState(defaultState.singles);
-    const [heading, setHeading] = useState(defaultState.heading);
+    const [filter, setFilter] = useState("");
+    const [view, setView] = useState("IMAGES");
+    const [singles, setSingless] = useState(false);
+    const [heading, setHeading] = useState("");
 
     const toggleSingles = () => {
         console.log("singels")

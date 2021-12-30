@@ -53,24 +53,11 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
 const Layout: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
-  /*   const [viewMode, setViewMode] = useState<string>(""); */
   const UICOntext = useContext(UIContext);
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
 
-
-
-  /*   useEffect(
-      () => {
-        console.log("LOCATION CHANGED")
-      },
-      [location]
-    )
-  }
-   */
   useEffect(() => {
-    console.log("LOCATION CHANGED CLEARING FILTER")
-    //@ts-ignore
     UICOntext.setFilter("")
   }, [location])
 
@@ -93,9 +80,7 @@ const Layout: React.FC = () => {
     },
     [accessToken]
   );
-
-
-  // TODO: UICOntext.setView && 
+ 
   return (
     <>
       <WebPlaybackSDK

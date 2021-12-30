@@ -36,7 +36,7 @@ const AlbumPage: React.FC = () => {
 
   useEffect(() => {
     if (album) {
-      UICOntext.setHeading && UICOntext.setHeading(`${album.artists[0].name} - ${album.name}`)
+      UICOntext.setHeading(`${album.artists[0].name} - ${album.name}`)
     }
 
   }, []);
