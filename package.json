@@ -14,6 +14,7 @@
     "express-sslify": "^1.2.0",
     "framer-motion": "^4.1.17",
     "jest": "^27.4.5",
+    "leasot": "^12.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-icons": "^4.3.1",
@@ -58,6 +59,7 @@
     "start": "npm run build && cd ./server && tsc && node --max_old_space_size=2560 dist/index.js",
     "test": "jest",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "todo": "leasot './**/*.ts' './**/*.tsx' --ignore './node_modules/'"
   }
 }
