@@ -16,8 +16,6 @@ const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
 export const API = axios.create({ baseURL: BASEURL });
 
-//TODO: Headeri Bearer instanceen api
-
 export const play = (token: string, deviceID: string, ids: string[]): void => {
   const data = {
     headers: {
@@ -26,6 +24,10 @@ export const play = (token: string, deviceID: string, ids: string[]): void => {
   }
   axios.put(`${SPOTIFYBASEURL}/me/player/play?device_id=${deviceID}`, JSON.stringify({ uris: ids }), data);
 };
+export const refreshToken = async (token: string): Promise<SpotifyTokenResponse> => {
+  const { data } = await axios.post<SpotifyTokenResponse>(`${REFRESHURL}/${token}`);
+  return data
+};
 
 export const getArtists = async (): Promise<spotifyArtist[]> => {
   const { data } = await API.get<spotifyArtist[]>(`/artists`);
@@ -33,47 +35,42 @@ export const getArtists = async (): Promise<spotifyArtist[]> => {
 };
 
 export const getArtist = async (id: string): Promise<spotifyArtist> => {
-  const { data } = await API.get<spotifyArtist>(`${BASEURL}/artist/${id}`);
+  const { data } = await API.get<spotifyArtist>(`/artist/${id}`);
   return data;
 };
 
 export const getArtistAlbums = async (id: string): Promise<spotifyAlbum[]> => {
-  const { data } = await API.get<spotifyAlbum[]>(`${BASEURL}/artist/${id}/albums`);
+  const { data } = await API.get<spotifyAlbum[]>(`/artist/${id}/albums`);
   return data;
 };
 
 export const getAlbum = async (id: string): Promise<spotifyAlbum> => {
-  const { data } = await API.get<spotifyAlbum>(`${BASEURL}/album/${id}`);
+  const { data } = await API.get<spotifyAlbum>(`/album/${id}`);
   return data
 };
 
 export const search = async (term: string): Promise<SpotifySearchResult> => {
-  const { data } = await API.get<SpotifySearchResult>(`${BASEURL}/search/${term}`);
+  const { data } = await API.get<SpotifySearchResult>(`/search/${term}`);
   return data;
 };
 
 export const checkAuth = async (): Promise<SpotifyUser> => {
-  const { data } = await API.get<SpotifyUser>(`${BASEURL}/check/`);
+  const { data } = await API.get<SpotifyUser>(`/check/`);
   return data;
 };
 
-export const refreshToken = async (token: string): Promise<SpotifyTokenResponse> => {
-  const { data } = await axios.post<SpotifyTokenResponse>(`${REFRESHURL}/${token}`);
-  return data
-};
-
 export const getUser = async (): Promise<SpotifyUser> => {
-  const { data } = await API.get<SpotifyUser>(`${BASEURL}/me`);
+  const { data } = await API.get<SpotifyUser>(`/me`);
   return data
 };
 
 export const getDevices = async (): Promise<SpotifyDevice[]> => {
-  const { data } = await API.get<SpotifyDevice[]>(`${BASEURL}/devices`);
+  const { data } = await API.get<SpotifyDevice[]>(`/devices`);
   return data
 };
 
 export const changeDevice = async (deviceid: string): Promise<SpotifyDevice[]> => {
-  const { data } = await API.get<SpotifyDevice[]>(`${BASEURL}/devices/${deviceid}`);
+  const { data } = await API.get<SpotifyDevice[]>(`/devices/${deviceid}`);
   return data
 };
 
