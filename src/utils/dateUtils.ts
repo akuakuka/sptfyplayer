@@ -1,4 +1,4 @@
-import { spotifyImage } from "../../server/types/SpotifyTypes";
+import { spotifyImage, spotifyTrack } from "../../server/types/SpotifyTypes";
 
 export const getAlbumReleaseYearFromDate = (date: string, precision: string): string => {
     /*     release_date
@@ -42,3 +42,8 @@ export const getDateNow = (): number => {
     ).valueOf();
     return expiryDate;
 }
+
+// TODO : Utils to right files
+export const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
+    return tracks.map((t) => t.uri);
+};

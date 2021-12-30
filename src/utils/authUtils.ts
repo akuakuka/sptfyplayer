@@ -1,4 +1,4 @@
-import { refreshToken } from "../API";
+import { refreshToken } from "../API/API";
 
 // TODO: is this Right place for this function?
 export const refreshAccessToken = async (): Promise<string> => {
@@ -29,3 +29,5 @@ export const isAccessTokenValid = (): boolean => {
     return false;
   }
 };
+
+

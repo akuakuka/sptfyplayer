@@ -6,8 +6,9 @@ import { usePlayerDevice } from "react-spotify-web-playback-sdk";
 import { spotifyAlbum } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API/API";
 import { useAPI } from "../hooks/useApi";
+import { QueContext } from "../hooks/usePlayQue";
 import { UIContext } from "../hooks/useUI";
-import { getAlbumReleaseYearFromDate } from "../utils/dateUtils";
+import { getAlbumReleaseYearFromDate, getTrackUrisFromAlbum } from "../utils/dateUtils";
 import { MotionBox } from "./MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
 
@@ -16,7 +17,7 @@ const AlbumPage: React.FC = () => {
   const id = params.id || ""
   const { execute, loading, data: album, error } = useAPI<spotifyAlbum>(() => getAlbum(id), false);
   const UICOntext = useContext(UIContext);
-
+  const queContext = useContext(QueContext);
   const accessToken = localStorage.getItem("accessToken");
   const device = usePlayerDevice();
 
@@ -28,10 +29,24 @@ const AlbumPage: React.FC = () => {
     }
   }, []);
 
-  const handlePlaySong = async (uri: string) => {
-    if (device && accessToken) {
-      play(accessToken, device?.device_id, [uri]);
+  const handlePlaySong = async (uri: string, i: number) => {
+
+
+
+    /*   queContext.setQue[] */
+    if (album) {
+      console.log("handleplaysong album on ")
+      const sliced = album?.tracks.items.slice(i)
+      const slicedUrils = getTrackUrisFromAlbum(sliced);
+      queContext.setQue(slicedUrils);
+
+
+      if (device && accessToken) {
+        play(accessToken, device?.device_id, slicedUrils);
+      }
     }
+
+
   };
 
   useEffect(() => {
@@ -57,16 +72,11 @@ const AlbumPage: React.FC = () => {
                   <Flex direction="column" gridGap="6" wrap="wrap">
                     {album.tracks && (
                       <>
-                        {album.tracks.items.map(
-                          (t: {
-                            id: React.Key | null | undefined;
-                            name: any;
-                            uri: string;
-                          }) => (
-                            <MotionBox whileHover={{ scale: 1.1, color: "#870000" }} key={t.id} cursor="pointer" onClick={() => handlePlaySong(t.uri)}>
-                              {t.name}
-                            </MotionBox>
-                          )
+                        {album.tracks.items.map((t, i) => (
+                          <MotionBox whileHover={{ scale: 1.1, color: "#870000" }} key={t.id} cursor="pointer" onClick={() => handlePlaySong(t.uri, i)}>
+                            {t.name}
+                          </MotionBox>
+                        )
                         )}
                       </>
                     )}
@@ -85,3 +95,4 @@ const AlbumPage: React.FC = () => {
 };
 
 export default AlbumPage;
+

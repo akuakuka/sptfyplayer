@@ -4,14 +4,13 @@ import { motion } from "framer-motion";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyItem, spotifyTrack } from "../../server/types/SpotifyTypes";
+import { spotifyItem } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API/API";
 import { QueContext } from "../hooks/usePlayQue";
+import { getTrackUrisFromAlbum } from "../utils/dateUtils";
 import { IconButton } from "./IconButton";
 
-const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
-  return tracks.map((t) => t.uri);
-};
+
 
 const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const device = usePlayerDevice();
@@ -20,10 +19,10 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const queContext = useContext(QueContext);
 
   const MotionBox = motion<BoxProps>(Box);
-  // TODO: typescript types
+
   const handlePlayAlbum = async () => {
     const detailedAlbum = await getAlbum(id);
-    queContext.setQue && queContext.setQue(getTrackUrisFromAlbum(detailedAlbum.tracks.items));
+    queContext.setQue(getTrackUrisFromAlbum(detailedAlbum.tracks.items));
     if (device) {
       play(
         accessToken,
