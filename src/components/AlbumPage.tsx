@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import { Container, Image } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -30,10 +30,8 @@ const AlbumPage: React.FC = () => {
   }, []);
 
   const handlePlaySong = async (uri: string, i: number) => {
-
-
-
-    /*   queContext.setQue[] */
+    console.log(uri)
+    // Sliced album tracks so if album is played from middle there will be next song
     if (album) {
       console.log("handleplaysong album on ")
       const sliced = album?.tracks.items.slice(i)
@@ -45,19 +43,17 @@ const AlbumPage: React.FC = () => {
         play(accessToken, device?.device_id, slicedUrils);
       }
     }
-
-
   };
 
   useEffect(() => {
     if (album) {
-      UICOntext.setHeading(`${album.artists[0].name} - ${album.name}`)
+      UICOntext.setHeading(`${album.artists[0].name} - ${album.name} (${getAlbumReleaseYearFromDate(album.release_date, album.release_date_precision)})`)
     }
 
-  }, []);
+  }, [album]);
 
 
-
+  // TODO: If many songs last ones are hidden
   return (
     <>
       {loading ? (
@@ -66,8 +62,8 @@ const AlbumPage: React.FC = () => {
         <>
           {album &&
             <Container height="calc( 100vh - 100px )" width="1600px">
-              <Flex direction="column" gridGap="10px" wrap="wrap" paddingTop="100px">
-                <Heading> {album.name} ({getAlbumReleaseYearFromDate(album.release_date, album.release_date_precision)}) </Heading>
+              <Flex direction="column" gridGap="10px" wrap="wrap" paddingTop="10px">
+
                 <Flex direction="row">
                   <Flex direction="column" gridGap="6" wrap="wrap">
                     {album.tracks && (

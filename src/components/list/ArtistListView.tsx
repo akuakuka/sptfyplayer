@@ -7,9 +7,10 @@ import {
     useColorModeValue
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { spotifyArtist } from "../../../server/types/SpotifyTypes";
+import { UIContext } from "../../hooks/useUI";
 import { SpinnerPage } from "../SpinnerPage";
 
 /* interface sortStatus {
@@ -26,6 +27,7 @@ interface ListViewProps {
 export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
     const [artists, setArtists] = useState<spotifyArtist[]>([])
     const [sortStatus, setSortStatus] = useState<string>("")
+    const UICOntext = useContext(UIContext);
     const bgColor = useColorModeValue("brand.200", "brandDark.900");
     const navigate = useNavigate();
 
@@ -76,7 +78,7 @@ export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
                     </Thead>
                     <Tbody>
                         {artists && <>
-                            {artists.map(a => (
+                            {artists.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map(a => (
                                 <MotionRow cursor={"pointer"} key={a.id} whileHover={{ scale: 0.95 }} onClick={() => navigate(`/app/artist/${a.id}`)}>
                                     <Td>{a.name}</Td>
                                     <Td isNumeric>{a.followers ? a.followers.total : 0}</Td>

@@ -47,3 +47,7 @@ export const getDateNow = (): number => {
 export const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
     return tracks.map((t) => t.uri);
 };
+export const getIDFromSpotifyUri = (uri: string) => {
+    return uri.split(":")[2]
+};
+

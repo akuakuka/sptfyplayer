@@ -6,9 +6,10 @@ import {
     useColorModeValue
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
+import { UIContext } from "../../hooks/useUI";
 import { getAlbumReleaseYearFromDate } from "../../utils/dateUtils";
 import { SpinnerPage } from "../SpinnerPage";
 
@@ -27,6 +28,7 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
     const [albums, setAlbums] = useState<spotifyAlbum[]>([])
     const [sortStatus, setSortStatus] = useState<string>("")
     const bgColor = useColorModeValue("brand.200", "brandDark.900")
+    const UICOntext = useContext(UIContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -116,7 +118,7 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
                     </Thead>
                     <Tbody>
                         {albums && <>
-                            {albums.map(a => (
+                            {albums.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map((a) => (
                                 <MotionRow cursor={"pointer"} key={a.id} whileHover={{ scale: 0.95 }} onClick={() => navigate(`/app/album/${a.id}`)}>
                                     <Td>{a.name}</Td>
                                     <Td isNumeric>{getAlbumReleaseYearFromDate(a.release_date, a.release_date_precision)}</Td>
@@ -136,3 +138,5 @@ export const AlbumListView: React.FC<ListViewProps> = ({ albumList, loading }) =
     )
 
 }
+
+/* {uniqAlbums.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).filter(s => s.album_type !== "single").map((a, i) => ( */

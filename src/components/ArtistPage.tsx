@@ -48,7 +48,6 @@ const ArtistPage: React.FC = () => {
   useEffect(() => {
     // SpotifyApi is broken. Does not handle market parameter so dublicate albums appear. Handling : 
     if (albData) {
-
       console.log(albData)
       const uniques: spotifyAlbum[] = Object.values(
         albData.reduce((c, e) => {
@@ -83,7 +82,7 @@ const ArtistPage: React.FC = () => {
           paddingY="5"
         >
           {UICOntext.view === "LIST" ? (
-            <AlbumListView albumList={albData ? albData : []} loading={loading || albLoading} />
+            <AlbumListView albumList={albData ? uniqAlbums : []} loading={loading || albLoading} />
           ) : (
             <Flex
               direction="column"

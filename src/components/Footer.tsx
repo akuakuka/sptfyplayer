@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { MdComputer, MdDevices, MdSmartphone, MdSpeaker } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import {
   usePlaybackState,
   usePlayerDevice,
@@ -23,6 +24,7 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
 import { changeDevice, getDevices } from "../API/API";
+import { getIDFromSpotifyUri } from "../utils/dateUtils";
 import { IconButton as IconB } from "./IconButton";
 import { SongProgress } from "./SongProgress";
 
@@ -42,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const device = usePlayerDevice();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
   const bgColor = useColorModeValue("brand.500", "brandDark.900")
-
+  const navigate = useNavigate();
   // Change spotify device when connected
   useEffect(() => {
     (async () => {
@@ -150,6 +152,8 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                           playbackState.track_window.current_track.album
                             .images[0].url
                         }
+                        cursor={"pointer"}
+                        onClick={() => navigate(`/app/album/${getIDFromSpotifyUri(playbackState.track_window.current_track.album.uri)}`)}
                       />
                     )}
                   </>
