@@ -5,18 +5,20 @@ import "@fontsource/lemon";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+/* import { registerSW } from "virtual:pwa-register"; */
 import App from "./App";
 import { QueProvider } from "./hooks/usePlayQue";
 import { UIProvider } from "./hooks/useUI";
 import "./index.css";
 
 
+/* 
+registerSW(); */
 
-// registerSW();
-
-// import { registerSW } from "virtual:pwa-register";
+// 
 const theme = extendTheme({
   colors: {
+    red: "#870000",
     brand: {
       100: "#FAF3F3",
       300: "#afb1d7",

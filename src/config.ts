@@ -1,3 +1,6 @@
+import packagejson from "../package.json"
+//@ts-ignore
+const HOMEPAGE = packagejson.homepage || "https://github.com/"
 const MODE = import.meta.env.MODE
 
 const BASEURL = MODE === "development" ? `${import.meta.env.VITE_BACKEND_URL_DEV}/api/spotify` : `${import.meta.env.VITE_BACKEND_URL_PROD}/api/spotify`
@@ -20,6 +23,7 @@ export {
     BASEURL,
     REFRESHURL,
     MODE,
-    LOGINURL
-};
+    LOGINURL,
+    HOMEPAGE
+}
 

@@ -15,6 +15,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { SpotifyUser } from "../../server/types/SpotifyTypes";
+import { HOMEPAGE } from "../config";
 import { useDebounce } from "../hooks/useDebounce";
 import { IconButton as IconB } from "./IconButton";
 
@@ -121,6 +122,11 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
               </Flex>
             </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+
+
+            <MenuDivider />
+            <Flex direction={"row-reverse"}><Box paddingX={5}><IconB variant="github" onClick={() => window.open(HOMEPAGE, '_blank')} /></Box></Flex>
+
           </MenuList>
         </Menu>
       </Box>

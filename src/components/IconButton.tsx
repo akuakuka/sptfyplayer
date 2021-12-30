@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { BiAlbum } from "react-icons/bi";
 import { BsFillGrid3X3GapFill, BsQuestionSquareFill, BsThreeDotsVertical } from "react-icons/bs";
-import { FaListUl, FaPause, FaPlay } from "react-icons/fa";
+import { FaGithub, FaListUl, FaPause, FaPlay } from "react-icons/fa";
 import { ImNext2, ImPrevious2 } from "react-icons/im";
 
 
@@ -101,7 +101,13 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
         </MotionBox>
       );
     }
-
+    if (variant == "github") {
+      return (
+        <MotionBox whileHover={{ scale: 1.5 }} height="auto" width="auto" onClick={onClick}>
+          <Icon w={5} h={5} cursor="pointer" fill="white" as={FaGithub} />
+        </MotionBox>
+      );
+    }
     return (
       <MotionBox whileHover={{ scale: 0.5, }} height="auto" width="auto">
         <Icon as={BsQuestionSquareFill} w={6} h={6} cursor="pointer" />

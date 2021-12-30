@@ -1,4 +1,4 @@
-import { Progress } from "@chakra-ui/react";
+import { Progress, useColorModeValue } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 interface SongProgressProps {
@@ -6,39 +6,40 @@ interface SongProgressProps {
     paused: boolean;
 }
 
-export const SongProgress: React.FC<SongProgressProps> = ({ durationMS, paused }) => {
+export const SongProgress: React.FC<SongProgressProps> = ({
+    durationMS,
+    paused,
+}) => {
     const [progress, setProgress] = useState<number>(0);
     const [percents, setPercents] = useState<number>(0);
 
     useEffect(() => {
-        setProgress(0)
-        setPercents(0)
-    }, [durationMS])
-    useEffect(() => {
-        console.log("PAUSED")
-console.log(paused)
-
-    }, [paused])
+        setProgress(0);
+        setPercents(0);
+    }, [durationMS]);
 
     useEffect(() => {
-        console.log({paused})
-        const interval = setInterval(() => {
-
-          setProgress(progress + 1000);
-        }, 1000);
-        return () => clearInterval(interval);
-      },[]);
-
-
-
-
-    useEffect(() => {
-        console.log(percents)
-        setPercents((+progress / +durationMS) * 100)
-
+        setPercents(Math.round((+progress / +durationMS) * 100));
     }, [progress]);
 
+
+
+    useEffect(() => {
+        let interval;
+        if (!paused && progress <= durationMS) {
+            interval = setInterval(() => {
+                setProgress((prevTime) => prevTime + 10);
+            }, 10)
+        }
+        return () => clearInterval(interval);
+    }, [paused]);
+
     return (
-        <Progress value={percents} height="5px" color="brandDark.200" width={"100vw"} />
-    )
-}
+        <Progress
+            value={percents}
+            height="5px"
+            colorScheme={useColorModeValue("blue", "brandDark")}
+            width={"100vw"}
+        />
+    );
+};
