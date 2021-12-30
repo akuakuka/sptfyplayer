@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 
-const timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000);
+/* const timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000);
+ */
 
 const useTimeout = (callback: () => void, delay: number) => {
   const callbackRef = useRef<() => void>(callback);

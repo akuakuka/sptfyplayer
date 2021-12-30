@@ -12,11 +12,12 @@ import {
   useColorMode,
   useColorModeValue
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import { SpotifyUser } from "../../server/types/SpotifyTypes";
 import { HOMEPAGE } from "../config";
 import { useDebounce } from "../hooks/useDebounce";
+import { UIContext } from "../hooks/useUI";
 import { IconButton as IconB } from "./IconButton";
 
 interface HeaderProps {
@@ -24,25 +25,24 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
-  const [term, setTerm] = useState<string>("");
+  /*  const [term, setTerm] = useState<string>(""); */
   const { toggleColorMode, colorMode } = useColorMode();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
-  useDebounce(() => doSearch(term), 1500, [term]);
+  const UICOntext = useContext(UIContext);
+  useDebounce(() => doSearch(UICOntext.spotifySearch), 1500, [UICOntext.spotifySearch]);
+
   const navigate = useNavigate();
 
-  const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
-    const searchValue = e.currentTarget.value;
-    setTerm(searchValue);
-  };
-
+  /*   const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
+      const searchValue = e.currentTarget.value;
+      setTerm(searchValue);
+    };
+   */
   const doSearch = async (searchterm: string) => {
     if (searchterm.length > 1) {
-      // TODO: Searchterm not clearing after search
-      setTerm("");
       navigate(`/app/search/${searchterm}`);
     }
   };
-
   const handleLogout = () => {
     // TODO: Nämä contextiin
     localStorage.removeItem("accessToken");
@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
           placeholder="Hae Spotifystä"
           size="md"
           maxWidth="200px"
-          onChange={(e) => handleSearch(e)}
+          onChange={(e) => UICOntext.setSpotifySearch(e.target.value)}
         />
       </Flex>
       <Box paddingRight="5" marginLeft="auto">

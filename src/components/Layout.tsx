@@ -49,7 +49,7 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
     </Flex>
   );
 };
-
+// TODO: Scrolling not working
 const Layout: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
@@ -59,6 +59,7 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     UICOntext.setFilter("")
+    UICOntext.setSpotifySearch("")
   }, [location])
 
   const handleVolume = (val: number) => {
@@ -80,7 +81,7 @@ const Layout: React.FC = () => {
     },
     [accessToken]
   );
- 
+
   return (
     <>
       <WebPlaybackSDK
