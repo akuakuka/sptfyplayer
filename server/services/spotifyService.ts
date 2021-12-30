@@ -89,9 +89,7 @@ export const getAlbum = async (
     `/albums/${id}?market=${market}`,
     { headers }
   );
-
   return data;
-
 };
 
 export const checkAuth = async (accesstoken: string): Promise<SpotifyUser> => {
@@ -159,8 +157,6 @@ export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> 
   const { data } = await API.get<SpotifyUser>(`/me`, { headers });
 
   return data;
-
-
 };
 
 export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlowResponse> => {
@@ -189,9 +185,6 @@ export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlow
   return data;
 };
 
-
-
-
 export const getSpotifyDevices = async (accesstoken: string): Promise<SpotifyDevice[]> => {
 
   const headers = {
@@ -204,10 +197,7 @@ export const getSpotifyDevices = async (accesstoken: string): Promise<SpotifyDev
 
   return data.devices;
 
-
 };
-
-
 
 export const changeSpotifyDevice = async (accesstoken: string, deviceid: string) => {
 
@@ -230,3 +220,10 @@ export const changeSpotifyDevice = async (accesstoken: string, deviceid: string)
 
 
 
+API.interceptors.request.use((config) => {
+
+  console.log(config.url)
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});

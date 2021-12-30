@@ -1,6 +1,6 @@
 import { Center, Flex, Heading } from "@chakra-ui/layout";
 import { useColorModeValue } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { spotifyAlbum, spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtist, getArtistAlbums } from "../API/API";
@@ -11,6 +11,7 @@ import { AlbumListView } from "./list/AlbumListView";
 import { SpinnerPage } from "./SpinnerPage";
 
 const ArtistPage: React.FC = () => {
+  const [uniqAlbums, setUniqAlbums] = useState<spotifyAlbum[]>([])
   const dd = useParams();
   const id = dd.id || ""
 
@@ -42,6 +43,26 @@ const ArtistPage: React.FC = () => {
     }
 
   }, [data]);
+
+
+  useEffect(() => {
+    // SpotifyApi is broken. Does not handle market parameter so dublicate albums appear. Handling : 
+    if (albData) {
+
+      console.log(albData)
+      const uniques: spotifyAlbum[] = Object.values(
+        albData.reduce((c, e) => {
+          if (!c[e.name.toUpperCase()]) c[e.name.toUpperCase()] = e;
+          return c;
+        }, {})
+      );
+
+      setUniqAlbums(uniques)
+      console.log(uniques)
+    }
+
+  }, [albData]);
+
 
   return (
     <Flex direction="column">
@@ -84,7 +105,7 @@ const ArtistPage: React.FC = () => {
                   {albData && albData.length ? (
                     <>
 
-                      {albData.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).filter(s => s.album_type !== "single").map((a, i) => (
+                      {uniqAlbums.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).filter(s => s.album_type !== "single").map((a, i) => (
                         <Item key={i} {...a} />
                       ))}
                     </>
@@ -103,7 +124,7 @@ const ArtistPage: React.FC = () => {
                     >
                       {albData && albData.length ? (
                         <>
-                          {albData.filter(s => s.album_type === "single").map((a, i) => (
+                          {uniqAlbums.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).filter(s => s.album_type === "single").map((a, i) => (
                             <Item key={i} {...a} />
                           ))}
                         </>

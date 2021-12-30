@@ -1,16 +1,21 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 interface defaultQue {
   que: string[]
-  setQue?: (a: string[]) => void;
+  setQue: (a: string[]) => void;
 }
+
 const defaultState = { que: ["spotify:track:1jzDzZWeSDBg5fhNc3tczV"] }
 
-export const QueContext = createContext<defaultQue>(defaultState);
+export const QueContext = createContext<defaultQue>({} as defaultQue);
 // TODO : slice array when playing one song from album so rest of the songs are in the que
 const QueProvider = (props) => {
   // Paranoid!
-  const [que, setQue] = useState(defaultState.que);
+  const [que, setQue] = useState<string[]>(defaultState.que);
+
+  useEffect(() => {
+    console.log(que)
+  }, [])
 
   return (
     <QueContext.Provider

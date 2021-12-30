@@ -1,7 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import "@fontsource/aldrich";
 import "@fontsource/cabin";
-import "@fontsource/lemon";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";

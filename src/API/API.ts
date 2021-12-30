@@ -6,11 +6,11 @@ import {
   SpotifySearchResult,
   SpotifyTokenResponse,
   SpotifyUser
-} from "../server/types/SpotifyTypes";
-import { BASEURL, REFRESHURL } from "./config";
-import { isAccessTokenValid } from "./utils/authUtils";
-import { getExpiryDate } from "./utils/dateUtils";
-
+} from "../../server/types/SpotifyTypes";
+import { BASEURL, REFRESHURL } from "./../config";
+import { isAccessTokenValid } from "./../utils/authUtils";
+import { getExpiryDate } from "./../utils/dateUtils";
+// TODO: project paths for typigns
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
