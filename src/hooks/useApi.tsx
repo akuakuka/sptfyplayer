@@ -23,27 +23,23 @@ export const useAPI = <T, E = string | undefined>(
     asyncFunction: (s?: E) => Promise<T>,
     immediate
 ) => {
-    console.log({ immediate })
     const [loading, setLoading] = useState<boolean>(false);
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<AxiosError>(Object);
 
-    const execute = useCallback(() => {
+    const execute = useCallback(async () => {
         setLoading(true);
         setData(null);
-        // TODO : async / await synmtax
-        return asyncFunction()
-            .then((response: any) => {
-                console.log("useApi then")
-                console.log(response)
-                setData(response);
-                setLoading(false);
-            })
-            .catch((error: AxiosError) => {
-                console.log("useApi error")
-                setError(error);
-                setLoading(false);
-            });
+        try {
+            const response = await asyncFunction();
+            setData(response);
+            setLoading(false);
+        }
+        catch (e) {
+            console.log("useApi error")
+            setError(error);
+            setLoading(false);
+        }
     }, [asyncFunction]);
 
     useEffect(() => {
