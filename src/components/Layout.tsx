@@ -96,7 +96,6 @@ const Layout: React.FC = () => {
             direction="row"
             gridGap="10px"
             wrap="wrap"
-
             sx={{ height: "calc(100vh - 155px);" }}
             width="90vw"
             justifyContent="center"

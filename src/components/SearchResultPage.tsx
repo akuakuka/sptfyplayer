@@ -6,7 +6,7 @@ import {
   SearchResultAlbum,
   SearchResultArtist
 } from "../../server/types/SpotifyTypes";
-import { search } from "../API";
+import { search } from "../API/API";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
 import { SpinnerPage } from "./SpinnerPage";

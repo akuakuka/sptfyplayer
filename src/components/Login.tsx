@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SpotifyUser } from "../../server/types/SpotifyTypes";
-import { getUser } from "../API";
+import { getUser } from "../API/API";
 import { LOGINURL } from "../config";
 import { useAPI } from "../hooks/useApi";
 import { getExpiryDate } from "../utils/dateUtils";

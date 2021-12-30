@@ -1,7 +1,7 @@
 import { Center, Flex } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { spotifyArtist } from "../../server/types/SpotifyTypes";
-import { getArtists } from "../API";
+import { getArtists } from "../API/API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";

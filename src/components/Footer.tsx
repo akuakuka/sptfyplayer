@@ -22,7 +22,7 @@ import {
   useWebPlaybackSDKReady
 } from "react-spotify-web-playback-sdk";
 import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
-import { changeDevice, getDevices } from "../API";
+import { changeDevice, getDevices } from "../API/API";
 import { IconButton as IconB } from "./IconButton";
 import { SongProgress } from "./SongProgress";
 

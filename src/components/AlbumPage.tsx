@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
 import { spotifyAlbum } from "../../server/types/SpotifyTypes";
-import { getAlbum, play } from "../API";
+import { getAlbum, play } from "../API/API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
 import { getAlbumReleaseYearFromDate } from "../utils/dateUtils";

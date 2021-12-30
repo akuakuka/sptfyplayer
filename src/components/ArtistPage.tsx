@@ -3,7 +3,7 @@ import { useColorModeValue } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { spotifyAlbum, spotifyArtist } from "../../server/types/SpotifyTypes";
-import { getArtist, getArtistAlbums } from "../API";
+import { getArtist, getArtistAlbums } from "../API/API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
