@@ -11,6 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { spotifyArtist } from "../../../server/types/SpotifyTypes";
 import { UIContext } from "../../hooks/useUI";
+import { ItemWrapper } from "../ItemWrapper";
 import { SpinnerPage } from "../SpinnerPage";
 
 /* interface sortStatus {
@@ -68,27 +69,29 @@ export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
     return (
         <>
             {loading ? <SpinnerPage /> :
-                <Table size='sm' backgroundColor={bgColor}>
-                    <Thead>
-                        <Tr>
-                            <Th>Name <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("NAME")} /></Th>
-                            <Th isNumeric>Followers <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("FOLLOWERS")} /></Th>
-                            <Th isNumeric>Popularity <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("POPULARITY")} /></Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {artists && <>
-                            {artists.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map(a => (
-                                <MotionRow cursor={"pointer"} key={a.id} whileHover={{ scale: 0.95 }} onClick={() => navigate(`/app/artist/${a.id}`)}>
-                                    <Td>{a.name}</Td>
-                                    <Td isNumeric>{a.followers ? a.followers.total : 0}</Td>
-                                    <Td isNumeric>{a.popularity ? a.popularity : 0}</Td>
-                                </MotionRow>
-                            ))}
-                        </>}
-                    </Tbody>
+                <ItemWrapper islist>
+                    <Table size='sm' backgroundColor={bgColor}>
+                        <Thead>
+                            <Tr>
+                                <Th>Name <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("NAME")} /></Th>
+                                <Th isNumeric>Followers <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("FOLLOWERS")} /></Th>
+                                <Th isNumeric>Popularity <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("POPULARITY")} /></Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {artists && <>
+                                {artists.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map(a => (
+                                    <MotionRow cursor={"pointer"} key={a.id} whileHover={{ scale: 0.95 }} onClick={() => navigate(`/app/artist/${a.id}`)}>
+                                        <Td>{a.name}</Td>
+                                        <Td isNumeric>{a.followers ? a.followers.total : 0}</Td>
+                                        <Td isNumeric>{a.popularity ? a.popularity : 0}</Td>
+                                    </MotionRow>
+                                ))}
+                            </>}
+                        </Tbody>
 
-                </Table>
+                    </Table>
+                </ItemWrapper>
             }
         </>
     )

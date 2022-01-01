@@ -30,7 +30,7 @@ const AlbumPage: React.FC = () => {
   }, []);
 
   const handlePlaySong = async (uri: string, i: number) => {
-    console.log(uri)
+
     // Sliced album tracks so if album is played from middle there will be next song
     if (album) {
       console.log("handleplaysong album on ")

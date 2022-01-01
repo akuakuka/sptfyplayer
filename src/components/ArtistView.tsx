@@ -1,10 +1,11 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtists } from "../API/API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
+import { ItemWrapper } from "./ItemWrapper";
 import { ListView } from "./list/ArtistListView";
 import { SpinnerPage } from "./SpinnerPage";
 
@@ -40,16 +41,11 @@ const ArtistView: React.FC = () => {
           ) : (
             <>
               {data && data.length ? (
-                <Flex
-                  direction="row"
-                  gridGap="10px"
-                  wrap="wrap"
-                  justifyContent="center"
-                >
+                <ItemWrapper>
                   {data.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map((a, i) => (
                     <Item {...a} key={i} />
                   ))}
-                </Flex>
+                </ItemWrapper>
               ) : (
                 <> ei artisteja</>
               )}

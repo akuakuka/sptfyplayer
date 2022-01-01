@@ -16,6 +16,8 @@ export const SubHeading: React.FC = () => {
             width={"86vw"}
             borderRadius={"8"}
             alignItems={"center"}
+            marginX="auto"
+            marginTop={4}
         >
             <Heading>{UICOntext.heading}</Heading>
             {!location.pathname.includes("/app/album/") && (
@@ -26,15 +28,22 @@ export const SubHeading: React.FC = () => {
                     p="3"
                     alignItems={"center"}
                 >
-
-                    {UICOntext.heading !== "Seuratut artistit" &&
+                    <Input
+                        variant="flushed"
+                        placeholder="Filtteröi"
+                        value={UICOntext.filter}
+                        onChange={(e) => UICOntext.setFilter(e.target.value)}
+                    />
+                    {UICOntext.heading !== "Seuratut artistit" && (
                         <Flex gridGap="2" p="3">
-                            <Text >Singlet</Text>
-                            <Switch size="md" isChecked={UICOntext.singles} onChange={() => UICOntext.toggleSingles()} />
+                            <Text>Singlet</Text>
+                            <Switch
+                                size="md"
+                                isChecked={UICOntext.singles}
+                                onChange={() => UICOntext.toggleSingles()}
+                            />
                         </Flex>
-                    }
-
-                    <Input variant='flushed' placeholder='Filtteröi' value={UICOntext.filter} onChange={(e) => UICOntext.setFilter(e.target.value)} />
+                    )}
                     <IconButton
                         variant="list"
                         onClick={() => UICOntext.setView("LIST")}

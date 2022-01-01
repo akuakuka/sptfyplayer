@@ -112,10 +112,9 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
     <>
       {playbackState && <SongProgress durationMS={playbackState.duration} paused={playbackState.paused} />}
       <Flex
-        position="fixed"
         bottom="0"
         width="100vw"
-        height="100px"
+        height={"100px"}
         backgroundColor={bgColor}
         boxShadow="dark-lg"
         alignContent="center"

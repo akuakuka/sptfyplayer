@@ -90,30 +90,16 @@ const Layout: React.FC = () => {
         connectOnInitialized={true}
         volume={volume}
       >
-        <Wrapper albumArtBg={albumArtBg}>
+        <Flex direction={"column"} height={"100vh"} overflow={"hidden"}>
           <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
-          <Flex
-            direction="row"
-            gridGap="10px"
-            wrap="wrap"
-            sx={{ height: "calc(100vh - 155px);" }}
-            width="90vw"
-            justifyContent="center"
-            alignContent={"flex-start"}
-            paddingY="5"
-          >
+          <Flex flex={1} overflow={"auto"} direction={"column"}>
             <SubHeading />
-            <Flex
-              direction="column"
-              alignContent={"flex-start"}
-              justifyContent={"flex-start"}
-            >
-              <Outlet />
-            </Flex>
+            <Outlet />
           </Flex>
-
           <Footer handleVolume={handleVolume} volume={volume} />
-        </Wrapper>
+        </Flex >
+
+
       </WebPlaybackSDK>
     </>
   );

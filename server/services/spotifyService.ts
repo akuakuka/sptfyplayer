@@ -181,7 +181,7 @@ export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlow
     tokenData,
     { headers }
   );
-  console.log(data)
+
   return data;
 };
 
@@ -212,7 +212,7 @@ export const changeSpotifyDevice = async (accesstoken: string, deviceid: string)
   }
 
   const { data } = await API.put(`/me/player/`, putData, { headers });
-  console.log(data)
+
   return data;
 
 
@@ -221,8 +221,6 @@ export const changeSpotifyDevice = async (accesstoken: string, deviceid: string)
 
 
 API.interceptors.request.use((config) => {
-
-  console.log(config.url)
   return config;
 }, (error) => {
   return Promise.reject(error);

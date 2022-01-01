@@ -60,7 +60,6 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
 
   return (
     <Flex
-
       top="0"
       width="100vw"
       height="50px"

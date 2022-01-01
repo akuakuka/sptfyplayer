@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 interface defaultQue {
   que: string[]
@@ -12,10 +12,6 @@ export const QueContext = createContext<defaultQue>({} as defaultQue);
 const QueProvider = (props) => {
   // Paranoid!
   const [que, setQue] = useState<string[]>(defaultState.que);
-
-  useEffect(() => {
-    console.log(que)
-  }, [])
 
   return (
     <QueContext.Provider

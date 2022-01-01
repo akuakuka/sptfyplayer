@@ -19,8 +19,6 @@ const Login: React.FC = () => {
   const query = useQuery();
   const userToken = localStorage.getItem("accessToken") || "";
 
-
-
   useEffect(() => {
     (async () => {
       const accessToken = query.get("accessToken");

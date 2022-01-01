@@ -11,7 +11,6 @@ interface defaultAuth {
     setRefreshToken: (a: string) => void;
     setExpiryDate: (a: string) => void;
 }
-/* const defaultState = { view: "IMAGES", singles: false, heading: "", filter: "", setFilter: ("") => } */
 
 export const AuthContext = createContext<defaultAuth>({} as defaultAuth);
 
@@ -20,10 +19,6 @@ const AuthProvider = (props) => {
     const [accessToken, setAccessToken] = useState<string>("");
     const [refreshToken, setRefreshToken] = useState<string>("");
     const [expiryDate, setExpiryDate] = useState<string>("");
-
-
-
-
 
     return (
         <AuthContext.Provider
@@ -36,7 +31,6 @@ const AuthProvider = (props) => {
                 setAccessToken,
                 setRefreshToken,
                 setExpiryDate,
-
             }}
         >
             {props.children}
