@@ -1,4 +1,4 @@
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import {
@@ -31,19 +31,18 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
 
   return (
     <Flex
+      direction={"column"}
+      height={"100vh"}
+      overflow={"hidden"}
       backgroundImage={
         albumArtBg && playbackState
           ? getAlbumArtFromPLaybackState(playbackState)
           : ""
       }
-      backgroundColor={useColorModeValue("brand.800", "brandDark.900")}
       backgroundRepeat={"no-repeat"}
       backgroundSize={"cover"}
       backgroundAttachment={"fixed"}
       backgroundPosition={"center"}
-      width={"100vw"}
-      overflow={"hidden"}
-      direction="column"
     >
       {children}
     </Flex>
@@ -58,9 +57,9 @@ const Layout: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    UICOntext.setFilter("")
-    UICOntext.setSpotifySearch("")
-  }, [location])
+    UICOntext.setFilter("");
+    UICOntext.setSpotifySearch("");
+  }, [location]);
 
   const handleVolume = (val: number) => {
     setVolume(val);
@@ -90,16 +89,14 @@ const Layout: React.FC = () => {
         connectOnInitialized={true}
         volume={volume}
       >
-        <Flex direction={"column"} height={"100vh"} overflow={"hidden"}>
+        <Wrapper albumArtBg={albumArtBg}>
           <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
           <Flex flex={1} overflow={"auto"} direction={"column"}>
             <SubHeading />
             <Outlet />
           </Flex>
           <Footer handleVolume={handleVolume} volume={volume} />
-        </Flex >
-
-
+        </Wrapper>
       </WebPlaybackSDK>
     </>
   );

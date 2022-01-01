@@ -79,7 +79,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const handleDeviceMenu = async () => {
     setDevicesLoading(true);
     const devices = await getDevices();
-    console.log(devices);
     setDevices(devices);
     setDevicesLoading(false);
   };

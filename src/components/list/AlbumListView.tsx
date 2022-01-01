@@ -43,13 +43,6 @@ export const AlbumListView: React.FC<ListViewProps> = ({
         setAlbums(albumList);
     }, []);
 
-    useEffect(() => {
-        console.log("ALBUMS CHANGED");
-        if (albums.length > 1) {
-            console.log(albums[0].name);
-        }
-    }, [albums]);
-
     const MotionRow = motion<TableRowProps>(Tr);
 
     const handleSortChange = (column: string) => {
@@ -74,7 +67,7 @@ export const AlbumListView: React.FC<ListViewProps> = ({
         }
 
         if (column === "YEAR") {
-            console.log(albums[0].release_date);
+
             if (sortStatus === "YEAR") {
                 setAlbums(copy.reverse());
             } else {

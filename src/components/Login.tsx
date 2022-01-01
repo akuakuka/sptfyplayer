@@ -24,8 +24,6 @@ const Login: React.FC = () => {
       const accessToken = query.get("accessToken");
 
       if (accessToken) {
-        console.log("   if (accessToken) {")
-        console.log("Found Tokens From URL!")
         localStorage.setItem("accessToken", accessToken);
         const refreshToken = query.get("refreshToken");
         const expiryDate = getExpiryDate();
