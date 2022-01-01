@@ -9,11 +9,10 @@ import { QueProvider } from "./hooks/usePlayQue";
 import { UIProvider } from "./hooks/useUI";
 import "./index.css";
 
-
 /* 
 registerSW(); */
 
-// 
+//
 const theme = extendTheme({
   colors: {
     red: "#870000",
@@ -32,21 +31,18 @@ const theme = extendTheme({
       300: "#2D3748",
       600: "#s1A202C",
       900: "#171923",
-
-    }
+    },
   },
   shadows: {
-    neored: 'inset 20px 20px 60px #bdacb6,inset -20px -20px 60px #ffe8f6;',
-    neorednoblur: "11px 11px 0px #4d3e43,-11px -11px 0px #a78693"
+    neored: "inset 20px 20px 60px #bdacb6,inset -20px -20px 60px #ffe8f6;",
+    neorednoblur: "11px 11px 0px #4d3e43,-11px -11px 0px #a78693",
   },
   initialColorMode: "dark",
   fonts: {
-    heading: 'Cabin',
-    body: 'Cabin',
+    heading: "Cabin",
+    body: "Cabin",
   },
-
-})
-
+});
 
 ReactDOM.render(
   <React.StrictMode>

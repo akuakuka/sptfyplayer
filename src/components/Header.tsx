@@ -5,12 +5,14 @@ import {
   IconButton,
   Input,
   Menu,
-  MenuButton, MenuDivider, MenuItem,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
   MenuList,
   Switch,
   Text,
   useColorMode,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router";
@@ -29,7 +31,9 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   const { toggleColorMode, colorMode } = useColorMode();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
   const UICOntext = useContext(UIContext);
-  useDebounce(() => doSearch(UICOntext.spotifySearch), 1500, [UICOntext.spotifySearch]);
+  useDebounce(() => doSearch(UICOntext.spotifySearch), 1500, [
+    UICOntext.spotifySearch,
+  ]);
 
   const navigate = useNavigate();
 
@@ -54,9 +58,9 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
 
   const handleUserClick = () => {
     if (user.external_urls.spotify) {
-      window.open(user.external_urls.spotify, '_blank');
+      window.open(user.external_urls.spotify, "_blank");
     }
-  }
+  };
 
   return (
     <Flex
@@ -71,7 +75,11 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       zIndex="100"
       gridGap="10"
     >
-      <IconB variant="homepage" key="homepage" onClick={() => navigate(`/app`)} />
+      <IconB
+        variant="homepage"
+        key="homepage"
+        onClick={() => navigate(`/app`)}
+      />
 
       <Flex marginLeft="auto" direction={"row"}>
         <IconB variant="search" />
@@ -89,20 +97,23 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
             aria-label="Options"
             icon={<HamburgerIcon stroke="brandDark.200" />}
             variant="outline"
-
             backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
           />
-          <MenuList backgroundColor={useColorModeValue("brand.500", "brandDark.900")}>
-            {user &&
+          <MenuList
+            backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
+          >
+            {user && (
               <MenuItem disabled={true} onClick={() => handleUserClick()}>
                 <Flex gridGap="3" alignItems="center">
-                  {user.images[0] && <Avatar name={user.display_name} src={user.images[0].url} />}
+                  {user.images[0] && (
+                    <Avatar name={user.display_name} src={user.images[0].url} />
+                  )}
                   {user.display_name && <Text>{user.display_name}</Text>}
                 </Flex>
-              </MenuItem>}
+              </MenuItem>
+            )}
 
             <MenuDivider />
-
 
             <MenuItem closeOnSelect={false}>
               <Flex direction="row" gridGap="3">
@@ -112,20 +123,35 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
             </MenuItem>
 
             <MenuItem closeOnSelect={false}>
-              <Flex direction="row" gridGap="3" alignContent={"center"} alignItems={"center"} width={"100%"}>
-
+              <Flex
+                direction="row"
+                gridGap="3"
+                alignContent={"center"}
+                alignItems={"center"}
+                width={"100%"}
+              >
                 <Text>{colorMode === "dark" ? "Light" : "Dark"}</Text>
                 {/* <Switch size="md" onChange={() => toggleColorMode()} /> */}
 
-                <IconButton aria-label='ColorMode' icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />} onClick={() => toggleColorMode()} marginLeft={"auto"} />
+                <IconButton
+                  aria-label="ColorMode"
+                  icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+                  onClick={() => toggleColorMode()}
+                  marginLeft={"auto"}
+                />
               </Flex>
             </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
 
-
             <MenuDivider />
-            <Flex direction={"row-reverse"}><Box paddingX={5}><IconB variant="github" onClick={() => window.open(HOMEPAGE, '_blank')} /></Box></Flex>
-
+            <Flex direction={"row-reverse"}>
+              <Box paddingX={5}>
+                <IconB
+                  variant="github"
+                  onClick={() => window.open(HOMEPAGE, "_blank")}
+                />
+              </Box>
+            </Flex>
           </MenuList>
         </Menu>
       </Box>

@@ -294,7 +294,7 @@ export interface SpotifyDetailedAlbum {
 export interface SpotifyClientCredentialsFlowResponse {
   access_token: string;
   token_type: string;
-  expires_in: number
+  expires_in: number;
 }
 
 export interface SpotifyDevice {
@@ -308,5 +308,5 @@ export interface SpotifyDevice {
 }
 
 export interface SpotifyDeviceResponse {
-  devices: SpotifyDevice[]
+  devices: SpotifyDevice[];
 }

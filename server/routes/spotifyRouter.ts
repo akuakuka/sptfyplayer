@@ -9,7 +9,7 @@ import {
   getFollowedArtists,
   getSpotifyDevices,
   getSpotifyUser,
-  searchSpotify
+  searchSpotify,
 } from "../services/spotifyService";
 
 export const spotifyRouter = Router();
@@ -20,7 +20,6 @@ spotifyRouter.get(
     const authorization = req.headers.authorization || "";
     const resp = await getFollowedArtists(authorization, [], "");
     res.json(resp);
-
   })
 );
 

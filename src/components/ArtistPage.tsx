@@ -46,7 +46,6 @@ const ArtistPage: React.FC = () => {
   useEffect(() => {
     // SpotifyApi is broken. Does not handle market parameter so dublicate albums appear. Handling :
     if (albData) {
-
       const uniques: spotifyAlbum[] = Object.values(
         albData.reduce((c, e) => {
           if (!c[e.name.toUpperCase()]) c[e.name.toUpperCase()] = e;
@@ -55,7 +54,6 @@ const ArtistPage: React.FC = () => {
       );
 
       setUniqAlbums(uniques);
-
     }
   }, [albData]);
 

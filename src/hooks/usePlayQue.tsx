@@ -1,11 +1,11 @@
 import React, { createContext, useState } from "react";
 
 interface defaultQue {
-  que: string[]
+  que: string[];
   setQue: (a: string[]) => void;
 }
 
-const defaultState = { que: ["spotify:track:1jzDzZWeSDBg5fhNc3tczV"] }
+const defaultState = { que: ["spotify:track:1jzDzZWeSDBg5fhNc3tczV"] };
 
 export const QueContext = createContext<defaultQue>({} as defaultQue);
 // TODO : slice array when playing one song from album so rest of the songs are in the que
@@ -17,8 +17,9 @@ const QueProvider = (props) => {
     <QueContext.Provider
       value={{
         que,
-        setQue
-      }}>
+        setQue,
+      }}
+    >
       {props.children}
     </QueContext.Provider>
   );

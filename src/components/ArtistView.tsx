@@ -25,7 +25,7 @@ const ArtistView: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    UICOntext.setHeading("Seuratut artistit")
+    UICOntext.setHeading("Seuratut artistit");
   }, []);
 
   return (
@@ -42,9 +42,13 @@ const ArtistView: React.FC = () => {
             <>
               {data && data.length ? (
                 <ItemWrapper>
-                  {data.filter(f => f.name.toLowerCase().includes(UICOntext.filter)).map((a, i) => (
-                    <Item {...a} key={i} />
-                  ))}
+                  {data
+                    .filter((f) =>
+                      f.name.toLowerCase().includes(UICOntext.filter)
+                    )
+                    .map((a, i) => (
+                      <Item {...a} key={i} />
+                    ))}
                 </ItemWrapper>
               ) : (
                 <> ei artisteja</>

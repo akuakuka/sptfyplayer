@@ -5,7 +5,8 @@ import { useCallback, useEffect, useRef } from "react";
 
 const useTimeout = (callback: () => void, delay: number) => {
   const callbackRef = useRef<() => void>(callback);
-  const timeoutRef: { current: ReturnType<typeof setTimeout> | null } = useRef(null);
+  const timeoutRef: { current: ReturnType<typeof setTimeout> | null } =
+    useRef(null);
 
   useEffect(() => {
     callbackRef.current = callback;

@@ -15,25 +15,30 @@ app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
-if (NODE_ENV === 'production') {
-
-  const distpath = path.resolve(__dirname, '..', '..', "src", "dist",)
-  const indexpath = path.resolve(__dirname, '..', '..', "src", "dist", "index.html")
+if (NODE_ENV === "production") {
+  const distpath = path.resolve(__dirname, "..", "..", "src", "dist");
+  const indexpath = path.resolve(
+    __dirname,
+    "..",
+    "..",
+    "src",
+    "dist",
+    "index.html"
+  );
 
   app.use(express.static(distpath));
 
-  app.get('*', (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(indexpath));
   });
 }
 
-const port = process.env.PORT || PORT
+const port = process.env.PORT || PORT;
 
-if (NODE_ENV !== 'test') {
+if (NODE_ENV !== "test") {
   app.listen(port, () => {
     console.info(
       `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
     );
   });
-
 }

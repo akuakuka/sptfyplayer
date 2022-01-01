@@ -1,17 +1,19 @@
 import { Flex } from "@chakra-ui/layout";
 import {
-  Box, IconButton,
+  Box,
+  IconButton,
   Image,
   Menu,
   MenuButton,
   MenuItem,
-  MenuList, Slider,
+  MenuList,
+  Slider,
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
   Spinner,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { MdComputer, MdDevices, MdSmartphone, MdSpeaker } from "react-icons/md";
@@ -20,7 +22,7 @@ import {
   usePlaybackState,
   usePlayerDevice,
   useSpotifyPlayer,
-  useWebPlaybackSDKReady
+  useWebPlaybackSDKReady,
 } from "react-spotify-web-playback-sdk";
 import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
 import { changeDevice, getDevices } from "../API/API";
@@ -35,7 +37,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
-  const [initialCheck, setInitialCheck] = useState<boolean>(false)
+  const [initialCheck, setInitialCheck] = useState<boolean>(false);
   const [devicesLoading, setDevicesLoading] = useState<boolean>(false);
   const [devices, setDevices] = useState<SpotifyDevice[]>([]);
   const webPlaybackSDKReady = useWebPlaybackSDKReady();
@@ -43,22 +45,20 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const playbackState = usePlaybackState();
   const device = usePlayerDevice();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
-  const bgColor = useColorModeValue("brand.500", "brandDark.900")
+  const bgColor = useColorModeValue("brand.500", "brandDark.900");
   const navigate = useNavigate();
   // Change spotify device when connected
   useEffect(() => {
     (async () => {
       if (!initialCheck) {
         if (device) {
-          console.log(device)
-          await changeDevice(device.device_id)
-          setInitialCheck(true)
+          console.log(device);
+          await changeDevice(device.device_id);
+          setInitialCheck(true);
         }
       }
     })();
   }, [device]);
-
-
 
   const handlePlay = async () => {
     if (device === null) return;
@@ -109,7 +109,12 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
 
   return (
     <>
-      {playbackState && <SongProgress durationMS={playbackState.duration} paused={playbackState.paused} />}
+      {playbackState && (
+        <SongProgress
+          durationMS={playbackState.duration}
+          paused={playbackState.paused}
+        />
+      )}
       <Flex
         bottom="0"
         width="100vw"
@@ -122,7 +127,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
         zIndex="100"
         gridGap="3"
       >
-
         {user && user.product === "premium" ? (
           <>
             {webPlaybackSDKReady ? (
@@ -136,10 +140,8 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                   position="relative"
                   marginBottom="0 auto"
                 >
-
                   <>
                     {playbackState && (
-
                       <Image
                         position={"fixed"}
                         bottom={"15px"}
@@ -151,17 +153,22 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                             .images[0].url
                         }
                         cursor={"pointer"}
-                        onClick={() => navigate(`/app/album/${getIDFromSpotifyUri(playbackState.track_window.current_track.album.uri)}`)}
+                        onClick={() =>
+                          navigate(
+                            `/app/album/${getIDFromSpotifyUri(
+                              playbackState.track_window.current_track.album.uri
+                            )}`
+                          )
+                        }
                       />
                     )}
                   </>
-
                 </Box>
                 <Flex direction="column" gridGap="1" width="30vw">
                   {playbackState && (
                     <Text noOfLines={1} width="50vw">
-                      {playbackState.track_window.current_track.artists[0].name} -{" "}
-                      {playbackState.track_window.current_track.name}
+                      {playbackState.track_window.current_track.artists[0].name}{" "}
+                      - {playbackState.track_window.current_track.name}
                     </Text>
                   )}
 
@@ -201,21 +208,23 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                   <MenuButton
                     as={IconButton}
                     aria-label="Options"
-                    icon={devicesLoading ? <Spinner /> : <MdDevices stroke="brandDark.200" />}
+                    icon={
+                      devicesLoading ? (
+                        <Spinner />
+                      ) : (
+                        <MdDevices stroke="brandDark.200" />
+                      )
+                    }
                     variant="outline"
                     backgroundColor={bgColor}
                     onClick={() => handleDeviceMenu()}
-
                   />
                   <MenuList>
-
-
                     {devices && (
                       <>
                         {devices.map((d) => {
                           return (
                             <MenuItem key={d.id}>
-
                               <Flex
                                 direction="row"
                                 alignItems="center"
@@ -229,8 +238,6 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                         })}
                       </>
                     )}
-
-
                   </MenuList>
                 </Menu>
 

@@ -14,7 +14,10 @@ const useQuery = () => {
 };
 
 const Login: React.FC = () => {
-  const { execute, loading, data, error } = useAPI<SpotifyUser>(() => getUser(), false);
+  const { execute, loading, data, error } = useAPI<SpotifyUser>(
+    () => getUser(),
+    false
+  );
   const navigate = useNavigate();
   const query = useQuery();
   const userToken = localStorage.getItem("accessToken") || "";
@@ -30,14 +33,12 @@ const Login: React.FC = () => {
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("expiryDate", expiryDate.toString());
 
-        await execute()
-
+        await execute();
 
         navigate("/app");
       } else if (userToken) {
         navigate("/app");
       }
-
     })();
   }, []);
 
@@ -45,7 +46,7 @@ const Login: React.FC = () => {
     if (data) {
       localStorage.setItem("user", JSON.stringify(data));
     }
-  }, [data])
+  }, [data]);
 
   const handleLogin = () => {
     window.location.href = LOGINURL;
@@ -53,22 +54,21 @@ const Login: React.FC = () => {
 
   return (
     <>
-      {loading ?
-        (
-          <SpinnerPage />
-        ) : (
-          <Flex justifyContent="center" alignItems="center" height="100vh">
-            <Button
-              boxShadow="dark-lg"
-              p="6"
-              rounded="md"
-              bg="green.400"
-              onClick={() => handleLogin()}
-            >
-              Login with spotify
-            </Button>
-          </Flex>
-        )}
+      {loading ? (
+        <SpinnerPage />
+      ) : (
+        <Flex justifyContent="center" alignItems="center" height="100vh">
+          <Button
+            boxShadow="dark-lg"
+            p="6"
+            rounded="md"
+            bg="green.400"
+            onClick={() => handleLogin()}
+          >
+            Login with spotify
+          </Button>
+        </Flex>
+      )}
     </>
   );
 };

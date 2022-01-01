@@ -2,8 +2,17 @@ import axios from "axios";
 import qs from "qs";
 import { SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "../config";
 import {
-  spotifyArtist, spotifyArtistAlbum, spotifyArtistAlbumsReponse, SpotifyClientCredentialsFlowResponse, SpotifyDetailedAlbum, SpotifyDevice, SpotifyDeviceResponse, SpotifySearchResult,
-  SpotifyTokenResponse, SpotifyUser, userArtistsResponse
+  spotifyArtist,
+  spotifyArtistAlbum,
+  spotifyArtistAlbumsReponse,
+  SpotifyClientCredentialsFlowResponse,
+  SpotifyDetailedAlbum,
+  SpotifyDevice,
+  SpotifyDeviceResponse,
+  SpotifySearchResult,
+  SpotifyTokenResponse,
+  SpotifyUser,
+  userArtistsResponse,
 } from "../types/SpotifyTypes";
 
 const API = axios.create({
@@ -44,7 +53,6 @@ export const getArtist = async (
   id: string,
   accesstoken: string
 ): Promise<spotifyArtist> => {
-
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
@@ -54,7 +62,6 @@ export const getArtist = async (
     headers,
   });
   return data;
-
 };
 
 export const getArtistalbums = async (
@@ -78,7 +85,6 @@ export const getAlbum = async (
   id: string,
   accesstoken: string
 ): Promise<SpotifyDetailedAlbum> => {
-
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
@@ -106,8 +112,6 @@ export const searchSpotify = async (
   term: string,
   accesstoken: string
 ): Promise<SpotifySearchResult> => {
-
-
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
@@ -119,7 +123,6 @@ export const searchSpotify = async (
   );
 
   return data;
-
 };
 
 export const refreshToken = async (
@@ -146,8 +149,9 @@ export const refreshToken = async (
   return data;
 };
 
-export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> => {
-
+export const getSpotifyUser = async (
+  accesstoken: string
+): Promise<SpotifyUser> => {
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
@@ -159,48 +163,52 @@ export const getSpotifyUser = async (accesstoken: string): Promise<SpotifyUser> 
   return data;
 };
 
-export const getTokenForTesting = async (): Promise<SpotifyClientCredentialsFlowResponse> => {
-  // Client Credentials Flow token -> No access to user data
+export const getTokenForTesting =
+  async (): Promise<SpotifyClientCredentialsFlowResponse> => {
+    // Client Credentials Flow token -> No access to user data
 
-  const url = 'https://accounts.spotify.com/api/token';
+    const url = "https://accounts.spotify.com/api/token";
 
-  const basic = `Basic ${Buffer.from(
-    `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`
-  ).toString("base64")}`;
+    const basic = `Basic ${Buffer.from(
+      `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`
+    ).toString("base64")}`;
 
-  const tokenData = qs.stringify({
-    grant_type: "client_credentials",
-  });
+    const tokenData = qs.stringify({
+      grant_type: "client_credentials",
+    });
 
-  const headers = {
-    Authorization: basic,
-    "Content-Type": "application/x-www-form-urlencoded",
+    const headers = {
+      Authorization: basic,
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
+
+    const { data } = await axios.post<SpotifyTokenResponse>(url, tokenData, {
+      headers,
+    });
+
+    return data;
   };
 
-  const { data } = await axios.post<SpotifyTokenResponse>(url,
-    tokenData,
-    { headers }
-  );
-
-  return data;
-};
-
-export const getSpotifyDevices = async (accesstoken: string): Promise<SpotifyDevice[]> => {
-
+export const getSpotifyDevices = async (
+  accesstoken: string
+): Promise<SpotifyDevice[]> => {
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
     "Content-Type": "application/json",
   };
 
-  const { data } = await API.get<SpotifyDeviceResponse>(`/me/player/devices`, { headers });
+  const { data } = await API.get<SpotifyDeviceResponse>(`/me/player/devices`, {
+    headers,
+  });
 
   return data.devices;
-
 };
 
-export const changeSpotifyDevice = async (accesstoken: string, deviceid: string) => {
-
+export const changeSpotifyDevice = async (
+  accesstoken: string,
+  deviceid: string
+) => {
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
@@ -208,20 +216,19 @@ export const changeSpotifyDevice = async (accesstoken: string, deviceid: string)
   };
 
   const putData = {
-    device_ids: [deviceid]
-  }
+    device_ids: [deviceid],
+  };
 
   const { data } = await API.put(`/me/player/`, putData, { headers });
 
   return data;
-
-
 };
 
-
-
-API.interceptors.request.use((config) => {
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
+API.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

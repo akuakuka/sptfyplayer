@@ -22,13 +22,11 @@ const App: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="/app" element={<ArtistView />} />
-            <Route path={`/app/artist/:id`} element={<ArtistPage />} />
-            <Route path={`/app/album/:id`} element={<AlbumPage />} />
-            <Route path={`/app/search/:term`} element={<SearchResultPage />} />
-
+            <Route path="/app/artist/:id" element={<ArtistPage />} />
+            <Route path="/app/album/:id" element={<AlbumPage />} />
+            <Route path="/app/search/:term" element={<SearchResultPage />} />
           </Route>
         </Route>
-
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

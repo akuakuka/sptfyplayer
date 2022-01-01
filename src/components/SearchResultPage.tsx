@@ -4,13 +4,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {
   SearchResultAlbum,
-  SearchResultArtist
+  SearchResultArtist,
 } from "../../server/types/SpotifyTypes";
 import { search } from "../API/API";
 import { UIContext } from "../hooks/useUI";
 import Item from "./Item";
 import { SpinnerPage } from "./SpinnerPage";
-
 
 const SearchResultPage: React.FC = () => {
   const [artists, setArtists] = useState<SearchResultArtist[]>(Object);
@@ -36,18 +35,13 @@ const SearchResultPage: React.FC = () => {
     })();
   }, [term]);
 
-
   useEffect(() => {
-    UICOntext.setHeading(`Tulokset : ${term}`)
+    UICOntext.setHeading(`Tulokset : ${term}`);
   }, []);
-
-
-
 
   // TODO: Artist-itemit menee Albumien alle joillan vw
   return (
     <>
-
       <Flex>
         {loading ? (
           <SpinnerPage />
@@ -96,7 +90,6 @@ const SearchResultPage: React.FC = () => {
           </Container>
         )}
       </Flex>
-
     </>
   );
 };

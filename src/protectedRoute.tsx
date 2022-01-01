@@ -13,13 +13,13 @@ export const ProtectedRoute: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      console.log("ProtectedRoute useEffect")
+      console.log("ProtectedRoute useEffect");
       if (accessToken) {
-        setAuthenticated(true)
-        setReady(true)
+        setAuthenticated(true);
+        setReady(true);
       } else {
-        setAuthenticated(false)
-        setReady(true)
+        setAuthenticated(false);
+        setReady(true);
       }
     })();
   }, []);
@@ -29,5 +29,6 @@ export const ProtectedRoute: React.FC = () => {
       return <Navigate to="/login" state={{ from: location }} />;
     }
     return <Outlet />;
-  } return <SpinnerPage />;
+  }
+  return <SpinnerPage />;
 };

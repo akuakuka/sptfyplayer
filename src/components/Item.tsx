@@ -10,8 +10,6 @@ import { QueContext } from "../hooks/usePlayQue";
 import { getTrackUrisFromAlbum } from "../utils/dateUtils";
 import { IconButton } from "./IconButton";
 
-
-
 const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
   const device = usePlayerDevice();
   const accessToken = localStorage.getItem("accessToken") || "";

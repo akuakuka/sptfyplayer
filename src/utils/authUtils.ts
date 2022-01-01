@@ -14,9 +14,10 @@ export const refreshAccessToken = async (): Promise<string> => {
         localStorage.setItem("accessToken", response.access_token);
         return response.access_token;
       }
-    } return ""
+    }
+    return "";
   } catch (e) {
-    return ""
+    return "";
   }
 };
 
@@ -29,5 +30,3 @@ export const isAccessTokenValid = (): boolean => {
     return false;
   }
 };
-
-

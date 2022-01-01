@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import {
   usePlaybackState,
-  WebPlaybackSDK
+  WebPlaybackSDK,
 } from "react-spotify-web-playback-sdk";
 import { UIContext } from "../hooks/useUI";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
