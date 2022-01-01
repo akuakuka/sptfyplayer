@@ -33,11 +33,9 @@ const AlbumPage: React.FC = () => {
 
     // Sliced album tracks so if album is played from middle there will be next song
     if (album) {
-      console.log("handleplaysong album on ")
       const sliced = album?.tracks.items.slice(i)
       const slicedUrils = getTrackUrisFromAlbum(sliced);
       queContext.setQue(slicedUrils);
-
 
       if (device && accessToken) {
         play(accessToken, device?.device_id, slicedUrils);
