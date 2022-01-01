@@ -3,17 +3,16 @@ import "@fontsource/cabin";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-/* import { registerSW } from "virtual:pwa-register"; */
+//@ts-ignore
+import { registerSW } from 'virtual:pwa-register';
 import App from "./App";
 import { QueProvider } from "./hooks/usePlayQue";
 import { UIProvider } from "./hooks/useUI";
 import "./index.css";
 
 
-/* 
-registerSW(); */
+registerSW();
 
-// 
 const theme = extendTheme({
   colors: {
     red: "#870000",
@@ -32,7 +31,6 @@ const theme = extendTheme({
       300: "#2D3748",
       600: "#s1A202C",
       900: "#171923",
-
     }
   },
   shadows: {
