@@ -1,4 +1,4 @@
-import { Search2Icon } from "@chakra-ui/icons";
+import { MoonIcon, Search2Icon, SunIcon } from "@chakra-ui/icons";
 import { Box, BoxProps, Icon, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
@@ -108,6 +108,22 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
         </MotionBox>
       );
     }
+    if (variant == "sun") {
+      return (
+        <MotionBox whileHover={{ scale: 1.5 }} height="auto" width="auto" onClick={onClick}>
+          <SunIcon />
+        </MotionBox>
+      );
+    }
+    if (variant == "moon") {
+      return (
+        <MotionBox whileHover={{ scale: 1.5 }} height="auto" width="auto" onClick={onClick}>
+          <MoonIcon />
+        </MotionBox>
+      );
+    }
+
+
     return (
       <MotionBox whileHover={{ scale: 0.5, }} height="auto" width="auto">
         <Icon as={BsQuestionSquareFill} w={6} h={6} cursor="pointer" />

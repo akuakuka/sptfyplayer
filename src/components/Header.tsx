@@ -1,4 +1,4 @@
-import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/layout";
 import {
   Avatar,
@@ -116,8 +116,8 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
 
                 <Text>{colorMode === "dark" ? "Light" : "Dark"}</Text>
                 {/* <Switch size="md" onChange={() => toggleColorMode()} /> */}
+                <Box marginLeft={"auto"}>    <IconB aria-label='ColorMode' variant={colorMode === "dark" ? "sun" : "moon"} onClick={() => toggleColorMode()} /></Box>
 
-                <IconButton aria-label='ColorMode' icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />} onClick={() => toggleColorMode()} marginLeft={"auto"} />
               </Flex>
             </MenuItem>
             <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>

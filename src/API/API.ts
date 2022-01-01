@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   spotifyAlbum,
   spotifyArtist,
@@ -6,7 +5,8 @@ import {
   SpotifySearchResult,
   SpotifyTokenResponse,
   SpotifyUser
-} from "../../server/types/SpotifyTypes";
+} from "@spotifytypes";
+import axios from "axios";
 import { BASEURL, REFRESHURL } from "./../config";
 import { isAccessTokenValid } from "./../utils/authUtils";
 import { getExpiryDate } from "./../utils/dateUtils";

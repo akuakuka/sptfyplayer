@@ -16,7 +16,10 @@
     "noEmit": true,
     "jsx": "react",
     "noImplicitAny": false,
-    "types": ["vite/client", "node", "jest"]
+    "types": ["vite/client", "node", "jest"],
+    "paths": {
+      "spotifytypes": ["./server/types/"]
+    }
   },
   "include": ["src"]
 }
