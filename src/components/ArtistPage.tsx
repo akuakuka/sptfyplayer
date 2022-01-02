@@ -6,6 +6,7 @@ import { spotifyAlbum, spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtist, getArtistAlbums } from "../API/API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
+import { AnimatedRoute } from "./AnimateRoute";
 import Item from "./Item";
 import { ItemWrapper } from "./ItemWrapper";
 import { AlbumListView } from "./list/AlbumListView";
@@ -61,44 +62,50 @@ const ArtistPage: React.FC = () => {
   return (
     <Flex direction="column">
       {loading || albLoading ? (
-        <Center width="90vw">
-          <SpinnerPage />
-        </Center>
+        <AnimatedRoute>
+          <Center width="90vw">
+            <SpinnerPage />
+          </Center>
+        </AnimatedRoute>
       ) : (
         <>
-          {UICOntext.view === "LIST" ? (
-            <AlbumListView
-              albumList={albData ? uniqAlbums : []}
-              loading={loading || albLoading}
-            />
-          ) : (
-            <ItemWrapper>
-              <Heading width={"100vw"} padding={6}>
-                Albumit
-              </Heading>
-              {uniqAlbums
-                .filter((f) => f.name.toLowerCase().includes(UICOntext.filter))
-                .filter((s) => s.album_type === "album")
-                .map((a, i) => (
-                  <Item key={i} {...a} />
-                ))}
-              {UICOntext.singles && (
-                <>
-                  <Heading width={"100vw"} padding={6}>
-                    Singlet
-                  </Heading>
-                  {uniqAlbums
-                    .filter((f) =>
-                      f.name.toLowerCase().includes(UICOntext.filter)
-                    )
-                    .filter((s) => s.album_type === "single")
-                    .map((a, i) => (
-                      <Item key={i} {...a} />
-                    ))}
-                </>
-              )}
-            </ItemWrapper>
-          )}
+          <AnimatedRoute>
+            {UICOntext.view === "LIST" ? (
+              <AlbumListView
+                albumList={albData ? uniqAlbums : []}
+                loading={loading || albLoading}
+              />
+            ) : (
+              <ItemWrapper>
+                <Heading width={"100vw"} padding={6}>
+                  Albumit
+                </Heading>
+                {uniqAlbums
+                  .filter((f) =>
+                    f.name.toLowerCase().includes(UICOntext.filter)
+                  )
+                  .filter((s) => s.album_type === "album")
+                  .map((a, i) => (
+                    <Item key={i} {...a} />
+                  ))}
+                {UICOntext.singles && (
+                  <>
+                    <Heading width={"100vw"} padding={6}>
+                      Singlet
+                    </Heading>
+                    {uniqAlbums
+                      .filter((f) =>
+                        f.name.toLowerCase().includes(UICOntext.filter)
+                      )
+                      .filter((s) => s.album_type === "single")
+                      .map((a, i) => (
+                        <Item key={i} {...a} />
+                      ))}
+                  </>
+                )}
+              </ItemWrapper>
+            )}
+          </AnimatedRoute>
         </>
       )}
     </Flex>

@@ -13,6 +13,7 @@ import {
   getMinutesAndSecondsFromMs,
   getTrackUrisFromAlbum,
 } from "../utils/dateUtils";
+import { AnimatedRoute } from "./AnimateRoute";
 import { ItemWrapper } from "./ItemWrapper";
 import { MotionBox } from "./MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
@@ -68,58 +69,62 @@ const AlbumPage: React.FC = () => {
   return (
     <>
       {loading ? (
-        <SpinnerPage />
+        <AnimatedRoute>
+          <SpinnerPage />
+        </AnimatedRoute>
       ) : (
         <>
-          {album && (
-            <ItemWrapper>
-              <Flex
-                direction="column"
-                gridGap="10px"
-                wrap="wrap"
-                paddingTop="10px"
-              >
-                <Flex direction="row">
-                  <Flex
-                    direction="column"
-                    gridGap="6"
-                    wrap="wrap"
-                    width="40vw"
-                    paddingTop={10}
-                  >
-                    {album.tracks && (
-                      <>
-                        {album.tracks.items.map((t, i) => (
-                          <MotionBox
-                            whileHover={{ scale: 1.1, color: "#870000" }}
-                            key={t.id}
-                            cursor="pointer"
-                            onClick={() => handlePlaySong(t.uri, i)}
-                          >
-                            <Text>
-                              {t.name} {" - "}
-                              {getMinutesAndSecondsFromMs(t.duration_ms)}
-                            </Text>
-                          </MotionBox>
-                        ))}
-                      </>
-                    )}
+          <AnimatedRoute>
+            {album && (
+              <ItemWrapper>
+                <Flex
+                  direction="column"
+                  gridGap="10px"
+                  wrap="wrap"
+                  paddingTop="10px"
+                >
+                  <Flex direction="row">
+                    <Flex
+                      direction="column"
+                      gridGap="6"
+                      wrap="wrap"
+                      width="40vw"
+                      paddingTop={10}
+                    >
+                      {album.tracks && (
+                        <>
+                          {album.tracks.items.map((t, i) => (
+                            <MotionBox
+                              whileHover={{ scale: 1.1, color: "#870000" }}
+                              key={t.id}
+                              cursor="pointer"
+                              onClick={() => handlePlaySong(t.uri, i)}
+                            >
+                              <Text>
+                                {t.name} {" - "}
+                                {getMinutesAndSecondsFromMs(t.duration_ms)}
+                              </Text>
+                            </MotionBox>
+                          ))}
+                        </>
+                      )}
+                    </Flex>
+                    <Spacer />
+                    <Box
+                      width="40vw"
+                      marginLeft="auto"
+                      paddingRight="3"
+                      paddingTop={"15"}
+                    >
+                      {album.images && (
+                        <Image boxSize={"25vw"} src={album.images[0].url} />
+                      )}
+                    </Box>
                   </Flex>
-                  <Spacer />
-                  <Box
-                    width="40vw"
-                    marginLeft="auto"
-                    paddingRight="3"
-                    paddingTop={"15"}
-                  >
-                    {album.images && (
-                      <Image boxSize={"25vw"} src={album.images[0].url} />
-                    )}
-                  </Box>
                 </Flex>
-              </Flex>
-            </ItemWrapper>
-          )}
+              </ItemWrapper>
+            )}
+          </AnimatedRoute>
         </>
       )}
     </>

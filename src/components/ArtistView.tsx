@@ -4,6 +4,7 @@ import { spotifyArtist } from "../../server/types/SpotifyTypes";
 import { getArtists } from "../API/API";
 import { useAPI } from "../hooks/useApi";
 import { UIContext } from "../hooks/useUI";
+import { AnimatedRoute } from "./AnimateRoute";
 import Item from "./Item";
 import { ItemWrapper } from "./ItemWrapper";
 import { ListView } from "./list/ArtistListView";
@@ -33,30 +34,34 @@ const ArtistView: React.FC = () => {
   return (
     <>
       {loading ? (
-        <Center width="90vw">
-          <SpinnerPage />
-        </Center>
+        <AnimatedRoute>
+          <Center width="90vw">
+            <SpinnerPage />
+          </Center>
+        </AnimatedRoute>
       ) : (
         <>
-          {UICOntext.view === "LIST" ? (
-            <ListView artistsList={data ? data : []} loading={loading} />
-          ) : (
-            <>
-              {data && data.length ? (
-                <ItemWrapper>
-                  {data
-                    .filter((f) =>
-                      f.name.toLowerCase().includes(UICOntext.filter)
-                    )
-                    .map((a, i) => (
-                      <Item {...a} key={i} />
-                    ))}
-                </ItemWrapper>
-              ) : (
-                <> ei artisteja</>
-              )}
-            </>
-          )}
+          <AnimatedRoute>
+            {UICOntext.view === "LIST" ? (
+              <ListView artistsList={data ? data : []} loading={loading} />
+            ) : (
+              <>
+                {data && data.length ? (
+                  <ItemWrapper>
+                    {data
+                      .filter((f) =>
+                        f.name.toLowerCase().includes(UICOntext.filter)
+                      )
+                      .map((a, i) => (
+                        <Item {...a} key={i} />
+                      ))}
+                  </ItemWrapper>
+                ) : (
+                  <> ei artisteja</>
+                )}
+              </>
+            )}
+          </AnimatedRoute>
         </>
       )}
     </>

@@ -9,6 +9,7 @@ import { UIContext } from "../hooks/useUI";
 import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
 import Header from "./Header";
+import { MotionBox } from "./MotionBox";
 import { SubHeading } from "./SubHeading";
 
 // TODO: Wrapper omaan tiedostoon?
@@ -82,6 +83,11 @@ const Layout: React.FC = () => {
     },
     [accessToken]
   );
+  const pageMotion = {
+    initial: { opacity: 0, x: 0 },
+    animate: { opacity: 1, x: 100, transition: { duration: 2 } },
+    exit: { opacity: 0, x: 0, transition: { duration: 2 } },
+  };
 
   return (
     <>
@@ -95,7 +101,13 @@ const Layout: React.FC = () => {
           <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
           <Flex flex={1} overflow={"auto"} direction={"column"}>
             <SubHeading />
-            <Outlet />
+            <MotionBox
+              exit={{ opacity: 0, x: 0, y: 0 }}
+              initial={{ opacity: 0, x: 0, y: 0 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+            >
+              <Outlet />
+            </MotionBox>
           </Flex>
           <Footer handleVolume={handleVolume} volume={volume} />
         </Wrapper>
