@@ -40,7 +40,7 @@ describe("Testing dateUttils", () => {
   });
 
   it("getExpiryDate() is working ", () => {
-    //TODO:testing
+    // TODO:testing
   });
 
   it("getDateNow() is working ", () => {

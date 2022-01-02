@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import {
@@ -18,6 +18,7 @@ interface wrapperProps {
 }
 // Wrapper is used for getting spotify-sdk-hooks to below parent element level
 const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
+  const bgColor = useColorModeValue("brand.900", "brandDark.600");
   const playbackState = usePlaybackState();
   // TODO: SDK Error state
   const getAlbumArtFromPLaybackState = (
@@ -39,6 +40,7 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
           ? getAlbumArtFromPLaybackState(playbackState)
           : ""
       }
+      backgroundColor={bgColor}
       backgroundRepeat={"no-repeat"}
       backgroundSize={"cover"}
       backgroundAttachment={"fixed"}
