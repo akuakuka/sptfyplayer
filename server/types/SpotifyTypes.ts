@@ -80,6 +80,8 @@ export interface spotifyItem {
   type: string;
   images: spotifyImage[];
   href: string;
+  release_date?: string;
+  release_date_precision?: string;
 }
 
 export interface spotifyArtist {

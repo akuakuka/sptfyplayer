@@ -7,10 +7,20 @@ import { usePlayerDevice } from "react-spotify-web-playback-sdk";
 import { spotifyItem } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API/API";
 import { QueContext } from "../hooks/usePlayQue";
-import { getTrackUrisFromAlbum } from "../utils/dateUtils";
+import {
+  getAlbumReleaseYearFromDate,
+  getTrackUrisFromAlbum,
+} from "../utils/dateUtils";
 import { IconButton } from "./IconButton";
-
-const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
+// TODO: rethink this type
+const Item: React.FC<spotifyItem> = ({
+  images,
+  name,
+  id,
+  type,
+  release_date,
+  release_date_precision,
+}) => {
   const device = usePlayerDevice();
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -29,14 +39,14 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
       );
     }
   };
-
+  // TODO: rework this
   return (
     <Flex
       direction="column"
       backgroundColor={useColorModeValue("brand.800", "brandDark.900")}
       alignItems="center"
       width="150px"
-      height="180px"
+      height={type === "album" ? "210px" : "180px"}
       boxShadow={useColorModeValue("neored", "dark-lg")}
     >
       {type === "album" ? (
@@ -91,16 +101,19 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
       ) : (
         <>
           <Link to={`/app/${type}/${id}`} key={id}>
-            {images[0] && (
+            {images && (
               <MotionBox whileHover={{ scale: 1.1 }}>
                 <Avatar
                   src={
-                    images ? images[0].url : "https://via.placeholder.com/150"
+                    images[0]
+                      ? images[0].url
+                      : "https://via.placeholder.com/150"
                   }
                   boxSize="150px"
                   boxShadow="dark-lg"
                   loading={"lazy"}
                   alt={`${name} avatar-image`}
+                  fallbackSrc="https://via.placeholder.com/150"
                 />
               </MotionBox>
             )}
@@ -111,9 +124,22 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
         <Text isTruncated paddingX={2}>
           {name}
         </Text>
+        {release_date && release_date_precision && (
+          <>
+            <Text isTruncated paddingX={2}>
+              {getAlbumReleaseYearFromDate(
+                release_date,
+                release_date_precision
+              )}
+            </Text>
+          </>
+        )}
       </Box>
     </Flex>
   );
 };
 
 export default Item;
+
+/* release_date;
+release_date_precision; */
