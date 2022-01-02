@@ -7,8 +7,8 @@ import ArtistView from "./components/ArtistView";
 import Layout from "./components/Layout";
 import Login from "./components/Login";
 import SearchResultPage from "./components/SearchResultPage";
-import "./index.css";
 import { ProtectedRoute } from "./protectedRoute";
+
 // TODO : types from ../server path to alias
 const NotFound: React.FC = () => {
   return <Navigate to="/app" />;

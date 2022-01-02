@@ -64,6 +64,7 @@ const Login: React.FC = () => {
             rounded="md"
             bg="green.400"
             onClick={() => handleLogin()}
+            id="loginButton"
           >
             Login with spotify
           </Button>
