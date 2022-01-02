@@ -79,10 +79,13 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                 </Flex>
               </Box>
               <Image
-                src={images ? images[0].url : "https://via.placeholder.com/150"}
+                data-src={
+                  images ? images[0].url : "https://via.placeholder.com/150"
+                }
                 cursor="pointer"
                 boxSize="150px"
-                loading="lazy"
+                loading={"lazy"}
+                alt={`${name} cover-image`}
               />
             </Box>
           )}
