@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Heading,
   Input,
@@ -7,13 +8,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
 import { UIContext } from "../hooks/useUI";
 import { IconButton } from "./IconButton";
 
 export const SubHeading: React.FC = () => {
   const UICOntext = useContext(UIContext);
-  const location = useLocation();
 
   return (
     <Flex
@@ -25,42 +24,44 @@ export const SubHeading: React.FC = () => {
       alignItems={"center"}
       marginX="auto"
       marginTop={4}
+      justifyContent={"space-between"}
     >
-      <Heading>{UICOntext.heading}</Heading>
-      {!location.pathname.includes("/app/album/") && (
-        <Flex
-          marginLeft="auto"
-          direction={"row"}
-          gridGap="10"
-          p="3"
-          alignItems={"center"}
-        >
-          <Input
-            variant="flushed"
-            placeholder="Filtteröi"
-            value={UICOntext.filter}
-            onChange={(e) => UICOntext.setFilter(e.target.value)}
-          />
-          {UICOntext.heading !== "Seuratut artistit" && (
-            <Flex gridGap="2" p="3">
-              <Text>Singlet</Text>
-              <Switch
-                size="md"
-                isChecked={UICOntext.singles}
-                onChange={() => UICOntext.toggleSingles()}
-              />
-            </Flex>
-          )}
-          <IconButton
-            variant="list"
-            onClick={() => UICOntext.setView("LIST")}
-          />
-          <IconButton
-            variant="listimages"
-            onClick={() => UICOntext.setView("IMAGES")}
-          />
-        </Flex>
-      )}
+      <Box width={"40%"}>
+        <Heading>{UICOntext.heading}</Heading>
+      </Box>
+      <Input
+        variant="flushed"
+        placeholder="Filtteröi"
+        value={UICOntext.filter}
+        onChange={(e) => UICOntext.setFilter(e.target.value)}
+        width={"25%"}
+      />
+      <Box>
+        {UICOntext.page === "artistpage" && (
+          <Flex gridGap="2" p="3">
+            <Text>Singlet</Text>
+            <Switch
+              size="md"
+              isChecked={UICOntext.singles}
+              onChange={() => UICOntext.toggleSingles()}
+            />
+          </Flex>
+        )}
+      </Box>
+      <Flex direction={"row"} gap={6}>
+        {UICOntext.page !== "albumpage" && (
+          <>
+            <IconButton
+              variant="list"
+              onClick={() => UICOntext.setView("LIST")}
+            />
+            <IconButton
+              variant="listimages"
+              onClick={() => UICOntext.setView("IMAGES")}
+            />
+          </>
+        )}
+      </Flex>
     </Flex>
   );
 };

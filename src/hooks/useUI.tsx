@@ -1,11 +1,13 @@
 import React, { createContext, useState } from "react";
 
 interface defaultUI {
+  page: string;
   view: string;
   singles: boolean;
   heading: string;
   filter: string;
   spotifySearch: string;
+  setPage: (a: string) => void;
   setSpotifySearch: (a: string) => void;
   setFilter: (a: string) => void;
   setHeading: (h: string) => void;
@@ -21,7 +23,7 @@ const UIProvider = (props) => {
   const [view, setView] = useState<string>("IMAGES");
   const [singles, setSingless] = useState<boolean>(false);
   const [heading, setHeading] = useState<string>("");
-
+  const [page, setPage] = useState<string>("");
   const toggleSingles = () => setSingless(!singles);
 
   return (
@@ -32,11 +34,13 @@ const UIProvider = (props) => {
         heading,
         filter,
         spotifySearch,
+        page,
         setSpotifySearch,
         setFilter,
         setHeading,
         setView,
         toggleSingles,
+        setPage,
       }}
     >
       {props.children}

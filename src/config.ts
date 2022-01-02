@@ -1,6 +1,9 @@
+// @ts-nocheck
+// TODO : jest import.meta syntax babel?
 import packagejson from "../package.json";
-//@ts-ignore
+
 const HOMEPAGE = packagejson.homepage || "https://github.com/";
+
 const MODE = import.meta.env.MODE;
 
 const BASEURL =

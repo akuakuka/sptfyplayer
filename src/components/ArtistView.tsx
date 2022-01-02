@@ -25,7 +25,9 @@ const ArtistView: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    //TODO: page järkevämmin, enumtype?
     UICOntext.setHeading("Seuratut artistit");
+    UICOntext.setPage("artistview");
   }, []);
 
   return (

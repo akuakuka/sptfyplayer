@@ -58,6 +58,7 @@
     "start1": "tsc && node ./server/dist/index.js",
     "start": "npm run build && cd ./server && tsc && node --max_old_space_size=2560 dist/index.js",
     "test": "jest",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watchAll ",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "todo": "leasot './**/*.ts' './**/*.tsx' --ignore './node_modules/'"

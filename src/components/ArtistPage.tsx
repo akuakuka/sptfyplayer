@@ -38,6 +38,7 @@ const ArtistPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    UICOntext.setPage("artistpage");
     if (data?.name) {
       UICOntext.setHeading(data?.name);
     }

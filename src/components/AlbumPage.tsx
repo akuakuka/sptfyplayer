@@ -1,5 +1,5 @@
-import { Box, Flex } from "@chakra-ui/layout";
-import { Container, Image } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/layout";
+import { Image, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
@@ -10,8 +10,10 @@ import { QueContext } from "../hooks/usePlayQue";
 import { UIContext } from "../hooks/useUI";
 import {
   getAlbumReleaseYearFromDate,
+  getMinutesAndSecondsFromMs,
   getTrackUrisFromAlbum,
 } from "../utils/dateUtils";
+import { ItemWrapper } from "./ItemWrapper";
 import { MotionBox } from "./MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
 
@@ -49,6 +51,7 @@ const AlbumPage: React.FC = () => {
   };
 
   useEffect(() => {
+    UICOntext.setPage("albumpage");
     if (album) {
       UICOntext.setHeading(
         `${album.artists[0].name} - ${
@@ -69,7 +72,7 @@ const AlbumPage: React.FC = () => {
       ) : (
         <>
           {album && (
-            <Container height="calc( 100vh - 100px )" width="1600px">
+            <ItemWrapper>
               <Flex
                 direction="column"
                 gridGap="10px"
@@ -77,7 +80,13 @@ const AlbumPage: React.FC = () => {
                 paddingTop="10px"
               >
                 <Flex direction="row">
-                  <Flex direction="column" gridGap="6" wrap="wrap">
+                  <Flex
+                    direction="column"
+                    gridGap="6"
+                    wrap="wrap"
+                    width="40vw"
+                    paddingTop={10}
+                  >
                     {album.tracks && (
                       <>
                         {album.tracks.items.map((t, i) => (
@@ -87,21 +96,30 @@ const AlbumPage: React.FC = () => {
                             cursor="pointer"
                             onClick={() => handlePlaySong(t.uri, i)}
                           >
-                            {t.name}
+                            <Text>
+                              {t.name} {" - "}
+                              {getMinutesAndSecondsFromMs(t.duration_ms)}
+                            </Text>
                           </MotionBox>
                         ))}
                       </>
                     )}
                   </Flex>
-                  <Box width="40vw" marginLeft="auto" paddingRight="3">
+                  <Spacer />
+                  <Box
+                    width="40vw"
+                    marginLeft="auto"
+                    paddingRight="3"
+                    paddingTop={"15"}
+                  >
                     {album.images && (
-                      <Image maxHeight="500px" src={album.images[0].url} />
+                      <Image boxSize={"25vw"} src={album.images[0].url} />
                     )}
                   </Box>
                 </Flex>
               </Flex>
-            </Container>
-          )}{" "}
+            </ItemWrapper>
+          )}
         </>
       )}
     </>

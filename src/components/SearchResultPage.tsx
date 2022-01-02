@@ -36,6 +36,7 @@ const SearchResultPage: React.FC = () => {
   }, [term]);
 
   useEffect(() => {
+    UICOntext.setPage("searchpage");
     UICOntext.setHeading(`Tulokset : ${term}`);
   }, []);
 

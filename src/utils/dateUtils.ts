@@ -50,6 +50,14 @@ export const getDateNow = (): number => {
 export const getTrackUrisFromAlbum = (tracks: spotifyTrack[]) => {
   return tracks.map((t) => t.uri);
 };
+
 export const getIDFromSpotifyUri = (uri: string) => {
   return uri.split(":")[2];
+};
+
+//TODO: Hours?
+export const getMinutesAndSecondsFromMs = (ms: number): string => {
+  const minutes = Math.floor(ms / 60000);
+  const seconds = ((ms % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (+seconds < 10 ? "0" : "") + seconds;
 };
