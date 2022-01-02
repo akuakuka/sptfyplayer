@@ -9,11 +9,28 @@ export const ProtectedRoute: React.FC = () => {
   const expiryDate = localStorage.getItem("expiryDate");
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [ready, setReady] = useState<boolean>(false);
+  const [refreshReady, setRefreshReady] = useState<boolean>(false);
   //const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      console.log("ProtectedRoute useEffect");
+      /*      console.log("ProtectedRoute useEffect");
+      if (accessToken) {
+        console.log("ProtectedRoute accessToken found");
+        if (isAccessTokenValid()) {
+          console.log("ProtectedRoute accessToken valid");
+          setAuthenticated(true);
+          setReady(true);
+        } else {
+          console.log("ProtectedRoute accessToken expired");
+          await refreshAccessToken();
+          setRefreshReady(false);
+        }
+      } else {
+        setAuthenticated(false);
+        setReady(true);
+      } */
+
       if (accessToken) {
         setAuthenticated(true);
         setReady(true);

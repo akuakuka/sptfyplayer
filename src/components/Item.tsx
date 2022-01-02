@@ -79,9 +79,7 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                 </Flex>
               </Box>
               <Image
-                data-src={
-                  images ? images[0].url : "https://via.placeholder.com/150"
-                }
+                src={images ? images[0].url : "https://via.placeholder.com/150"}
                 cursor="pointer"
                 boxSize="150px"
                 loading={"lazy"}
@@ -101,7 +99,8 @@ const Item: React.FC<spotifyItem> = ({ images, name, id, type }) => {
                   }
                   boxSize="150px"
                   boxShadow="dark-lg"
-                  loading="lazy"
+                  loading={"lazy"}
+                  alt={`${name} avatar-image`}
                 />
               </MotionBox>
             )}

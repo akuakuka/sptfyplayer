@@ -9,6 +9,7 @@ import { useAPI } from "../hooks/useApi";
 import { QueContext } from "../hooks/usePlayQue";
 import { UIContext } from "../hooks/useUI";
 import {
+  getAlbumDuration,
   getAlbumReleaseYearFromDate,
   getMinutesAndSecondsFromMs,
   getTrackUrisFromAlbum,
@@ -119,6 +120,7 @@ const AlbumPage: React.FC = () => {
                       {album.images && (
                         <Image boxSize={"25vw"} src={album.images[0].url} />
                       )}
+                      <Text>Album duration : {getAlbumDuration(album)}</Text>
                     </Box>
                   </Flex>
                 </Flex>

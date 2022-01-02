@@ -29,7 +29,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   /*  const [term, setTerm] = useState<string>(""); */
   const { toggleColorMode, colorMode } = useColorMode();
-  const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "");
+  const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "{}");
   const UICOntext = useContext(UIContext);
   useDebounce(() => doSearch(UICOntext.spotifySearch), 1500, [
     UICOntext.spotifySearch,
@@ -105,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
             {user && (
               <MenuItem disabled={true} onClick={() => handleUserClick()}>
                 <Flex gridGap="3" alignItems="center">
-                  {user.images[0] && (
+                  {user.images && user.images[0] && (
                     <Avatar name={user.display_name} src={user.images[0].url} />
                   )}
                   {user.display_name && <Text>{user.display_name}</Text>}
@@ -133,10 +133,16 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
                 <Text>{colorMode === "dark" ? "Light" : "Dark"}</Text>
                 {/* <Switch size="md" onChange={() => toggleColorMode()} /> */}
 
-                <IconButton
+                {/*            <IconButton
                   aria-label="ColorMode"
                   icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
                   onClick={() => toggleColorMode()}
+                  marginLeft={"auto"}
+                /> */}
+                {colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+                <Switch
+                  size="md"
+                  onChange={() => toggleColorMode()}
                   marginLeft={"auto"}
                 />
               </Flex>

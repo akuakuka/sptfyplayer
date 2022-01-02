@@ -1,4 +1,8 @@
-import { spotifyImage, spotifyTrack } from "../../server/types/SpotifyTypes";
+import {
+  spotifyAlbum,
+  spotifyImage,
+  spotifyTrack,
+} from "../../server/types/SpotifyTypes";
 
 export const getAlbumReleaseYearFromDate = (
   date: string,
@@ -60,4 +64,11 @@ export const getMinutesAndSecondsFromMs = (ms: number): string => {
   const minutes = Math.floor(ms / 60000);
   const seconds = ((ms % 60000) / 1000).toFixed(0);
   return minutes + ":" + (+seconds < 10 ? "0" : "") + seconds;
+};
+
+export const getAlbumDuration = (alb: spotifyAlbum): string => {
+  let duration = 0;
+  alb.tracks.items.forEach((t) => (duration = t.duration_ms + duration));
+
+  return getMinutesAndSecondsFromMs(duration);
 };

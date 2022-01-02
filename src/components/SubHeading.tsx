@@ -25,9 +25,10 @@ export const SubHeading: React.FC = () => {
       marginX="auto"
       marginTop={4}
       justifyContent={"space-between"}
+      marginBottom={4}
     >
       <Box width={"40%"}>
-        <Heading>{UICOntext.heading}</Heading>
+        <Heading isTruncated>{UICOntext.heading}</Heading>
       </Box>
       <Input
         variant="flushed"
