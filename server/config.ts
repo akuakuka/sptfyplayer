@@ -1,6 +1,10 @@
 import dotenv from "dotenv";
-
-dotenv.config();
+const path =
+  process.env.NODE_ENV === "production"
+    ? `../.env.${process.env.NODE_ENV}`
+    : `../.env`;
+console.log({ path });
+dotenv.config({ path: path });
 
 // Spotify-WEB-Player-SDK : "streaming", "user-read-email", "user-read-private"
 const scopes = [
@@ -20,38 +24,30 @@ const scopes = [
 ];
 
 const {
+  FRONTEND_URL,
+  VITE_BACKEND_URL,
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,
-  SPOTIFY_CALLBACK_DEV,
-  SPOTIFY_CALLBACK_PROD,
-  FRONTEND_URL_DEV,
+  SPOTIFY_CALLBACK,
   NODE_ENV,
-  FRONTEND_URL_PROD,
-  VITE_BACKEND_URL_DEV,
 } = process.env;
 
-const FRONTEND_URL =
-  NODE_ENV !== "development" ? FRONTEND_URL_PROD : FRONTEND_URL_DEV;
-
-const BASEURL =
-  NODE_ENV !== "development" ? FRONTEND_URL_PROD : VITE_BACKEND_URL_DEV;
-
-const SPOTIFY_CALLBACK =
-  NODE_ENV !== "development" ? SPOTIFY_CALLBACK_PROD : SPOTIFY_CALLBACK_DEV;
-
-console.log({ SPOTIFY_CLIENTID });
-console.log({ SPOTIFY_SECRET });
-console.log({ SPOTIFY_CALLBACK });
-console.log({ FRONTEND_URL });
-console.log({ NODE_ENV });
-console.log({ BASEURL });
+console.log("CONFIGGI");
+console.log(
+  FRONTEND_URL,
+  VITE_BACKEND_URL,
+  SPOTIFY_CLIENTID,
+  SPOTIFY_SECRET,
+  SPOTIFY_CALLBACK,
+  NODE_ENV
+);
 
 export {
+  FRONTEND_URL,
+  VITE_BACKEND_URL,
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,
   SPOTIFY_CALLBACK,
   scopes,
-  FRONTEND_URL,
   NODE_ENV,
-  BASEURL,
 };

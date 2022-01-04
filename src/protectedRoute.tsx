@@ -14,6 +14,7 @@ export const ProtectedRoute: React.FC = () => {
 
   useEffect(() => {
     (async () => {
+      console.log("PRotected route useEffect");
       /*      console.log("ProtectedRoute useEffect");
       if (accessToken) {
         console.log("ProtectedRoute accessToken found");

@@ -16,6 +16,7 @@ app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth/", authRouter);
 
 if (NODE_ENV === "production") {
+  console.log("production mode ! ");
   const distpath = path.resolve(__dirname, "..", "..", "src", "dist");
   const indexpath = path.resolve(
     __dirname,
@@ -25,7 +26,8 @@ if (NODE_ENV === "production") {
     "dist",
     "index.html"
   );
-
+  console.log(indexpath);
+  console.log(distpath);
   app.use(express.static(distpath));
 
   app.get("*", (req, res) => {
@@ -36,19 +38,19 @@ if (NODE_ENV === "production") {
 const port = process.env.PORT || PORT;
 
 if (NODE_ENV !== "test") {
+  // supertest handles express app  instances when testing
   app.listen(port, () => {
     console.info(
       `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
     );
   });
 }
-/* 
-const handleErrors = (err, req, res, next) => {
+
+/* const handleErrors = (err, req, res, next) => {
   console.log(err.response.status);
   console.log(err.message);
 
   res.status(err.response.status).send({ message: err.message });
-
 };
 
 app.use(handleErrors);

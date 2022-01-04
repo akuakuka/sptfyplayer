@@ -1,12 +1,12 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import EnvironmentPlugin from "vite-plugin-environment";
-import { VitePWA } from "vite-plugin-pwa";
+/* import { VitePWA } from "vite-plugin-pwa"; */
 
 // EnvironmentPlugin so import.meta.key jest problem
 export default defineConfig({
   plugins: [
-    VitePWA({
+    /*     VitePWA({
       manifest: {
         lang: "fi",
         name: "sptfyplayer",
@@ -16,13 +16,9 @@ export default defineConfig({
         background_color: "#ffffff",
         theme_color: "#ffffff",
       },
-    }),
+    }), */
     react(),
-    EnvironmentPlugin([
-      "VITE_BACKEND_URL_DEV",
-      "VITE_BACKEND_URL_PROD",
-      "NODE_ENV",
-    ]),
+    EnvironmentPlugin(["VITE_BACKEND_URL", "NODE_ENV"]),
   ],
   server: { port: 3001 },
   envDir: "./server",
