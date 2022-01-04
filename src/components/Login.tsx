@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SpotifyUser } from "../../server/types/SpotifyTypes";
@@ -51,8 +52,14 @@ const Login: React.FC = () => {
     }
   }, [data]);
 
-  const handleLogin = () => {
-    window.location.href = LOGINURL;
+  const handleLogin = async () => {
+    /*     window.location.href = ; */
+    console.log("##########################");
+    console.log(LOGINURL);
+    const response = await axios.get(LOGINURL);
+    console.log(response.data.spotifyAuthUrl);
+    window.location.replace(response.data.spotifyAuthUrl);
+    /*   window.location.replace(LOGINURL); */
   };
 
   return (

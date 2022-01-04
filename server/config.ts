@@ -1,8 +1,11 @@
 import dotenv from "dotenv";
+/* {
+  path: __dirname + `/../.env.test`;
+} */
 const path =
   process.env.NODE_ENV === "production"
-    ? `../.env.${process.env.NODE_ENV}`
-    : `../.env`;
+    ? __dirname + `/../../.env.production`
+    : __dirname + `/../.env`;
 console.log({ path });
 dotenv.config({ path: path });
 
@@ -22,7 +25,7 @@ const scopes = [
   "streaming",
   "user-follow-read",
 ];
-
+console.log(process.env.FRONTEND_URL);
 const {
   FRONTEND_URL,
   VITE_BACKEND_URL,
@@ -30,7 +33,9 @@ const {
   SPOTIFY_SECRET,
   NODE_ENV,
 } = process.env;
+
 const SPOTIFY_CALLBACK = `${VITE_BACKEND_URL}/api/auth/callback`;
+
 console.log("CONFIGGI");
 console.log(
   FRONTEND_URL,

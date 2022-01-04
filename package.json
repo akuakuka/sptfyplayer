@@ -53,8 +53,8 @@
     "node": "17.x"
   },
   "scripts": {
-    "frontend": "NODE_ENV=development vite --host 0.0.0.0",
-    "backend": "NODE_ENV=development ts-node-dev --respawn  --project server/tsconfig.json ./server/index.ts",
+    "frontend": "export NODE_ENV=development && vite --host 0.0.0.0",
+    "backend": "export NODE_ENV=development && ts-node-dev --respawn  --project server/tsconfig.json ./server/index.ts",
     "dev": "npx concurrently \"npm run frontend\" \"npm run backend\"",
     "start1": "tsc && node ./server/dist/index.js",
     "start": "npm run build && cd ./server && tsc && node --max_old_space_size=2560 dist/index.js",

@@ -18,7 +18,7 @@ authRouter.get("/login", (req: Request, res: Response) => {
   console.log("authRouter /login");
   const scopesString = scopes.join(" ");
   const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENTID}&scope=${scopesString}&redirect_uri=${SPOTIFY_CALLBACK}&show_dialog=true`;
-  res.redirect(url);
+  res.json({ spotifyAuthUrl: url });
 });
 
 authRouter.post(

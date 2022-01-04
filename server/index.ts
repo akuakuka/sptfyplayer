@@ -13,7 +13,7 @@ export const app = express();
 app.use(cors({ credentials: true, origin: FRONTEND_URL }));
 
 app.use("/api/spotify", spotifyRouter);
-app.use("/api/auth/", authRouter);
+app.use("/api/auth", authRouter);
 
 if (NODE_ENV === "production") {
   console.log("production mode ! ");
@@ -46,7 +46,7 @@ if (NODE_ENV !== "test") {
   });
 }
 
-/* const handleErrors = (err, req, res, next) => {
+const handleErrors = (err, req, res, next) => {
   console.log(err.response.status);
   console.log(err.message);
 
@@ -54,4 +54,3 @@ if (NODE_ENV !== "test") {
 };
 
 app.use(handleErrors);
- */
