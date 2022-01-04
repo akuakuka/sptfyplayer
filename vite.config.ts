@@ -7,23 +7,14 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   plugins: [
     VitePWA({
-      registerType: "autoUpdate",
       manifest: {
         lang: "fi",
         name: "sptfyplayer",
-        scope: "/",
         display: "fullscreen",
-        start_url: ".",
-        short_name: "test",
+        start_url: "./login",
+        short_name: "sptfyplayer",
         background_color: "#ffffff",
         theme_color: "#ffffff",
-        /*         icons: [
-          {
-            src: "/favicon.png",
-            sizes: "48x48",
-            type: "image/png",
-          },
-        ], */
       },
     }),
     react(),

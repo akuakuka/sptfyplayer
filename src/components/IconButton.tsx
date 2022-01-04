@@ -15,6 +15,7 @@ interface IconButtonProps {
   variant: string;
   onClick?: () => void;
 }
+// TODO: react-icons build size error/warning
 const MotionBox = motion<BoxProps>(Box);
 // TODO: Rename because chakra has IconButton component
 // TODO: Get rid of ifs
