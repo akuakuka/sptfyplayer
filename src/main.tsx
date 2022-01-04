@@ -4,18 +4,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 // @ts-ignore
-/* import { registerSW } from "virtual:pwa-register"; */
+import { registerSW } from "virtual:pwa-register";
 import App from "./App";
 import { QueProvider } from "./hooks/usePlayQue";
 import { UIProvider } from "./hooks/useUI";
 import "./index.css";
-/* 
-registerSW(); */
+/*
+ */
 
 /*  */
 
 //
-
+registerSW();
 const theme = extendTheme({
   colors: {
     red: "#870000",
