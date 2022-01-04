@@ -9,7 +9,7 @@ export const useAPI = <T, E = string | undefined>(
   const toast = createStandaloneToast();
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<T | null>(null);
-  const [error, setError] = useState<AxiosError>(Object);
+  const [error, setError] = useState<AxiosError | Error>(Object);
 
   const execute = useCallback(async () => {
     setLoading(true);
@@ -18,7 +18,8 @@ export const useAPI = <T, E = string | undefined>(
       const response = await asyncFunction();
       setData(response);
       setLoading(false);
-    } catch (e) {
+      // @ts-ignore
+    } catch (e: Error | AxiosError) {
       console.log(e);
       setError(e);
       setLoading(false);

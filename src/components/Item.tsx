@@ -113,7 +113,6 @@ const Item: React.FC<spotifyItem> = ({
                   boxShadow="dark-lg"
                   loading={"lazy"}
                   alt={`${name} avatar-image`}
-                  fallbackSrc="https://via.placeholder.com/150"
                 />
               </MotionBox>
             )}
