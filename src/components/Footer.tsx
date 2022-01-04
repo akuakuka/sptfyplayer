@@ -164,9 +164,16 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
                     )}
                   </>
                 </Box>
-                <Flex direction="column" gridGap="1" width="30vw">
+                <Flex
+                  direction="column"
+                  gridGap="1"
+                  width="30vw"
+                  alignContent={"center"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
                   {playbackState && (
-                    <Text noOfLines={1} width="50vw">
+                    <Text noOfLines={1} width="50vw" isTruncated>
                       {playbackState.track_window.current_track.artists[0].name}{" "}
                       - {playbackState.track_window.current_track.name}
                     </Text>
