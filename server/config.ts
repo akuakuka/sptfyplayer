@@ -28,10 +28,9 @@ const {
   VITE_BACKEND_URL,
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,
-  SPOTIFY_CALLBACK,
   NODE_ENV,
 } = process.env;
-
+const SPOTIFY_CALLBACK = `${VITE_BACKEND_URL}/api/auth/callback`;
 console.log("CONFIGGI");
 console.log(
   FRONTEND_URL,
