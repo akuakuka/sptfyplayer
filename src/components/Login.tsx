@@ -30,7 +30,10 @@ const Login: React.FC = () => {
     (async () => {
       console.log("Login useEffefct");
       const accessToken = query.get("accessToken");
-
+      console.log("accessToken");
+      console.log(accessToken);
+      console.log("userToken");
+      console.log(userToken);
       if (accessToken) {
         console.log("if (accessToken)");
         localStorage.setItem("accessToken", accessToken);
