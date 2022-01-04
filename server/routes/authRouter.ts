@@ -64,9 +64,12 @@ authRouter.get(
       codeData,
       { headers }
     );
-
-    res.redirect(
+    console.log("callback");
+    console.log(
       `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
+    );
+    res.redirect(
+      `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}`
     );
   })
 );

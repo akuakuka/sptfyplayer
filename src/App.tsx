@@ -20,6 +20,7 @@ const App: React.FC = () => {
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="/app" element={<ArtistView />} />
@@ -28,8 +29,8 @@ const App: React.FC = () => {
             <Route path="/app/search/:term" element={<SearchResultPage />} />
           </Route>
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
+
+        {/*         <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </AnimatePresence>
   );
