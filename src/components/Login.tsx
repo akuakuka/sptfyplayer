@@ -24,9 +24,11 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     (async () => {
+      console.log("Login useEffefct");
       const accessToken = query.get("accessToken");
 
       if (accessToken) {
+        console.log("if (accessToken)");
         localStorage.setItem("accessToken", accessToken);
         const refreshToken = query.get("refreshToken");
         const expiryDate = getExpiryDate();
@@ -37,6 +39,7 @@ const Login: React.FC = () => {
 
         navigate("/app");
       } else if (userToken) {
+        console.log("else if (userToken)");
         navigate("/app");
       }
     })();
