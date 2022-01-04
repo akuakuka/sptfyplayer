@@ -42,14 +42,14 @@ if (NODE_ENV !== "test") {
     );
   });
 }
-
+/* 
 const handleErrors = (err, req, res, next) => {
   console.log(err.response.status);
   console.log(err.message);
 
-  /* res.status(err.response.status); */
   res.status(err.response.status).send({ message: err.message });
-  /*   next(); */
+
 };
 
 app.use(handleErrors);
+ */

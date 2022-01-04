@@ -19,10 +19,10 @@ const LOGINURL =
     ? `${process.env.VITE_BACKEND_URL_DEV}/api/auth/login`
     : `${process.env.VITE_BACKEND_URL_PROD}/api/auth/login`;
 
-/* console.log({ BASEURL });
+console.log({ BASEURL });
 console.log({ REFRESHURL });
 console.log({ MODE });
 console.log({ LOGINURL });
-console.log({ HOMEPAGE }); */
+console.log({ HOMEPAGE });
 
 export { BASEURL, REFRESHURL, MODE, LOGINURL, HOMEPAGE };
