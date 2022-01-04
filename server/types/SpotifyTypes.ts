@@ -312,3 +312,6 @@ export interface SpotifyDevice {
 export interface SpotifyDeviceResponse {
   devices: SpotifyDevice[];
 }
+export interface SpotifyLoginURLResponse {
+  spotifyAuthUrl: string;
+}

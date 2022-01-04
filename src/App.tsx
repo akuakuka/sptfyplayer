@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AlbumPage from "./components/AlbumPage";
 import ArtistPage from "./components/ArtistPage";
 import ArtistView from "./components/ArtistView";
@@ -11,9 +11,9 @@ import { ProtectedRoute } from "./protectedRoute";
 
 // TODO : types from ../server path to alias
 const NotFound: React.FC = () => {
-  /*  return <Navigate to="/app" />;  */
+  return <Navigate to="/app" />;
 
-  return <div>404</div>;
+  // return <div>404</div>;
 };
 
 const App: React.FC = () => {
