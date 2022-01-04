@@ -7,6 +7,7 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   plugins: [
     VitePWA({
+      includeAssets: ["favicon.svg", "favicon.png"],
       manifest: {
         lang: "fi",
         name: "sptfyplayer",
@@ -15,6 +16,14 @@ export default defineConfig({
         short_name: "sptfyplayer",
         background_color: "#ffffff",
         theme_color: "#ffffff",
+        description: "alternative client for spotify",
+        icons: [
+          {
+            src: "favicon.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
       },
     }),
     react(),
