@@ -33,6 +33,16 @@ if (NODE_ENV === "production") {
   });
 }
 
+const port = process.env.PORT || PORT;
+
+if (NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.info(
+      `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
+    );
+  });
+}
+
 const handleErrors = (err, req, res, next) => {
   console.log(err.response.status);
   console.log(err.message);
@@ -43,13 +53,3 @@ const handleErrors = (err, req, res, next) => {
 };
 
 app.use(handleErrors);
-
-const port = process.env.PORT || PORT;
-
-if (NODE_ENV !== "test") {
-  app.listen(port, () => {
-    console.info(
-      `Server listening on port ${port} MODE = ${process.env.NODE_ENV}`
-    );
-  });
-}
