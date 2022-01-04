@@ -30,6 +30,7 @@ const Login: React.FC = () => {
     (async () => {
       console.log("Login useEffefct");
       const accessToken = query.get("accessToken");
+      console.log(query);
       console.log("accessToken");
       console.log(accessToken);
       console.log("userToken");
