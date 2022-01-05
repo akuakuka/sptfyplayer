@@ -41,7 +41,7 @@ const Login: React.FC = () => {
         if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("expiryDate", expiryDate.toString());
 
-        /*  await execute(); */
+        await execute();
 
         navigate("/app");
       } else if (userToken) {
