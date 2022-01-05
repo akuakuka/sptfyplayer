@@ -40,6 +40,7 @@ authRouter.post(
 authRouter.get(
   "/callback",
   asyncMiddleware(async (req: Request, res: Response) => {
+    console.log("/callback");
     if (!req.query.code) res.sendStatus(400);
 
     const basic = `Basic ${Buffer.from(
