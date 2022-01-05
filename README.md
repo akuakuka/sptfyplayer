@@ -8,7 +8,7 @@ alternative client for Spotify with focus on albums
 https://developer.spotify.com/dashboard/login
 
 ### .env ###
-/server/.env 
+/.env 
 
 FRONTEND_URL=http://localhost:3001
 
