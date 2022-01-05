@@ -11,10 +11,15 @@ https://developer.spotify.com/dashboard/login
 /server/.env 
 
 FRONTEND_URL=http://localhost:3001
+
 VITE_BACKEND_URL=http://localhost:3000
+
 SPOTIFY_CLIENTID=
+
 SPOTIFY_SECRET=
+
 SPOTIFY_CALLBACK=http://localhost:3000/api/auth/callback
+
 
 ### Local ###
 npm install 
