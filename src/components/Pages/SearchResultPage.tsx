@@ -1,11 +1,8 @@
 import { Container, Flex, Heading } from "@chakra-ui/layout";
 import { Spacer } from "@chakra-ui/react";
+import { SearchResultAlbum, SearchResultArtist } from "@typings/SpotifyTypes";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import {
-  SearchResultAlbum,
-  SearchResultArtist,
-} from "../../../server/types/SpotifyTypes";
 import { search } from "../../API/API";
 import { UIContext } from "../../hooks/useUI";
 import Item from "../Item";

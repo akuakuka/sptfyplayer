@@ -14,9 +14,9 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { SpotifyUser } from "@typings/SpotifyTypes";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router";
-import { SpotifyUser } from "../../server/types/SpotifyTypes";
 import { HOMEPAGE } from "../config";
 import { useDebounce } from "../hooks/useDebounce";
 import { UIContext } from "../hooks/useUI";

@@ -9,10 +9,10 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { spotifyArtist } from "@typings/SpotifyTypes";
 import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { spotifyArtist } from "../../../server/types/SpotifyTypes";
 import { UIContext } from "../../hooks/useUI";
 import { ItemWrapper } from "../ItemWrapper";
 import { SpinnerPage } from "../Pages/SpinnerPage";

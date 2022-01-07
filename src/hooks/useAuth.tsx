@@ -1,5 +1,5 @@
+import { SpotifyUser } from "@typings/SpotifyTypes";
 import React, { createContext, useState } from "react";
-import { SpotifyUser } from "../../server/types/SpotifyTypes";
 
 interface defaultAuth {
   user: SpotifyUser;

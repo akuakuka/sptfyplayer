@@ -1,9 +1,9 @@
 import { Box, Flex, Spacer } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
+import { spotifyAlbum } from "@typings/SpotifyTypes";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../../API/API";
 import { useAPI } from "../../hooks/useApi";
 import { QueContext } from "../../hooks/usePlayQue";

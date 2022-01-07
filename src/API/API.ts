@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   spotifyAlbum,
   spotifyArtist,
@@ -6,7 +5,8 @@ import {
   SpotifySearchResult,
   SpotifyTokenResponse,
   SpotifyUser,
-} from "../../server/types/SpotifyTypes";
+} from "@typings/SpotifyTypes";
+import axios from "axios";
 import { refreshAccessToken } from "../utils/authUtils";
 import { BASEURL, REFRESHURL } from "./../config";
 // TODO: project paths for typigns

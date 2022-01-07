@@ -15,6 +15,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { SpotifyDevice, SpotifyUser } from "@typings/SpotifyTypes";
 import React, { useEffect, useState } from "react";
 import { MdComputer, MdDevices, MdSmartphone, MdSpeaker } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +25,6 @@ import {
   useSpotifyPlayer,
   useWebPlaybackSDKReady,
 } from "react-spotify-web-playback-sdk";
-import { SpotifyDevice, SpotifyUser } from "../../server/types/SpotifyTypes";
 import { changeDevice, getDevices } from "../API/API";
 import { getIDFromSpotifyUri } from "../utils/dateUtils";
 import { IconButton as IconB } from "./IconButton";

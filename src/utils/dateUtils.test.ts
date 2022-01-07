@@ -1,4 +1,4 @@
-import { spotifyImage } from "../../server/types/SpotifyTypes";
+import { spotifyImage } from "@typings/SpotifyTypes";
 import {
   getAlbumReleaseYearFromDate,
   getIDFromSpotifyUri,

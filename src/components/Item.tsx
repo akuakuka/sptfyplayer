@@ -1,10 +1,10 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Avatar, BoxProps, Image, useColorModeValue } from "@chakra-ui/react";
+import { spotifyItem } from "@typings/SpotifyTypes";
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyItem } from "../../server/types/SpotifyTypes";
 import { getAlbum, play } from "../API/API";
 import { QueContext } from "../hooks/usePlayQue";
 import {

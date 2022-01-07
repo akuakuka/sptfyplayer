@@ -32,7 +32,15 @@ export default defineConfig({
   server: { port: 3001 },
   envDir: "./server",
   root: "./src",
+  resolve: {
+    alias: {
+      "@typings": "./server/types/",
+    },
+  },
   build: {
     outDir: "./dist",
   },
 });
+/*  alias:{
+      '@' : path.resolve(__dirname, './src')
+    }, */

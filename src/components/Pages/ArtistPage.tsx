@@ -1,11 +1,8 @@
 import { Center, Flex, Heading } from "@chakra-ui/layout";
 import { useColorModeValue } from "@chakra-ui/react";
+import { spotifyAlbum, spotifyArtist } from "@typings/SpotifyTypes";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  spotifyAlbum,
-  spotifyArtist,
-} from "../../../server/types/SpotifyTypes";
 import { getArtist, getArtistAlbums } from "../../API/API";
 import { useAPI } from "../../hooks/useApi";
 import { UIContext } from "../../hooks/useUI";

@@ -1,12 +1,9 @@
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
+import { SpotifyLoginURLResponse, SpotifyUser } from "@typings/SpotifyTypes";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  SpotifyLoginURLResponse,
-  SpotifyUser,
-} from "../../../server/types/SpotifyTypes";
 import { getUser } from "../../API/API";
 import { LOGINURL } from "../../config";
 import { useAPI } from "../../hooks/useApi";

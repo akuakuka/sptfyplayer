@@ -2,7 +2,7 @@ import {
   spotifyAlbum,
   spotifyImage,
   spotifyTrack,
-} from "../../server/types/SpotifyTypes";
+} from "@typings/SpotifyTypes";
 
 export const getAlbumReleaseYearFromDate = (
   date: string,
