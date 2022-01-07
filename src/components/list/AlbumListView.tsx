@@ -16,7 +16,7 @@ import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
 import { UIContext } from "../../hooks/useUI";
 import { getAlbumReleaseYearFromDate } from "../../utils/dateUtils";
 import { ItemWrapper } from "../ItemWrapper";
-import { SpinnerPage } from "../SpinnerPage";
+import { SpinnerPage } from "../Pages/SpinnerPage";
 
 /* interface sortStatus {
     column: string;

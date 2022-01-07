@@ -6,11 +6,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   SpotifyLoginURLResponse,
   SpotifyUser,
-} from "../../server/types/SpotifyTypes";
-import { getUser } from "../API/API";
-import { LOGINURL } from "../config";
-import { useAPI } from "../hooks/useApi";
-import { getExpiryDate } from "../utils/dateUtils";
+} from "../../../server/types/SpotifyTypes";
+import { getUser } from "../../API/API";
+import { LOGINURL } from "../../config";
+import { useAPI } from "../../hooks/useApi";
+import { getExpiryDate } from "../../utils/dateUtils";
 import { SpinnerPage } from "./SpinnerPage";
 
 const useQuery = () => {

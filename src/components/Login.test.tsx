@@ -64,19 +64,3 @@ it("Redirects to loginpath when button pressed", () => {
   /*  */
   /*  expect(document.location.href).toBe("You clicked 1 times"); */
 });
-
-/* ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <QueProvider>
-          <UIProvider>
-            <App />
-          </UIProvider>
-        </QueProvider>
-      </ChakraProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
- */

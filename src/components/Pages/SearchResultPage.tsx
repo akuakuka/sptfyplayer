@@ -5,10 +5,10 @@ import { useParams } from "react-router";
 import {
   SearchResultAlbum,
   SearchResultArtist,
-} from "../../server/types/SpotifyTypes";
-import { search } from "../API/API";
-import { UIContext } from "../hooks/useUI";
-import Item from "./Item";
+} from "../../../server/types/SpotifyTypes";
+import { search } from "../../API/API";
+import { UIContext } from "../../hooks/useUI";
+import Item from "../Item";
 import { SpinnerPage } from "./SpinnerPage";
 
 const SearchResultPage: React.FC = () => {

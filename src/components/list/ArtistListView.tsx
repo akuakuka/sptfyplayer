@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { spotifyArtist } from "../../../server/types/SpotifyTypes";
 import { UIContext } from "../../hooks/useUI";
 import { ItemWrapper } from "../ItemWrapper";
-import { SpinnerPage } from "../SpinnerPage";
+import { SpinnerPage } from "../Pages/SpinnerPage";
 
 /* interface sortStatus {
     column: string;

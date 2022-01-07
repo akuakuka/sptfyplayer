@@ -3,20 +3,20 @@ import { Image, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { usePlayerDevice } from "react-spotify-web-playback-sdk";
-import { spotifyAlbum } from "../../server/types/SpotifyTypes";
-import { getAlbum, play } from "../API/API";
-import { useAPI } from "../hooks/useApi";
-import { QueContext } from "../hooks/usePlayQue";
-import { UIContext } from "../hooks/useUI";
+import { spotifyAlbum } from "../../../server/types/SpotifyTypes";
+import { getAlbum, play } from "../../API/API";
+import { useAPI } from "../../hooks/useApi";
+import { QueContext } from "../../hooks/usePlayQue";
+import { UIContext } from "../../hooks/useUI";
 import {
   getAlbumDuration,
   getAlbumReleaseYearFromDate,
   getMinutesAndSecondsFromMs,
   getTrackUrisFromAlbum,
-} from "../utils/dateUtils";
-import { AnimatedRoute } from "./AnimateRoute";
-import { ItemWrapper } from "./ItemWrapper";
-import { MotionBox } from "./MotionBox";
+} from "../../utils/dateUtils";
+import { AnimatedRoute } from "../AnimateRoute";
+import { ItemWrapper } from "../ItemWrapper";
+import { MotionBox } from "../MotionBox";
 import { SpinnerPage } from "./SpinnerPage";
 
 const AlbumPage: React.FC = () => {

@@ -1,12 +1,12 @@
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import AlbumPage from "./components/AlbumPage";
-import ArtistPage from "./components/ArtistPage";
-import ArtistView from "./components/ArtistView";
 import Layout from "./components/Layout";
-import Login from "./components/Login";
-import SearchResultPage from "./components/SearchResultPage";
+import AlbumPage from "./components/Pages/AlbumPage";
+import ArtistPage from "./components/Pages/ArtistPage";
+import ArtistView from "./components/Pages/ArtistView";
+import Login from "./components/Pages/Login";
+import SearchResultPage from "./components/Pages/SearchResultPage";
 import { ProtectedRoute } from "./protectedRoute";
 
 // TODO : types from ../server path to alias
