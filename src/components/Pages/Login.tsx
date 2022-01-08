@@ -1,11 +1,9 @@
 import { Flex } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/react";
 import { SpotifyLoginURLResponse, SpotifyUser } from "@typings/SpotifyTypes";
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getUser } from "../../API/API";
-import { LOGINURL } from "../../config";
+import { getLoginURL, getUser } from "../../API/API";
 import { useAPI } from "../../hooks/useApi";
 import { getExpiryDate } from "../../utils/dateUtils";
 import { SpinnerPage } from "./SpinnerPage";
@@ -19,6 +17,12 @@ const Login: React.FC = () => {
     () => getUser(),
     false
   );
+  const {
+    execute: executeLogin,
+    loading: loadingLogin,
+    data: dataLogin,
+    error: errorLogin,
+  } = useAPI<SpotifyLoginURLResponse>(() => getLoginURL(), false);
   const navigate = useNavigate();
   const query = useQuery();
   const userToken = localStorage.getItem("accessToken") || "";
@@ -55,12 +59,17 @@ const Login: React.FC = () => {
   }, [data]);
 
   const handleLogin = async () => {
+    await executeLogin();
     /*     window.location.href = ; */
-    console.log("##########################");
-    console.log(LOGINURL);
-    const { data } = await axios.get<SpotifyLoginURLResponse>(LOGINURL);
 
-    window.location.replace(data.spotifyAuthUrl);
+    // const { data } = await axios.get<SpotifyLoginURLResponse>(LOGINURL);
+
+    if (dataLogin) {
+      if (dataLogin.spotifyAuthUrl) {
+        window.location.replace(dataLogin.spotifyAuthUrl);
+      }
+    }
+
     /*   window.location.replace(LOGINURL); */
   };
 

@@ -131,8 +131,6 @@ export const searchSpotify = async (
 export const refreshToken = async (
   refreshtoken: string
 ): Promise<SpotifyTokenResponse> => {
-  console.log("spotify service refreshtoken");
-
   const basic = `Basic ${Buffer.from(
     `${SPOTIFY_CLIENTID}:${SPOTIFY_SECRET}`
   ).toString("base64")}`;
@@ -146,19 +144,13 @@ export const refreshToken = async (
     Authorization: basic,
     "Content-Type": "application/x-www-form-urlencoded",
   };
-  console.log(
-    "((((((((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))))))))"
-  );
+
   const { data } = await REFRESHTOKENAPI.post<SpotifyTokenResponse>(
     "/token",
     refreshTokenData,
     { headers }
   );
 
-  console.log(data);
-  console.log(
-    "========================================================================================"
-  );
   return data;
 };
 
@@ -231,7 +223,7 @@ export const changeSpotifyDevice = async (
   const putData = {
     device_ids: [deviceid],
   };
-
+  //TODO: typings
   const { data } = await API.put(`/me/player/`, putData, { headers });
 
   return data;
@@ -239,49 +231,32 @@ export const changeSpotifyDevice = async (
 
 API.interceptors.request.use(
   (config) => {
-    console.log("API.interceptors.request.use(");
-    console.log(`${config.baseURL} ${config.url}`);
     return config;
   },
   (error) => {
-    console.log("API.interceptors.request.use( ERROR ERROR ERROR ");
     return Promise.reject(error);
+    // throw error;
   }
 );
 
 REFRESHTOKENAPI.interceptors.request.use(
   (config) => {
-    console.log("REFRESHTOKENAPI INTERCEOPTPROs");
-    console.log(`${config.baseURL} ${config.url}`);
     return config;
   },
   (error) => {
-    console.log("REFRESHTOKENAPI ERROR ERROR ERROR ");
     return Promise.reject(error);
+    //throw error;
   }
 );
 
-API.interceptors.response.use(
-  (response) => {
-    console.log("API response 200");
-    const status = response.status;
-    console.log({ status });
-    return response;
-  },
-  async (error) => {
-    console.log("API.interceptors.RESPONSE .error(");
-    return Promise.reject(error);
-  }
-);
 REFRESHTOKENAPI.interceptors.response.use(
   (response) => {
-    console.log("REFRESHTOKENAPI response 200");
     const status = response.status;
-    console.log({ status });
+
     return response;
   },
   async (error) => {
-    console.log("REFRESHTOKENAPI.interceptors.RESPONSE .error(");
+    //  throw error;
     return Promise.reject(error);
   }
 );

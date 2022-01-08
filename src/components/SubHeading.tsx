@@ -26,6 +26,7 @@ export const SubHeading: React.FC = () => {
       marginTop={4}
       justifyContent={"space-between"}
       marginBottom={4}
+      padding={4}
     >
       <Box width={"40%"}>
         <Heading isTruncated>{UICOntext.heading}</Heading>

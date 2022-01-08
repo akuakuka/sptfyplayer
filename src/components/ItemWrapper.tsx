@@ -25,10 +25,34 @@ export const ItemWrapper: React.FC<ItemWrapperProps> = ({
           {children}
         </Flex>
       ) : (
-        <Flex direction={"row"} wrap={"wrap"} justifyContent={"center"} gap={2}>
+        <Flex
+          direction={"row"}
+          wrap={"wrap"}
+          justifyContent={"center"}
+          gap={2}
+          /*        _after={{
+            content: '""',
+            justifyContent: "flex-start",
+          }} */
+          /*   sx={{ "&:after": { "'content'": "", flex: "'auto'" } }} */
+        >
           {children}
         </Flex>
       )}
     </>
   );
 };
+
+/* 
+sx={{
+        '.my-box:hover &': {
+          color: 'green.500',
+        },
+      }}
+
+
+
+        &:after {
+    content: "";
+    flex: auto;
+  } */

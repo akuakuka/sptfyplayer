@@ -20,13 +20,12 @@ const LOGINURL =
     : `${process.env.VITE_BACKEND_URL_PROD}/api/auth/login`; */
 
 const BASEURL = `${process.env.VITE_BACKEND_URL}/api/spotify`;
-const REFRESHURL = `${process.env.VITE_BACKEND_URL}/api/auth/refresh`;
-const LOGINURL = `${process.env.VITE_BACKEND_URL}/api/auth/login`;
+const AUTHURL = `${process.env.VITE_BACKEND_URL}/api/auth/`;
 
 console.log({ BASEURL });
-console.log({ REFRESHURL });
+
 console.log({ MODE });
-console.log({ LOGINURL });
+console.log({ AUTHURL });
 console.log({ HOMEPAGE });
 
-export { BASEURL, REFRESHURL, MODE, LOGINURL, HOMEPAGE };
+export { BASEURL, AUTHURL, MODE, HOMEPAGE };

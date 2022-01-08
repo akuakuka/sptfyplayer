@@ -2,21 +2,21 @@ import {
   spotifyAlbum,
   spotifyArtist,
   SpotifyDevice,
+  SpotifyLoginURLResponse,
   SpotifySearchResult,
   SpotifyTokenResponse,
   SpotifyUser,
 } from "@typings/SpotifyTypes";
 import axios from "axios";
-import { refreshAccessToken } from "../utils/authUtils";
-import { BASEURL, REFRESHURL } from "./../config";
+import { AUTHURL, BASEURL } from "./../config";
 // TODO: project paths for typigns
 
 const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
 export const API = axios.create({ baseURL: BASEURL });
 
-const REFRESHTOKENAPI = axios.create({
-  baseURL: `${REFRESHURL}`,
+const AUTHAPI = axios.create({
+  baseURL: `${AUTHURL}`,
 });
 
 export const play = (token: string, deviceID: string, ids: string[]): void => {
@@ -31,11 +31,19 @@ export const play = (token: string, deviceID: string, ids: string[]): void => {
     data
   );
 };
+
+export const getLoginURL = async (): Promise<SpotifyLoginURLResponse> => {
+  /*   /api/ahtu / login;
+  LOGINURL; */
+  const { data } = await AUTHAPI.get<SpotifyLoginURLResponse>(`/login`);
+  return data;
+};
+
 export const refreshToken = async (
   token: string
 ): Promise<SpotifyTokenResponse> => {
-  const { data } = await REFRESHTOKENAPI.post<SpotifyTokenResponse>(
-    `/${token}`
+  const { data } = await AUTHAPI.post<SpotifyTokenResponse>(
+    `/refresh/${token}`
   );
   return data;
 };
@@ -95,23 +103,33 @@ API.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log("interceptors response 400");
     console.log(error);
-    console.log(Object.keys(error));
-    console.log(error.config);
-    console.log(error.response);
-
     const originalRequest = error.config;
+
+    if (!error.response) {
+      console.log("!error.response.status");
+      return Promise.reject(error);
+    }
     const status = error.response.status;
-    console.log(status);
-    console.log({ status });
     if ((status === 401 || status === 403) && !originalRequest._retry) {
       console.log("400 error. refreshing");
       originalRequest._retry = true;
-      await refreshAccessToken();
+      //  await refreshAccessToken();
+      const refreshtoken = localStorage.getItem("refreshToken");
+      if (refreshtoken) {
+        const response = await refreshToken(refreshtoken);
+        if (response.access_token) {
+          const expiryDate = new Date(
+            new Date().setHours(new Date().getHours() + 1)
+          ).valueOf();
+          localStorage.setItem("expiryDate", expiryDate.toString());
+          localStorage.setItem("accessToken", response.access_token);
+        }
+      }
+
       return API(originalRequest);
     }
-    console.log("promise rejecting");
+
     return Promise.reject(error);
   }
 );
@@ -128,7 +146,7 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-REFRESHTOKENAPI.interceptors.request.use(
+AUTHAPI.interceptors.request.use(
   (config) => {
     console.log("REFRESHTOKENAPI ");
     return config;
@@ -137,3 +155,27 @@ REFRESHTOKENAPI.interceptors.request.use(
 );
 
 // TODO : handle 400 if trying to access wrong album or artist id
+
+/*   try {
+    const refreshtoken = localStorage.getItem("refreshToken");
+    if (refreshtoken) {
+      console.log("refreshAccessToken");
+      const response = await refreshToken(refreshtoken);
+      console.log(response);
+      if (response.access_token) {
+        const expiryDate = new Date(
+          new Date().setHours(new Date().getHours() + 1)
+        ).valueOf();
+        localStorage.setItem("expiryDate", expiryDate.toString());
+        localStorage.setItem("accessToken", response.access_token);
+        return response.access_token;
+      }
+    }
+    return "";
+  } catch (e) {
+    console.log("refreshAccessToken error");
+    console.log(e);
+    return "";
+  }
+
+ */
