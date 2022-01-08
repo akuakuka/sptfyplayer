@@ -43,38 +43,37 @@ export const ListView: React.FC<ListViewProps> = ({ artistsList, loading }) => {
 
   const handleSortChange = (column: string) => {
     // NAME	FOLLOWERS	POPULARITY
-    console.log(sortStatus);
+    const copy = [...artists];
     if (column === "NAME") {
       if (sortStatus === "NAME") {
-        setArtists(artists.reverse());
+        setArtists(copy.reverse());
+      } else {
+        setArtists(
+          copy.sort((a, b) =>
+            a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+          )
+        );
       }
-      setArtists(
-        artists.sort((a, b) =>
-          a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-        )
-      );
     }
 
     if (column === "POPULARITY") {
       if (sortStatus === "POPULARITY") {
-        setArtists(artists.reverse());
+        setArtists(copy.reverse());
+      } else {
+        setArtists(copy.sort((a, b) => (a.popularity > b.popularity ? 1 : -1)));
       }
-      setArtists(
-        artists.sort((a, b) => (a.popularity > b.popularity ? 1 : -1))
-      );
     }
 
     if (column === "FOLLOWERS") {
       if (sortStatus === "FOLLOWERS") {
         setArtists(
-          artists.sort((a, b) =>
-            a.followers.total < b.followers.total ? 1 : -1
-          )
+          copy.sort((a, b) => (a.followers.total < b.followers.total ? 1 : -1))
+        );
+      } else {
+        setArtists(
+          copy.sort((a, b) => (a.followers.total > b.followers.total ? 1 : -1))
         );
       }
-      setArtists(
-        artists.sort((a, b) => (a.followers.total > b.followers.total ? 1 : -1))
-      );
     }
     setSortStatus(column);
     //    objs.sort((a, b) => a.last_nom.localeCompare(b.last_nom));
