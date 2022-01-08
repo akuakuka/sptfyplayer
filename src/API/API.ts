@@ -15,6 +15,10 @@ const SPOTIFYBASEURL = "https://api.spotify.com/v1";
 
 export const API = axios.create({ baseURL: BASEURL });
 
+const REFRESHTOKENAPI = axios.create({
+  baseURL: `${REFRESHURL}`,
+});
+
 export const play = (token: string, deviceID: string, ids: string[]): void => {
   const data = {
     headers: {
@@ -30,8 +34,8 @@ export const play = (token: string, deviceID: string, ids: string[]): void => {
 export const refreshToken = async (
   token: string
 ): Promise<SpotifyTokenResponse> => {
-  const { data } = await axios.post<SpotifyTokenResponse>(
-    `${REFRESHURL}/${token}`
+  const { data } = await REFRESHTOKENAPI.post<SpotifyTokenResponse>(
+    `/${token}`
   );
   return data;
 };
@@ -85,16 +89,29 @@ export const changeDevice = async (
 
 API.interceptors.response.use(
   (response) => {
+    console.log("interceptors response 200");
+    const status = response.status;
+    console.log({ status });
     return response;
   },
   async (error) => {
+    console.log("interceptors response 400");
+    console.log(error);
+    console.log(Object.keys(error));
+    console.log(error.config);
+    console.log(error.response);
+
     const originalRequest = error.config;
     const status = error.response.status;
-    if (status === 401 && !originalRequest._retry) {
+    console.log(status);
+    console.log({ status });
+    if ((status === 401 || status === 403) && !originalRequest._retry) {
+      console.log("400 error. refreshing");
       originalRequest._retry = true;
       await refreshAccessToken();
       return API(originalRequest);
     }
+    console.log("promise rejecting");
     return Promise.reject(error);
   }
 );
@@ -110,3 +127,13 @@ API.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+
+REFRESHTOKENAPI.interceptors.request.use(
+  (config) => {
+    console.log("REFRESHTOKENAPI ");
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// TODO : handle 400 if trying to access wrong album or artist id

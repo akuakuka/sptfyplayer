@@ -23,14 +23,17 @@ spotifyRouter.get(
   })
 );
 
-spotifyRouter.get(
-  "/artist/:id",
-  asyncMiddleware(async (req: Request, res: Response) => {
-    const authorization = req.headers.authorization || "";
+spotifyRouter.get("/artist/:id", async (req: Request, res: Response) => {
+  const authorization = req.headers.authorization || "";
+  try {
+    console.log("tryyyyyyyyyyyyyyy");
     const resp = await getArtist(req.params.id, authorization);
     res.json(resp);
-  })
-);
+  } catch (e) {
+    console.log("EEEEEEEEEEEEEEEEE");
+    console.log(e);
+  }
+});
 
 spotifyRouter.get(
   "/artist/:id/albums",

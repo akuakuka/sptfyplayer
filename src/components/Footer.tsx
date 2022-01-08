@@ -47,12 +47,12 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "{}");
   const bgColor = useColorModeValue("brand.500", "brandDark.900");
   const navigate = useNavigate();
+
   // Change spotify device when connected
   useEffect(() => {
     (async () => {
       if (!initialCheck) {
         if (device) {
-          console.log(device);
           await changeDevice(device.device_id);
           setInitialCheck(true);
         }

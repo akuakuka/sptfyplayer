@@ -14,12 +14,12 @@ export const useAPI = <T, E = string | undefined>(
   const execute = useCallback(async () => {
     setLoading(true);
     setData(null);
-    try {
-      const response = await asyncFunction();
-      setData(response);
-      setLoading(false);
-      // @ts-ignore
-    } catch (e: Error | AxiosError) {
+    /*     try { */
+    const response = await asyncFunction();
+    setData(response);
+    setLoading(false);
+    // @ts-ignore
+    /*     } catch (e: Error | AxiosError) {
       console.log(e);
       setError(e);
       setLoading(false);
@@ -30,7 +30,7 @@ export const useAPI = <T, E = string | undefined>(
         duration: 9000,
         isClosable: true,
       });
-    }
+    } */
   }, [asyncFunction]);
 
   useEffect(() => {

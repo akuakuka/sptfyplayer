@@ -5,8 +5,8 @@ import {
   usePlaybackState,
   WebPlaybackSDK,
 } from "react-spotify-web-playback-sdk";
+import { checkAuth } from "../API/API";
 import { UIContext } from "../hooks/useUI";
-import { isAccessTokenValid, refreshAccessToken } from "../utils/authUtils";
 import Footer from "./Footer";
 import Header from "./Header";
 import { MotionBox } from "./MotionBox";
@@ -68,13 +68,24 @@ const Layout: React.FC = () => {
     setVolume(val);
   };
   // TODO: Voiko nämä yhdistää?
+
+  const getAccesStoken = async (): Promise<String> => {
+    const date = new Date();
+    console.log("g#############################################");
+    console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+    console.log("getAccesStoken called");
+
+    await checkAuth();
+    return localStorage.getItem("accessToken") || "";
+  };
+  /* 
   const getAccesStoken = async () => {
     if (!isAccessTokenValid()) {
       const newToken = await refreshAccessToken();
       return newToken;
     }
     return accessToken;
-  };
+  }; */
 
   const getOAuthToken = useCallback(
     (callback) => {

@@ -24,15 +24,24 @@ authRouter.get("/login", (req: Request, res: Response) => {
 authRouter.post(
   "/refresh/:refreshtoken",
   asyncMiddleware(async (req: Request, res: Response) => {
+    console.log("/refresh/:refreshtoken");
     if (req.params.refreshtoken) {
+      console.log("/refresh/:refreshtoken IFIFIFIF");
       try {
+        console.log("/refresh/:refreshtoken TRYYYYYYYYYYYYYYYYYYYYYY");
         const resp = await refreshToken(req.params.refreshtoken);
         res.json(resp);
       } catch (e) {
-        res.sendStatus(400);
+        console.log("/refresh/:refreshtoken EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        console.log(e);
+        res.send(500);
       }
+
+      /*       res.sendStatus(400);
+
+      res.send(403); */
     } else {
-      res.send(403);
+      res.send(400);
     }
   })
 );
@@ -67,7 +76,7 @@ authRouter.get(
     );
     console.log("callback");
     console.log(
-      `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}}`
+      `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}`
     );
     res.redirect(
       `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}`

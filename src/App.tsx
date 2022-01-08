@@ -1,5 +1,6 @@
+import { useColorMode } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import AlbumPage from "./components/Pages/AlbumPage";
@@ -17,6 +18,14 @@ const NotFound: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const { toggleColorMode, colorMode } = useColorMode();
+
+  useEffect(() => {
+    if (colorMode !== "dark") {
+      toggleColorMode();
+    }
+  }, []);
+
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes>
