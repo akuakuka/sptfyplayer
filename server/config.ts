@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 /* {
   path: __dirname + `/../.env.test`;
 } */
+// TODO: paths to vite config
 const path =
   process.env.NODE_ENV === "production"
     ? __dirname + `/../../.env.production`
