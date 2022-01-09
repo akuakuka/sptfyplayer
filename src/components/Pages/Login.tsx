@@ -17,15 +17,24 @@ const Login: React.FC = () => {
     () => getUser(),
     false
   );
+
   const {
-    execute: executeLogin,
+    execute: executeGetLoginUrl,
     loading: loadingLogin,
     data: dataLogin,
     error: errorLogin,
   } = useAPI<SpotifyLoginURLResponse>(() => getLoginURL(), false);
+
   const navigate = useNavigate();
   const query = useQuery();
   const userToken = localStorage.getItem("accessToken") || "";
+
+  useEffect(() => {
+    (async () => {
+      console.log(" await executeLogin();");
+      await executeGetLoginUrl();
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -59,18 +68,13 @@ const Login: React.FC = () => {
   }, [data]);
 
   const handleLogin = async () => {
-    await executeLogin();
-    /*     window.location.href = ; */
-
-    // const { data } = await axios.get<SpotifyLoginURLResponse>(LOGINURL);
-
     if (dataLogin) {
+      console.log("    if (dataLogin) {");
       if (dataLogin.spotifyAuthUrl) {
+        console.log(" dataLogin.spotifyAuthUrl");
         window.location.replace(dataLogin.spotifyAuthUrl);
       }
     }
-
-    /*   window.location.replace(LOGINURL); */
   };
 
   return (
