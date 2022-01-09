@@ -6,7 +6,7 @@ const path =
   process.env.NODE_ENV === "production"
     ? __dirname + `/../../.env.production`
     : __dirname + `/../.env`;
-console.log({ path });
+
 dotenv.config({ path: path });
 
 // Spotify-WEB-Player-SDK : "streaming", "user-read-email", "user-read-private"
@@ -25,7 +25,7 @@ const scopes = [
   "streaming",
   "user-follow-read",
 ];
-console.log(process.env.FRONTEND_URL);
+
 const {
   FRONTEND_URL,
   VITE_BACKEND_URL,
@@ -35,16 +35,15 @@ const {
 } = process.env;
 
 const SPOTIFY_CALLBACK = `${VITE_BACKEND_URL}/api/auth/callback`;
-console.log({ SPOTIFY_CALLBACK });
-console.log("CONFIGGI");
-console.log(
+
+/* console.log(
   FRONTEND_URL,
   VITE_BACKEND_URL,
   SPOTIFY_CLIENTID,
   SPOTIFY_SECRET,
   SPOTIFY_CALLBACK,
   NODE_ENV
-);
+); */
 
 export {
   FRONTEND_URL,

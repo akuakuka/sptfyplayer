@@ -27,7 +27,6 @@ it("Renders login button ", () => {
     div
   );
   const button = div.querySelector("#loginButton");
-  console.log(button?.innerHTML);
 
   expect(button?.innerHTML).toEqual("Login with spotify");
 });
@@ -60,7 +59,7 @@ it("Redirects to loginpath when button pressed", () => {
     </BrowserRouter>,
     div
   );
-  console.log(div.innerHTML);
+
   const button = div.querySelector("#loginButton");
   /*  */
   /*  expect(document.location.href).toBe("You clicked 1 times"); */

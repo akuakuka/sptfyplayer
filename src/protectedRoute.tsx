@@ -14,24 +14,6 @@ export const ProtectedRoute: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      console.log("PRotected route useEffect");
-      /*      console.log("ProtectedRoute useEffect");
-      if (accessToken) {
-        console.log("ProtectedRoute accessToken found");
-        if (isAccessTokenValid()) {
-          console.log("ProtectedRoute accessToken valid");
-          setAuthenticated(true);
-          setReady(true);
-        } else {
-          console.log("ProtectedRoute accessToken expired");
-          await refreshAccessToken();
-          setRefreshReady(false);
-        }
-      } else {
-        setAuthenticated(false);
-        setReady(true);
-      } */
-
       if (accessToken) {
         setAuthenticated(true);
         setReady(true);

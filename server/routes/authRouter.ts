@@ -15,7 +15,6 @@ export const authRouter = Router();
 
 authRouter.get("/login", (req: Request, res: Response) => {
   try {
-    console.log("authRouter /login");
     const scopesString = scopes.join(" ");
     const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENTID}&scope=${scopesString}&redirect_uri=${SPOTIFY_CALLBACK}&show_dialog=true`;
     res.json({ spotifyAuthUrl: url });
@@ -31,16 +30,11 @@ authRouter.get("/login", (req: Request, res: Response) => {
 authRouter.post(
   "/refresh/:refreshtoken",
   async (req: Request, res: Response) => {
-    console.log("/refresh/:refreshtoken");
     if (req.params.refreshtoken) {
-      console.log("/refresh/:refreshtoken IFIFIFIF");
       try {
-        console.log("/refresh/:refreshtoken TRYYYYYYYYYYYYYYYYYYYYYY");
         const resp = await refreshToken(req.params.refreshtoken);
         res.json(resp);
       } catch (e) {
-        console.log("/refresh/:refreshtoken EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-        console.log(e);
         res.send(555);
       }
     } else {
@@ -50,7 +44,6 @@ authRouter.post(
 );
 
 authRouter.get("/callback", async (req: Request, res: Response) => {
-  console.log("/callback");
   if (!req.query.code) res.sendStatus(400);
 
   const basic = `Basic ${Buffer.from(
@@ -75,10 +68,7 @@ authRouter.get("/callback", async (req: Request, res: Response) => {
     codeData,
     { headers }
   );
-  console.log("callback");
-  console.log(
-    `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}`
-  );
+
   res.redirect(
     `${FRONTEND_URL}/login?accessToken=${data.access_token}&refreshToken=${data.refresh_token}&expires_in=${data.expires_in}`
   );

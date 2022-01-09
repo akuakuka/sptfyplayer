@@ -54,7 +54,7 @@ describe("Testing spotifyRouter", () => {
 
       expect(response.status).toBe(200);
       expect(response.body.id).toBe(stam1naBand);
-      console.log(response.body.id);
+
       //
     });
   });

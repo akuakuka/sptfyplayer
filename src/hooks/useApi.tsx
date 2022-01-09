@@ -14,7 +14,6 @@ export const useAPI = <T, E = string | undefined>(
   const navigate = useNavigate();
 
   const execute = useCallback(async () => {
-    console.log("USEAPI execute");
     setLoading(true);
     setData(null);
     try {
@@ -23,8 +22,6 @@ export const useAPI = <T, E = string | undefined>(
       setLoading(false);
       // @ts-ignore
     } catch (e: Error | AxiosError) {
-      console.log("USEAPI execute CATCH");
-      console.log(e);
       setError(e);
       setLoading(false);
       navigate("/app");
@@ -43,5 +40,6 @@ export const useAPI = <T, E = string | undefined>(
       execute();
     }
   }, [execute, immediate]);
+
   return { execute, loading, data, error };
 };

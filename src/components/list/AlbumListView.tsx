@@ -50,12 +50,8 @@ export const AlbumListView: React.FC<ListViewProps> = ({
     // make it render after sort
     const copy = [...albums];
 
-    console.log(sortStatus);
     if (column === "NAME") {
-      console.log("IF");
       if (sortStatus === "NAME") {
-        console.log("name");
-
         setAlbums(copy.reverse());
       } else {
         setAlbums(

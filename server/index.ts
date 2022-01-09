@@ -17,7 +17,6 @@ app.use("/api/spotify", spotifyRouter);
 app.use("/api/auth", authRouter);
 
 if (NODE_ENV === "production") {
-  console.log("production mode ! ");
   const distpath = path.resolve(__dirname, "..", "..", "src", "dist");
   const indexpath = path.resolve(
     __dirname,
@@ -27,8 +26,7 @@ if (NODE_ENV === "production") {
     "dist",
     "index.html"
   );
-  console.log(indexpath);
-  console.log(distpath);
+
   app.use(express.static(distpath));
 
   app.get("*", (req, res) => {
@@ -37,25 +35,7 @@ if (NODE_ENV === "production") {
 }
 
 const handleErrors = (err, req, res, next) => {
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("händle error");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  console.log("###################################");
-  /*   console.log(err); */
   if (err.response.statusText && err.response.status) {
-    console.log(err.response.statusText);
-    /*   console.log(err.response.status);
-  console.log(err.message); */
     res.status(err.response.status).send(err.response.statusText);
   } else {
     res.status(500);

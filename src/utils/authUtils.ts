@@ -1,13 +1,10 @@
-import { refreshToken } from "../API/API";
-
 // TODO: is this Right place for this function?
-export const refreshAccessToken = async (): Promise<string> => {
+/* export const refreshAccessToken = async (): Promise<string> => {
   try {
     const refreshtoken = localStorage.getItem("refreshToken");
     if (refreshtoken) {
-      console.log("refreshAccessToken");
       const response = await refreshToken(refreshtoken);
-      console.log(response);
+
       if (response.access_token) {
         const expiryDate = new Date(
           new Date().setHours(new Date().getHours() + 1)
@@ -19,11 +16,9 @@ export const refreshAccessToken = async (): Promise<string> => {
     }
     return "";
   } catch (e) {
-    console.log("refreshAccessToken error");
-    console.log(e);
     return "";
   }
-};
+}; */
 
 export const isAccessTokenValid = (): boolean => {
   const expiryDate = localStorage.getItem("expiryDate");

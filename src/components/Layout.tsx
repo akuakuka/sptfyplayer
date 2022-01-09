@@ -69,32 +69,13 @@ const Layout: React.FC = () => {
   };
   // TODO: Voiko nämä yhdistää?
 
-  /* const getAccesStoken = async (): Promise<String> => {
-     const date = new Date();
-    console.log("g#############################################");
-    console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
-    console.log("getAccesStoken called");
-
-    await checkAuth();
-    return localStorage.getItem("accessToken") || ""; 
-  };
-*/
   const getAccesStoken = async () => {
-    /*     if (!isAccessTokenValid()) {
-      const newToken = await refreshAccessToken();
-      return newToken;
-    } */
-    const token1 = localStorage.getItem("accessToken");
-    const response = await checkAuth();
+    await checkAuth();
     const token = localStorage.getItem("accessToken");
-
-    console.log({ token1 });
-    console.log({ token });
     return token;
   };
 
   const getOAuthToken = useCallback((callback) => {
-    console.log("getOAuthToken usecallback");
     const act = getAccesStoken();
     callback(act);
   }, []);

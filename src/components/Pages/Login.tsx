@@ -31,20 +31,15 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(" await executeLogin();");
       await executeGetLoginUrl();
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      console.log(" console.log(window.location);");
-      console.log(window.location);
-      console.log("Login useEffefct");
       const accessToken = query.get("accessToken");
 
       if (accessToken) {
-        console.log("if (accessToken)");
         localStorage.setItem("accessToken", accessToken);
         const refreshToken = query.get("refreshToken");
         const expiryDate = getExpiryDate();
@@ -55,7 +50,6 @@ const Login: React.FC = () => {
 
         navigate("/app");
       } else if (userToken) {
-        console.log("else if (userToken)");
         navigate("/app");
       }
     })();
@@ -69,9 +63,7 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     if (dataLogin) {
-      console.log("    if (dataLogin) {");
       if (dataLogin.spotifyAuthUrl) {
-        console.log(" dataLogin.spotifyAuthUrl");
         window.location.replace(dataLogin.spotifyAuthUrl);
       }
     }

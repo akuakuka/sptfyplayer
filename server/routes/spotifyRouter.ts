@@ -30,15 +30,9 @@ spotifyRouter.get("/artists", async (req: Request, res: Response) => {
 spotifyRouter.get("/artist/:id", async (req: Request, res: Response) => {
   const authorization = req.headers.authorization || "";
   try {
-    console.log("tryyyyyyyyyyyyyyy");
     const resp = await getArtist(req.params.id, authorization);
     res.json(resp);
   } catch (e) {
-    console.log("EEEEEEEEEEEEEEEEE");
-    console.log(e);
-    console.log(Object.keys(e));
-    console.log("###########");
-    console.log(e.response.status);
     if (e.response.status) {
       res.sendStatus(e.response.status);
     } else {

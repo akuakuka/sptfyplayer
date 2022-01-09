@@ -97,24 +97,17 @@ export const changeDevice = async (
 
 API.interceptors.response.use(
   (response) => {
-    console.log("interceptors response 200");
-    const status = response.status;
-    console.log({ status });
     return response;
   },
   async (error) => {
-    console.log(error);
     const originalRequest = error.config;
 
     if (!error.response) {
-      console.log("!error.response.status");
       return Promise.reject(error);
     }
     const status = error.response.status;
     if ((status === 401 || status === 403) && !originalRequest._retry) {
-      console.log("400 error. refreshing");
       originalRequest._retry = true;
-      //  await refreshAccessToken();
       const refreshtoken = localStorage.getItem("refreshToken");
       if (refreshtoken) {
         const response = await refreshToken(refreshtoken);
@@ -148,34 +141,7 @@ API.interceptors.request.use(
 
 AUTHAPI.interceptors.request.use(
   (config) => {
-    console.log("REFRESHTOKENAPI ");
     return config;
   },
   (error) => Promise.reject(error)
 );
-
-// TODO : handle 400 if trying to access wrong album or artist id
-
-/*   try {
-    const refreshtoken = localStorage.getItem("refreshToken");
-    if (refreshtoken) {
-      console.log("refreshAccessToken");
-      const response = await refreshToken(refreshtoken);
-      console.log(response);
-      if (response.access_token) {
-        const expiryDate = new Date(
-          new Date().setHours(new Date().getHours() + 1)
-        ).valueOf();
-        localStorage.setItem("expiryDate", expiryDate.toString());
-        localStorage.setItem("accessToken", response.access_token);
-        return response.access_token;
-      }
-    }
-    return "";
-  } catch (e) {
-    console.log("refreshAccessToken error");
-    console.log(e);
-    return "";
-  }
-
- */
