@@ -3,6 +3,7 @@ import {
   changeSpotifyDevice,
   checkAuth,
   getAlbum,
+  getAllAlbums,
   getArtist,
   getArtistalbums,
   getFollowedArtists,
@@ -68,6 +69,21 @@ spotifyRouter.get("/album/:id", async (req: Request, res: Response) => {
     }
   }
 });
+
+spotifyRouter.get("/album", async (req: Request, res: Response) => {
+  try {
+    const authorization = req.headers.authorization || "";
+    const resp = await getAllAlbums(authorization);
+    res.json(resp);
+  } catch (e) {
+    if (e.response.status) {
+      res.sendStatus(e.response.status);
+    } else {
+      res.sendStatus(555);
+    }
+  }
+});
+
 // TODO: Tarvitaanko async middleware=?
 spotifyRouter.get("/check", async (req: Request, res: Response) => {
   try {

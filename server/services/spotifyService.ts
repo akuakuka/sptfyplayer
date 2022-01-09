@@ -2,6 +2,7 @@ import axios from "axios";
 import qs from "qs";
 import { SPOTIFY_CLIENTID, SPOTIFY_SECRET } from "../config";
 import {
+  spotifyAlbum,
   spotifyArtist,
   spotifyArtistAlbum,
   spotifyArtistAlbumsReponse,
@@ -23,6 +24,37 @@ const REFRESHTOKENAPI = axios.create({
 });
 
 const market = "FI";
+// TODO: namespace?
+export const getAllAlbums = async (
+  accesstoken: string
+): Promise<spotifyAlbum[]> => {
+  const headers = {
+    Authorization: `${accesstoken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+
+  const artists = await getFollowedArtists(accesstoken, [], "");
+
+  let allAlbums: spotifyAlbum[] = [];
+  //TODO: typings
+  /*   artists.slice(4).forEach(async (a) => {
+    const albums = await getArtistalbums(a.id, accesstoken);
+    //@ts-ignore
+    allAlbums = [...albums, albums];
+  });
+ */
+
+  for (let index = 0; index < artists.length; index++) {
+    console.log("foor", artists[index].name);
+    const albums = await getArtistalbums(artists[index].id, accesstoken, false);
+    //@ts-ignore
+    allAlbums = [...allAlbums, ...albums];
+    console.log(allAlbums.length);
+  }
+
+  return allAlbums;
+};
 
 export const getFollowedArtists = async (
   accesstoken: string,
@@ -69,17 +101,18 @@ export const getArtist = async (
 
 export const getArtistalbums = async (
   id: string,
-  accesstoken: string
+  accesstoken: string,
+  getSingles: boolean = true
 ): Promise<spotifyArtistAlbum[]> => {
   const headers = {
     Authorization: `${accesstoken}`,
     Accept: "application/json",
     "Content-Type": "application/json",
   };
-  const { data } = await API.get<spotifyArtistAlbumsReponse>(
-    `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`,
-    { headers }
-  );
+  const url = getSingles
+    ? `/artists/${id}/albums?market=${market}&include_groups=album,single&limit=50`
+    : `/artists/${id}/albums?market=${market}&include_groups=album&limit=50`;
+  const { data } = await API.get<spotifyArtistAlbumsReponse>(url, { headers });
 
   return data.items;
 };
@@ -228,6 +261,17 @@ export const changeSpotifyDevice = async (
 
   return data;
 };
+//TODO: handle 429 timeout
+API.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+    // throw error;
+  }
+);
 
 API.interceptors.request.use(
   (config) => {

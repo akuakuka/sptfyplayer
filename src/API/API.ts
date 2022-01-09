@@ -48,6 +48,11 @@ export const refreshToken = async (
   return data;
 };
 
+export const getAllAlbums = async (): Promise<spotifyAlbum[]> => {
+  const { data } = await API.get<spotifyAlbum[]>(`/album`);
+  return data;
+};
+
 export const getArtists = async (): Promise<spotifyArtist[]> => {
   const { data } = await API.get<spotifyArtist[]>(`/artists`);
   return data;
