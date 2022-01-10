@@ -7,6 +7,7 @@ import {
   Switch,
   Text,
   useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { SpotifyUser } from "@typings/SpotifyTypes";
 import React, { useState } from "react";
@@ -25,7 +26,7 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "{}");
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const bgColor = useColorModeValue("brand.500", "brandDark.900");
   const { toggleColorMode, colorMode } = useColorMode();
 
   const handleUserClick = () => {
@@ -49,7 +50,7 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
         height={"100vh"}
         minWidth={"80px"}
         maxWidth={"80px"}
-        backgroundColor={"brandDark.900"}
+        backgroundColor={bgColor}
         direction={"column"}
         alignItems={"center"}
         gridGap={4}

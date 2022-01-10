@@ -104,8 +104,6 @@ const Layout: React.FC = () => {
             </Box>
           )}
           <Wrapper albumArtBg={albumArtBg}>
-            {/*   <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} /> */}
-
             <Flex flex={1} overflow={"auto"} direction={"column"}>
               <SubHeading />
               <MotionBox
