@@ -1,10 +1,11 @@
-import { Search2Icon } from "@chakra-ui/icons";
+import { HamburgerIcon, Search2Icon, SettingsIcon } from "@chakra-ui/icons";
 import { Box, BoxProps, Icon, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
-import { BiAlbum } from "react-icons/bi";
+import { BiAlbum, BiLogOut } from "react-icons/bi";
 import {
   BsFillGrid3X3GapFill,
+  BsPerson,
   BsQuestionSquareFill,
   BsThreeDotsVertical,
 } from "react-icons/bs";
@@ -163,12 +164,12 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
     if (variant == "search") {
       return (
         <MotionBox
-          whileHover={{ scale: 0.9 }}
+          whileHover={{ scale: 1.5 }}
           height="auto"
           width="auto"
           onClick={onClick}
         >
-          <Search2Icon w={8} h={8} cursor="pointer" fill="brandDark.200" />
+          <Search2Icon w={8} h={8} cursor="pointer" color="brandDark.200" />
         </MotionBox>
       );
     }
@@ -184,6 +185,91 @@ export const IconButton: React.FC<IconButtonProps> = ({ variant, onClick }) => {
         </MotionBox>
       );
     }
+
+    if (variant == "artist") {
+      return (
+        <MotionBox
+          whileHover={{ scale: 1.5 }}
+          height="auto"
+          width="auto"
+          onClick={onClick}
+        >
+          <Icon
+            w={10}
+            h={10}
+            cursor="pointer"
+            as={BsPerson}
+            fill="brandDark.200"
+          />
+        </MotionBox>
+      );
+    }
+
+    if (variant == "album") {
+      return (
+        <MotionBox
+          whileHover={{ scale: 1.5 }}
+          height="auto"
+          width="auto"
+          onClick={onClick}
+        >
+          <Icon
+            w={10}
+            h={10}
+            cursor="pointer"
+            as={BiAlbum}
+            fill="brandDark.200"
+          />
+        </MotionBox>
+      );
+    }
+    if (variant == "settings") {
+      return (
+        <MotionBox
+          whileHover={{ scale: 1.5 }}
+          height="auto"
+          width="auto"
+          onClick={onClick}
+        >
+          <SettingsIcon w={10} h={10} cursor="pointer" color="brandDark.200" />
+        </MotionBox>
+      );
+    }
+
+    if (variant == "logout") {
+      return (
+        <MotionBox
+          whileHover={{ scale: 1.5 }}
+          height="auto"
+          width="auto"
+          onClick={onClick}
+        >
+          <Icon
+            w={10}
+            h={10}
+            cursor="pointer"
+            as={BiLogOut}
+            fill="brandDark.200"
+          />
+        </MotionBox>
+      );
+    }
+
+    if (variant == "hamburger") {
+      return (
+        <MotionBox height="auto" width="auto" onClick={onClick}>
+          {/*               <Icon
+                w={10}
+                h={10}
+                cursor="pointer"
+                as={BiLogOut}
+                fill="brandDark.200"
+              /> */}
+          <HamburgerIcon color="brandDark.200" w={8} h={8} />
+        </MotionBox>
+      );
+    }
+
     return (
       <MotionBox whileHover={{ scale: 0.5 }} height="auto" width="auto">
         <Icon as={BsQuestionSquareFill} w={6} h={6} cursor="pointer" />

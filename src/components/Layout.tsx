@@ -1,4 +1,9 @@
-import { Flex, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  useBreakpointValue,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import {
@@ -7,8 +12,9 @@ import {
 } from "react-spotify-web-playback-sdk";
 import { checkAuth } from "../API/API";
 import { UIContext } from "../hooks/useUI";
+import { DrawerMenu } from "./Drawer/DrawerMenu";
+import { SideBar } from "./Drawer/SideBar";
 import Footer from "./Footer";
-import Header from "./Header";
 import { MotionBox } from "./MotionBox";
 import { SubHeading } from "./SubHeading";
 
@@ -55,6 +61,7 @@ const Wrapper: React.FC<wrapperProps> = ({ children, albumArtBg }) => {
 const Layout: React.FC = () => {
   const [albumArtBg, setAlbumArtBg] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.5);
+  const breakpoint = useBreakpointValue({ base: false, md: true });
   const UICOntext = useContext(UIContext);
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
@@ -88,20 +95,30 @@ const Layout: React.FC = () => {
         connectOnInitialized={true}
         volume={volume}
       >
-        <Wrapper albumArtBg={albumArtBg}>
-          <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
-          <Flex flex={1} overflow={"auto"} direction={"column"}>
-            <SubHeading />
-            <MotionBox
-              exit={{ opacity: 0, x: 0, y: 0 }}
-              initial={{ opacity: 0, x: 0, y: 0 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-            >
-              <Outlet />
-            </MotionBox>
-          </Flex>
-          <Footer handleVolume={handleVolume} volume={volume} />
-        </Wrapper>
+        <Flex direction={"row"}>
+          {breakpoint ? (
+            <SideBar handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
+          ) : (
+            <Box paddingLeft={2} paddingTop={2} position={"absolute"}>
+              <DrawerMenu />
+            </Box>
+          )}
+          <Wrapper albumArtBg={albumArtBg}>
+            {/*   <Header handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} /> */}
+
+            <Flex flex={1} overflow={"auto"} direction={"column"}>
+              <SubHeading />
+              <MotionBox
+                exit={{ opacity: 0, x: 0, y: 0 }}
+                initial={{ opacity: 0, x: 0, y: 0 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+              >
+                <Outlet />
+              </MotionBox>
+            </Flex>
+            <Footer handleVolume={handleVolume} volume={volume} />
+          </Wrapper>
+        </Flex>
       </WebPlaybackSDK>
     </>
   );

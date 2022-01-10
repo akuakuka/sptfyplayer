@@ -28,6 +28,9 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
   /*  const [term, setTerm] = useState<string>(""); */
+
+  const btnRef = React.useRef();
+
   const { toggleColorMode, colorMode } = useColorMode();
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "{}");
   const UICOntext = useContext(UIContext);
@@ -75,11 +78,19 @@ const Header: React.FC<HeaderProps> = ({ handleAlbumArtToggle }) => {
       zIndex="100"
       gridGap="10"
     >
-      <IconB
+      {/*       <IconB
         variant="homepage"
         key="homepage"
         onClick={() => navigate(`/app`)}
-      />
+      /> */}
+
+      {/*       <MenuButton
+        as={IconButton}
+        aria-label="Options"
+        icon={<HamburgerIcon stroke="brandDark.200" />}
+        variant="outline"
+        backgroundColor={useColorModeValue("brand.500", "brandDark.900")}
+      /> */}
 
       <Flex marginLeft="auto" direction={"row"}>
         <IconB variant="search" />
