@@ -8,8 +8,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { UIContext } from "../hooks/useUI";
-import { IconButton } from "./IconButton";
+import { UIContext } from "../../hooks/useUI";
+import { IconButton } from "../IconButton";
 
 export const SubHeading: React.FC = () => {
   const UICOntext = useContext(UIContext);

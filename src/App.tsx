@@ -2,7 +2,7 @@ import { useColorMode } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 import AlbumPage from "./components/Pages/AlbumPage";
 import { AlbumView } from "./components/Pages/AlbumView";
 import ArtistPage from "./components/Pages/ArtistPage";

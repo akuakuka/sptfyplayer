@@ -25,10 +25,10 @@ import {
   useSpotifyPlayer,
   useWebPlaybackSDKReady,
 } from "react-spotify-web-playback-sdk";
-import { changeDevice, getDevices } from "../API/API";
-import { getIDFromSpotifyUri } from "../utils/dateUtils";
-import { IconButton as IconB } from "./IconButton";
-import { SongProgress } from "./SongProgress";
+import { changeDevice, getDevices } from "../../API/API";
+import { getIDFromSpotifyUri } from "../../utils/dateUtils";
+import { IconButton as IconB } from "../IconButton";
+import { SongProgress } from "../SongProgress";
 
 // TODO: Volume contextiin?=
 interface FooterProps {

@@ -10,12 +10,12 @@ import {
   usePlaybackState,
   WebPlaybackSDK,
 } from "react-spotify-web-playback-sdk";
-import { checkAuth } from "../API/API";
-import { UIContext } from "../hooks/useUI";
-import { DrawerMenu } from "./Drawer/DrawerMenu";
-import { SideBar } from "./Drawer/SideBar";
+import { checkAuth } from "../../API/API";
+import { UIContext } from "../../hooks/useUI";
+import { DrawerMenu } from "../Drawer/DrawerMenu";
+import { SideBar } from "../Drawer/SideBar";
+import { MotionBox } from "../MotionBox";
 import Footer from "./Footer";
-import { MotionBox } from "./MotionBox";
 import { SubHeading } from "./SubHeading";
 
 // TODO: Wrapper omaan tiedostoon?
@@ -63,7 +63,6 @@ const Layout: React.FC = () => {
   const [volume, setVolume] = useState<number>(0.5);
   const breakpoint = useBreakpointValue({ base: false, md: true });
   const UICOntext = useContext(UIContext);
-  const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
 
   useEffect(() => {
