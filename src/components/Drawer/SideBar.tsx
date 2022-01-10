@@ -143,14 +143,14 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
 
         {settingsOpen && (
           <>
-            <Flex direction={"column"} alignItems={"center"}>
+            <Flex direction={"column"} alignItems={"center"} gridGap={3}>
               <Switch size="md" onChange={() => handleAlbumArtToggle()} />
               <Text>AlbumArt</Text>
             </Flex>
-            <Flex direction={"column"} alignItems={"center"}>
-              {colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+            <Flex direction={"column"} alignItems={"center"} gridGap={3}>
               <Switch size="md" onChange={() => toggleColorMode()} />
-              <Text>{colorMode === "dark" ? "Light" : "Dark"}</Text>
+              {colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
+              <Text>{colorMode === "dark" ? "Dark" : "Light"}</Text>
             </Flex>
 
             <Box paddingBottom={6}>
