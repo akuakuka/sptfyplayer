@@ -15,8 +15,9 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
 import { IconButton } from "../IconButton";
 //TODO: rename this. Conflicts with chakra ui component
 
@@ -29,8 +30,10 @@ export const DrawerMenu: React.FC<SidebarProps> = ({
 }) => {
   const bgColor = useColorModeValue("brand.500", "brandDark.900");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const { toggleColorMode, colorMode } = useColorMode();
   const navigate = useNavigate();
+  useDebounce(() => doSearch(searchTerm), 1500, [searchTerm]);
   const handleLogout = () => {
     // TODO: Nämä contextiin
     localStorage.removeItem("accessToken");
@@ -38,6 +41,12 @@ export const DrawerMenu: React.FC<SidebarProps> = ({
     localStorage.removeItem("expiryDate");
     localStorage.removeItem("user");
     navigate(`/login`);
+  };
+  const doSearch = async (searchterm: string) => {
+    if (searchterm.length > 1) {
+      onClose();
+      navigate(`/app/search/${searchterm}`);
+    }
   };
 
   return (
@@ -58,7 +67,10 @@ export const DrawerMenu: React.FC<SidebarProps> = ({
 
           <DrawerBody>
             <Flex direction={"column"} height={"90vh"} gap={3}>
-              <Input placeholder="Search from Spotify" />
+              <Input
+                placeholder="Search from Spotify"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
               <Button
                 colorScheme="teal"
                 variant="outline"
