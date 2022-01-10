@@ -98,7 +98,9 @@ const Layout: React.FC = () => {
             <SideBar handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)} />
           ) : (
             <Box paddingLeft={2} paddingTop={2} position={"absolute"}>
-              <DrawerMenu />
+              <DrawerMenu
+                handleAlbumArtToggle={() => setAlbumArtBg(!albumArtBg)}
+              />
             </Box>
           )}
           <Wrapper albumArtBg={albumArtBg}>

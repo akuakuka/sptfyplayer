@@ -131,16 +131,15 @@ export const AlbumListView: React.FC<ListViewProps> = ({
                 <Th cursor="pointer" onClick={() => handleSortChange("TYPE")}>
                   Type <MinusIcon cursor={"pointer"} />
                 </Th>
-
-                {/*  <Th>Name <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("NAME")} /></Th>
-                            <Th isNumeric>Followers <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("FOLLOWERS")} /></Th>
-                            <Th isNumeric>Popularity <MinusIcon cursor={"pointer"} onClick={() => handleSortChange("POPULARITY")} /></Th> */}
               </Tr>
             </Thead>
             <Tbody>
               {albums && (
                 <>
-                  {albums
+                  {(UICOntext.singles
+                    ? albums
+                    : albums.filter((a) => a.album_type === "album")
+                  )
                     .filter((f) =>
                       f.name.toLowerCase().includes(UICOntext.filter)
                     )
