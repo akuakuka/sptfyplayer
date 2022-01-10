@@ -117,7 +117,7 @@ const Footer: React.FC<FooterProps> = ({ handleVolume, volume }) => {
       )}
       <Flex
         bottom="0"
-        width="100vw"
+        width="calc( 100vw - 80px )"
         height={"100px"}
         backgroundColor={bgColor}
         boxShadow="dark-lg"

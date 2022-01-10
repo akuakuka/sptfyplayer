@@ -31,13 +31,16 @@ export const SubHeading: React.FC = () => {
       <Box width={"40%"}>
         <Heading isTruncated>{UICOntext.heading}</Heading>
       </Box>
-      <Input
-        variant="flushed"
-        placeholder="Filtteröi"
-        value={UICOntext.filter}
-        onChange={(e) => UICOntext.setFilter(e.target.value)}
-        width={"25%"}
-      />
+      {UICOntext.page !== "albumpage" && (
+        <Input
+          variant="flushed"
+          placeholder="Filtteröi"
+          value={UICOntext.filter}
+          onChange={(e) => UICOntext.setFilter(e.target.value)}
+          width={"25%"}
+        />
+      )}
+
       <Box>
         {UICOntext.page === "artistpage" && (
           <Flex gridGap="2" p="3">

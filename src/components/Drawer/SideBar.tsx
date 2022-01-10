@@ -1,9 +1,16 @@
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
   Divider,
   Flex,
+  Icon,
+  Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   Switch,
   Text,
   useColorMode,
@@ -12,6 +19,7 @@ import {
 import { SpotifyUser } from "@typings/SpotifyTypes";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
 import { IconButton } from "../IconButton";
 import { MotionBox } from "../MotionBox";
 
@@ -23,11 +31,15 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   /* 
   const btnRef = React.useRef(); */
+
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "{}");
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const bgColor = useColorModeValue("brand.500", "brandDark.900");
   const { toggleColorMode, colorMode } = useColorMode();
+
+  useDebounce(() => doSearch(searchTerm), 1500, [searchTerm]);
 
   const handleUserClick = () => {
     if (user.external_urls.spotify) {
@@ -44,6 +56,13 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
     navigate(`/login`);
   };
 
+  const doSearch = async (searchterm: string) => {
+    if (searchterm.length > 1) {
+      navigate(`/app/search/${searchterm}`);
+    }
+  };
+
+  // TODO: Popover button fix
   return (
     <>
       <Flex
@@ -73,6 +92,35 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
           )}
         </Flex>
         <Divider />
+
+        <Popover placement="right">
+          <PopoverTrigger>
+            {/* //TODO: popover triggeriongelma */}
+            <Icon
+              role="button"
+              aria-label="Search Spotify"
+              as={SearchIcon}
+              color="brandDark.200"
+              w={10}
+              h={10}
+              _hover={{ transform: "scale(1.5)" }}
+            />
+          </PopoverTrigger>
+          <Text>Search</Text>
+          <PopoverContent>
+            <PopoverArrow />
+
+            <PopoverBody>
+              <Input
+                placeholder="Hae Spotifystä"
+                maxWidth="200px"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                minWidth={"100%"}
+              />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+
         <Flex direction={"column"} alignItems={"center"}>
           <IconButton
             variant="artist"
@@ -84,10 +132,7 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
           <IconButton variant="album" onClick={() => navigate(`/app/album/`)} />
           <Text>Albums</Text>
         </Flex>
-        <Flex direction={"column"} alignItems={"center"}>
-          <IconButton variant="search" />
-          <Text>Search</Text>
-        </Flex>
+
         <Flex direction={"column"} alignItems={"center"}>
           <IconButton
             variant="settings"
@@ -112,8 +157,8 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
         <Divider />
 
         <Box marginTop="auto" paddingBottom={6}>
-          <Divider />
           <IconButton variant="logout" onClick={() => handleLogout()} />
+          <Text>Logout</Text>
         </Box>
       </Flex>
     </>

@@ -67,7 +67,6 @@ const Layout: React.FC = () => {
 
   useEffect(() => {
     UICOntext.setFilter("");
-    UICOntext.setSpotifySearch("");
   }, [location]);
 
   const handleVolume = (val: number) => {
