@@ -1,5 +1,5 @@
 import { Center } from "@chakra-ui/react";
-import { spotiyAlbum } from "@typings/SpotifyTypes";
+import { spotifyAlbum } from "@typings/SpotifyTypes";
 import React, { useContext, useEffect, useState } from "react";
 import { getAllAlbums } from "../../API/API";
 import { useAPI } from "../../hooks/useApi";
@@ -15,7 +15,7 @@ import { SpinnerPage } from "./SpinnerPage";
 
 export const AlbumView: React.FC = () => {
   const [uniqAlbums, setUniqAlbums] = useState<spotifyAlbum[]>([]);
-  const { execute, loading, data, error } = useAPI<spotiyAlbum[]>(
+  const { execute, loading, data, error } = useAPI<spotifyAlbum[]>(
     getAllAlbums,
     false
   );
