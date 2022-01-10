@@ -142,7 +142,7 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
         </Flex>
 
         {settingsOpen && (
-          <MotionBox>
+          <>
             <Flex direction={"column"} alignItems={"center"}>
               <Switch size="md" onChange={() => handleAlbumArtToggle()} />
               <Text>AlbumArt</Text>
@@ -152,14 +152,14 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
               <Switch size="md" onChange={() => toggleColorMode()} />
               <Text>{colorMode === "dark" ? "Light" : "Dark"}</Text>
             </Flex>
-          </MotionBox>
+
+            <Box paddingBottom={6}>
+              <IconButton variant="logout" onClick={() => handleLogout()} />
+              <Text>Logout</Text>
+            </Box>
+          </>
         )}
         <Divider />
-
-        <Box marginTop="auto" paddingBottom={6}>
-          <IconButton variant="logout" onClick={() => handleLogout()} />
-          <Text>Logout</Text>
-        </Box>
       </Flex>
     </>
   );
