@@ -11,7 +11,7 @@ import { SpinnerPage } from "./SpinnerPage";
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
-
+// TODO: Login loop network error
 const Login: React.FC = () => {
   const { execute, loading, data, error } = useAPI<SpotifyUser>(
     () => getUser(),
@@ -74,7 +74,12 @@ const Login: React.FC = () => {
       {loading ? (
         <SpinnerPage />
       ) : (
-        <Flex justifyContent="center" alignItems="center" height="100vh">
+        <Flex
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+          bgGradient="linear(to-l, #2D3748, #822727)"
+        >
           <Button
             boxShadow="dark-lg"
             p="6"
@@ -92,3 +97,22 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
+/* 
+    brand: {
+      100: "#FAF3F3",
+      300: "#afb1d7",
+      500: "#FCD6CC",
+      600: "#A7BBC7",
+      700: "#7a626b",
+      800: "#decad6",
+      900: "#e4bbff8a",
+    },
+    brandDark: {
+      100: "#718096",
+      200: "#870000",
+      300: "#2D3748",
+      600: "#s1A202C",
+      900: "#171923",
+    },
+     */

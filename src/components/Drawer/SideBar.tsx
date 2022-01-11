@@ -138,8 +138,6 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
           />
           <Text>Settings</Text>
         </Flex>
-
-        {/*         {settingsOpen && ( */}
         <Flex>
           <Collapse in={settingsOpen} animateOpacity>
             <Flex direction={"column"} alignItems={"center"} gridGap={3}>
@@ -158,7 +156,6 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
             </Box>
           </Collapse>
         </Flex>
-        {/*         )} */}
         <Divider />
       </Flex>
     </>

@@ -22,9 +22,10 @@ const App: React.FC = () => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   useEffect(() => {
-    if (colorMode !== "dark") {
+    /*   if (colorMode !== "dark") {
+      //@ts-ignore
       toggleColorMode();
-    }
+    } */
   }, []);
 
   return (

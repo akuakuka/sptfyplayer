@@ -18,7 +18,7 @@ authRouter.get("/login", (req: Request, res: Response) => {
     const scopesString = scopes.join(" ");
     const url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${SPOTIFY_CLIENTID}&scope=${scopesString}&redirect_uri=${SPOTIFY_CALLBACK}&show_dialog=true`;
     res.json({ spotifyAuthUrl: url });
-  } catch (e) {
+  } catch (e: any) {
     if (e.response.status) {
       res.sendStatus(e.response.status);
     } else {
@@ -34,7 +34,7 @@ authRouter.post(
       try {
         const resp = await refreshToken(req.params.refreshtoken);
         res.json(resp);
-      } catch (e) {
+      } catch (e: any) {
         res.send(555);
       }
     } else {

@@ -53,4 +53,9 @@ describe("Testing spotifyService", () => {
     // ClientCredentialsFlow token cannot access any user info
     // const response = await getFollowedArtists(access_token, [], null)
   });
+
+  it("gets auth token for testing", async () => {
+    const response = await getTokenForTesting();
+    console.log(response);
+  });
 });
