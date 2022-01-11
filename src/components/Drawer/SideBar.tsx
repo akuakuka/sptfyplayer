@@ -2,6 +2,7 @@ import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
+  Collapse,
   Divider,
   Flex,
   Icon,
@@ -29,9 +30,6 @@ interface SidebarProps {
 
 export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
-  /* 
-  const btnRef = React.useRef(); */
-
   const user: SpotifyUser = JSON.parse(localStorage.getItem("user") || "{}");
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -141,8 +139,9 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
           <Text>Settings</Text>
         </Flex>
 
-        {settingsOpen && (
-          <>
+        {/*         {settingsOpen && ( */}
+        <Flex>
+          <Collapse in={settingsOpen} animateOpacity>
             <Flex direction={"column"} alignItems={"center"} gridGap={3}>
               <Switch size="md" onChange={() => handleAlbumArtToggle()} />
               <Text>AlbumArt</Text>
@@ -157,8 +156,9 @@ export const SideBar: React.FC<SidebarProps> = ({ handleAlbumArtToggle }) => {
               <IconButton variant="logout" onClick={() => handleLogout()} />
               <Text>Logout</Text>
             </Box>
-          </>
-        )}
+          </Collapse>
+        </Flex>
+        {/*         )} */}
         <Divider />
       </Flex>
     </>
