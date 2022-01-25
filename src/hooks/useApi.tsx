@@ -22,9 +22,10 @@ export const useAPI = <T, E = string | undefined>(
       setLoading(false);
       // @ts-ignore
     } catch (e: Error | AxiosError) {
+      // TODO: login network error loop, disable navigate
       setError(e);
       setLoading(false);
-      navigate("/app");
+      //  navigate("/app");
       toast({
         title: "An error occurred.",
         description: JSON.stringify(e.message),
